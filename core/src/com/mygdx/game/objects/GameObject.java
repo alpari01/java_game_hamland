@@ -11,7 +11,7 @@ public abstract class GameObject {
     public Sprite sprite;
 
     /**
-     * Constructor for all object on the screen.
+     * Constructor for all objects on the screen.
      * @param texture object texture (.png/.jpg)
      * @param x X-coordinate.
      * @param y Y-coordinate.
