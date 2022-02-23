@@ -7,23 +7,39 @@ import com.badlogic.gdx.math.Polygon;
 
 public abstract class GameObject {
 
-    public Polygon bounds;
-    public Sprite object;
+    public Polygon polygon;
+    public Sprite sprite;
 
+    /**
+     * Constructor for all object on the screen.
+     * @param texture object texture (.png/.jpg)
+     * @param x X-coordinate.
+     * @param y Y-coordinate.
+     * @param width object width.
+     * @param height object height.
+     */
     public GameObject(Texture texture, float x, float y, float width, float height) {
-        object = new Sprite(texture);
-        object.setSize(width, height);
-        object.setOrigin(width / 2f, height / 2f);
-        object.setPosition(x - width / 2f, y - height / 2f);
 
-        bounds = new Polygon(new float[]{0f, 0f, width, 0f, width, height, 0f, height});
-        bounds.setPosition(x - width / 2f, y - height / 2f);
-        bounds.setOrigin(width / 2f, height / 2f);
+        // Create a Sprite with given texture
+        sprite = new Sprite(texture);
+        sprite.setSize(width, height); // resize the texture
+        sprite.setOrigin(width / 2f, height / 2f); // set texture center
+        sprite.setPosition(x - width / 2f, y - height / 2f); // set texture position
+
+        // Create a Polygon with given vertices
+        polygon = new Polygon(new float[]{0f, 0f, width, 0f, width, height, 0f, height});
+        polygon.setOrigin(width / 2f, height / 2f); // set polygon center
+        polygon.setPosition(x - width / 2f, y - height / 2f); // set polygon position
+
     }
 
+    /**
+     * Draw an object on the batch.
+     * @param batch batch.
+     */
     public void draw(SpriteBatch batch) {
-        object.setPosition(bounds.getX(), bounds.getY());
-        object.setRotation(bounds.getRotation());
-        object.draw(batch);
+        sprite.setPosition(polygon.getX(), polygon.getY()); // set Sprite position equal to Polygon position
+        sprite.setRotation(polygon.getRotation()); // set Sprite rotation around the Polygon center
+        sprite.draw(batch); // draw an object on the batch
     }
 }
