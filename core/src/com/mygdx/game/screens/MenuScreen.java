@@ -60,7 +60,7 @@ public class MenuScreen implements Screen {
         // Update screen white background
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.graphics.setTitle("Game - " + Gdx.graphics.getFramesPerSecond() + "FPS");
+        Gdx.graphics.setTitle("Menu (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
         batch.begin(); // start
 
