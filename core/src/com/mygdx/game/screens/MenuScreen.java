@@ -74,6 +74,11 @@ public class MenuScreen implements Screen {
                 Gdx.input.getY() > settingsButton.polygon.getY() && Gdx.input.getY() < settingsButton.polygon.getY() + 100f) {
             settingsButton.draw(batch); // draw in color selected button
 
+            // if click - set screen to SettingsScreen
+            if (Gdx.input.isTouched()) {
+                gameClient.setScreen(new SettingsScreen(gameClient));
+            }
+
             // if mouse X-coordinate and Y-coordinate on the right button
         } else if (Gdx.input.getX() > quitButton.polygon.getX() && Gdx.input.getX() < quitButton.polygon.getX() + 100f &&
                 Gdx.input.getY() > quitButton.polygon.getY() && Gdx.input.getY() < quitButton.polygon.getY() + 100f) {
