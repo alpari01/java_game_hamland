@@ -22,4 +22,12 @@ public class Player extends GameObject {
         this.ip = ip;
         this.nickname = nickname;
     }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 }
