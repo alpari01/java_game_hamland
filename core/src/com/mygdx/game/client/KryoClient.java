@@ -11,19 +11,20 @@ import java.io.IOException;
 public class KryoClient extends Listener {
 
     static Client client;  // Client object.
-    static String ip = "localhost";  // Client default ip.
+    static String ip = "localhost";  // Change this IP later
 
     // Ports to connect on.
     static int tcpPort = 27960;
     static int udpPort = 27960;
 
-    static boolean messageReceived = false;
+    static boolean gotPacket = false;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println("Connecting to the server...");
 
         client = new Client();  // Create the client.
 
+        // Register all the packets here
         client.getKryo().register(PacketMessage.class);  // Register the packet object.
 
         client.start();  // Start the client.
@@ -32,20 +33,23 @@ public class KryoClient extends Listener {
 
         client.addListener(new KryoClient());
 
-        System.out.println("Connection successful!\nThe client program is now waiting for a packet...\n");
+        // For debug
+        System.out.println("Connection successful!\nI am now connected to the server.\nServer IP is: " + ip);
 
-        while (!messageReceived) {
-            Thread.sleep(1000);
+        while (!gotPacket) {
+
         }
-        System.out.println("Client will now disconnect.");
     }
 
+    // Run this method when client receives any packet.
     public void received(Connection c, Object p) {
         if (p instanceof PacketMessage) {
             // Cast the received packet object to receive its message.
             PacketMessage packet = (PacketMessage) p;
-            System.out.println("received message from the server, message is: " + packet.message);
-            messageReceived = true;
+            // Also for debug
+            System.out.println("Server reply: " + packet.message);
         }
+
+        gotPacket = true;
     }
 }
