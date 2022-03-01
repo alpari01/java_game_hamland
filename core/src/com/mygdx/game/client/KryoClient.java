@@ -37,7 +37,6 @@ public class KryoClient extends Listener {
         System.out.println("Connection successful!\nI am now connected to the server.\nServer IP is: " + ip);
 
         while (!gotPacket) {
-
         }
     }
 
