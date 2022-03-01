@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Button;
 
+import java.io.IOException;
+
 public class NicknameScreen implements Screen, Input.TextInputListener {
 
     // Textures
@@ -64,8 +66,17 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
             }
         }
 
-        // if nickname is entered - change screen to MenuScreen
+        // If nickname is entered
         if (nickname != null) {
+
+            try {
+                // Try to connect a client to the server.
+                GameClient.client.connectToServer("localhost");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // If player's nickname is unique, show menu screen.
             gameClient.setScreen(new MenuScreen(gameClient));
         }
 
