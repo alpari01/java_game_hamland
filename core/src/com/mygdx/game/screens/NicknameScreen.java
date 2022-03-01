@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Button;
 
-public class NicknameScreen implements Screen {
+public class NicknameScreen implements Screen, Input.TextInputListener {
 
     // Textures
     private Texture playButtonTexture;
@@ -20,6 +21,9 @@ public class NicknameScreen implements Screen {
 
     private final GameClient gameClient;
     private SpriteBatch batch;
+
+    // Text input window
+    private String nickname;
 
     public NicknameScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -52,10 +56,15 @@ public class NicknameScreen implements Screen {
                 GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 100f) {
             playButton.draw(batch); // draw in color selected button
 
-            // if click - set screen to PlayScreen
-            if (Gdx.input.isTouched()) {
-                gameClient.setScreen(new MenuScreen(gameClient));
+            // if click - open text input window
+            if (Gdx.input.justTouched()) {
+                    Gdx.input.getTextInput(this, "Enter your name", "", "name");
             }
+        }
+
+        // if nickname is entered - change screen to Menuscreen
+        if (nickname != null) {
+            gameClient.setScreen(new MenuScreen(gameClient));
         }
 
         // draw transparent buttons
@@ -91,6 +100,16 @@ public class NicknameScreen implements Screen {
         batch.dispose();
         playButtonTexture.dispose();
         playButtonWhiteTexture.dispose();
+
+    }
+
+    @Override
+    public void input(String text) {
+        this.nickname = text;
+    }
+
+    @Override
+    public void canceled() {
 
     }
 }
