@@ -1,0 +1,96 @@
+package com.mygdx.game.screens;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.GameClient;
+import com.mygdx.game.objects.Button;
+
+public class NicknameScreen implements Screen {
+
+    // Textures
+    private Texture playButtonTexture;
+    private Texture playButtonWhiteTexture;
+
+    // Objects
+    private Button playButton;
+    private Button playButtonWhite;
+
+    private final GameClient gameClient;
+    private SpriteBatch batch;
+
+    public NicknameScreen(GameClient gameClient) {
+        this.gameClient = gameClient;
+    }
+
+    @Override
+    public void show() {
+        batch = new SpriteBatch();
+
+        // Textures
+        playButtonTexture = new Texture("play_button_active.png");
+        playButtonWhiteTexture = new Texture("play_button_inactive.png");
+
+        // Button objects with position in the center of the screen
+        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 100f,100f);
+        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 100f,100f);
+
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.graphics.setTitle("Nickname (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
+
+        batch.begin(); // start
+
+        // if mouse X-coordinate and Y-coordinate on the left button
+        if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 100f &&
+                GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 100f) {
+            playButton.draw(batch); // draw in color selected button
+
+            // if click - set screen to PlayScreen
+            if (Gdx.input.isTouched()) {
+                gameClient.setScreen(new MenuScreen(gameClient));
+            }
+        }
+
+        // draw transparent buttons
+        playButtonWhite.draw(batch);
+
+        batch.end(); //end
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+        // Clear memory when game is off
+        batch.dispose();
+        playButtonTexture.dispose();
+        playButtonWhiteTexture.dispose();
+
+    }
+}
