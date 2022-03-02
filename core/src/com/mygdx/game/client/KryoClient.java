@@ -3,6 +3,7 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 import com.mygdx.game.packets.PacketMessage;
 
 import java.io.IOException;
@@ -15,32 +16,37 @@ public class KryoClient extends Listener {
     // Ports to connect on.
     static int tcpPort = 27960;
     static int udpPort = 27960;
+    static String ip = "localhost";  // Change this IP later.
 
     public KryoClient() {
         client = new Client();  // Create the client.
 
         // Register all the packets here
         client.getKryo().register(PacketMessage.class);  // Register the packet object.
+        client.getKryo().register(PacketCheckPlayerNicknameUnique.class);
     }
 
     /**
      * Connect the client to specified server.
      *
-     * @param serverIP ip address of the server
      * @throws IOException exception in case error occurs
      */
-    public void connectToServer(String serverIP) throws IOException {
+    public void connectToServer() throws IOException {
         client.start();  // Start the client.
 
-        client.connect(5000, serverIP, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
+        client.connect(5000, ip, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
 
         client.addListener(new KryoClient());  // Add new listener.
 
         // For debug
-        System.out.println("Connection successful!\nI am now connected to the server.\nServer IP is: " + serverIP);
+        System.out.println("Connection successful!\nI am now connected to the server.\nServer IP is: " + ip);
     }
 
-    // Run this method when client receives any packet.
+    public void sendPacketCheckNickname(PacketCheckPlayerNicknameUnique packet) {
+
+    }
+
+    // Run this method when client receives any packet from the server.
     public void received(Connection c, Object p) {
         if (p instanceof PacketMessage) {
             // Cast the received packet object to receive its message.
