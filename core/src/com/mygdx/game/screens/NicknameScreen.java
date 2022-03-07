@@ -1,5 +1,6 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -7,8 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
-import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 
 public class NicknameScreen implements Screen, Input.TextInputListener {
 
@@ -63,18 +64,23 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
                 isWindowOpened = true;
                 Gdx.input.getTextInput(this, "Enter your name", "", "name");
 
-                GameClient.client.connectToServer();
+                if (!gameClient.client.isToServerConnected) gameClient.client.connectToServer();
             }
         }
 
         // If nickname is entered
         if (nickname != null) {
-
             // Send a request to the server to check if player's nickname is unique.
-            GameClient.client.sendPacketCheckNickname(nickname);
+            gameClient.client.sendPacketCheckNickname(nickname);
+        }
 
-            // If player's nickname is unique, show menu screen.
+        // If player's nickname is unique -> proceed and show menu screen.
+        if (KryoClient.isNicknameUnique)
             gameClient.setScreen(new MenuScreen(gameClient));
+
+        if (!KryoClient.isNicknameUnique) {
+            nickname = null;
+            isWindowOpened = false;
         }
 
         // draw transparent buttons

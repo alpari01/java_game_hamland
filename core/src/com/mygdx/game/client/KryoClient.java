@@ -12,6 +12,8 @@ import java.io.IOException;
 public class KryoClient extends Listener {
 
     private final Client client;  // Client object.
+    public static boolean isNicknameUnique = false;
+    public boolean isToServerConnected = false;
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -33,12 +35,14 @@ public class KryoClient extends Listener {
     public void connectToServer() {
         client.start();  // Start the client.
 
-         try {
-             client.connect(5000, ip, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
-         } catch (IOException e) {
-             System.out.println("Could not connect to the server :(");
-             e.printStackTrace();
-         }
+        try {
+            client.connect(5000, ip, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
+        } catch (IOException e) {
+            System.out.println("Could not connect to the server :(");
+            e.printStackTrace();
+        }
+
+        isToServerConnected = true;
 
         client.addListener(new KryoClient());  // Add new listener.
 
@@ -60,6 +64,17 @@ public class KryoClient extends Listener {
 
             // Also for debug
             System.out.println("Server reply: " + packet.message);
+        }
+
+        if (p instanceof PacketCheckPlayerNicknameUnique) {
+            PacketCheckPlayerNicknameUnique packet = (PacketCheckPlayerNicknameUnique) p;
+            if (packet.isNicknameUnique) {
+                isNicknameUnique = true;
+            }
+            if (!packet.isNicknameUnique) {
+                System.out.println("Nickname " + packet.playerNickname + " is not unique -> change it.");
+                isNicknameUnique = false;
+            }
         }
     }
 }

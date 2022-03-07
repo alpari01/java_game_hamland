@@ -11,7 +11,7 @@ public class GameClient extends Game {
 	public static final int HEIGHT = 720;
 
 	// Create new client object.
-	public static KryoClient client = new KryoClient();
+	public KryoClient client = new KryoClient();
 
 	@Override
 	public void create() {
