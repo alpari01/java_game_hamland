@@ -25,7 +25,7 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
     // Text input window
     private String nickname;
-    private boolean is_window_opened = false;
+    private boolean isWindowOpened;
 
     public NicknameScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -53,14 +53,14 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
         batch.begin(); // start
 
-        // if mouse X-coordinate and Y-coordinate on the left button
+        // if mouse X-coordinate and Y-coordinate on the button
         if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 100f &&
                 GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 100f) {
             playButton.draw(batch); // draw in color selected button
 
             // if click - open text input window
-            if (Gdx.input.justTouched() && !is_window_opened) {
-                is_window_opened = true;
+            if (Gdx.input.justTouched() && !isWindowOpened) {
+                isWindowOpened = true;
                 Gdx.input.getTextInput(this, "Enter your name", "", "name");
 
                 GameClient.client.connectToServer();
@@ -120,6 +120,6 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
     @Override
     public void canceled() {
-        is_window_opened = false;
+        isWindowOpened = false;
     }
 }
