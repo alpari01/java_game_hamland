@@ -10,8 +10,6 @@ import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Button;
 import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 
-import java.io.IOException;
-
 public class NicknameScreen implements Screen, Input.TextInputListener {
 
     // Textures
@@ -64,20 +62,16 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
             if (Gdx.input.justTouched() && !is_window_opened) {
                 is_window_opened = true;
                 Gdx.input.getTextInput(this, "Enter your name", "", "name");
+
+                GameClient.client.connectToServer();
             }
         }
 
         // If nickname is entered
         if (nickname != null) {
-            try {
-                // Try to connect a client to the server.
-                GameClient.client.connectToServer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            PacketCheckPlayerNicknameUnique packet = new PacketCheckPlayerNicknameUnique();
-            packet.playerNickname = nickname;
+            // Send a request to the server to check if player's nickname is unique.
+            GameClient.client.sendPacketCheckNickname(nickname);
 
             // If player's nickname is unique, show menu screen.
             gameClient.setScreen(new MenuScreen(gameClient));

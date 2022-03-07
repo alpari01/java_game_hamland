@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class KryoClient extends Listener {
 
-    static Client client;  // Client object.
+    private final Client client;  // Client object.
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -29,12 +29,16 @@ public class KryoClient extends Listener {
     /**
      * Connect the client to specified server.
      *
-     * @throws IOException exception in case error occurs
      */
-    public void connectToServer() throws IOException {
+    public void connectToServer() {
         client.start();  // Start the client.
 
-        client.connect(5000, ip, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
+         try {
+             client.connect(5000, ip, tcpPort, udpPort);  // 5000 (ms) - connection timeout.
+         } catch (IOException e) {
+             System.out.println("Could not connect to the server :(");
+             e.printStackTrace();
+         }
 
         client.addListener(new KryoClient());  // Add new listener.
 
@@ -42,8 +46,10 @@ public class KryoClient extends Listener {
         System.out.println("Connection successful!\nI am now connected to the server.\nServer IP is: " + ip);
     }
 
-    public void sendPacketCheckNickname(PacketCheckPlayerNicknameUnique packet) {
-
+    public void sendPacketCheckNickname(String playerNickname) {
+        PacketCheckPlayerNicknameUnique packetCheckNickname = new PacketCheckPlayerNicknameUnique();
+        packetCheckNickname.playerNickname = playerNickname;
+        client.sendTCP(packetCheckNickname);
     }
 
     // Run this method when client receives any packet from the server.
