@@ -1,5 +1,6 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
 
 public class NicknameScreen implements Screen, Input.TextInputListener {
@@ -61,12 +63,24 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
             if (Gdx.input.justTouched() && !isWindowOpened) {
                 isWindowOpened = true;
                 Gdx.input.getTextInput(this, "Enter your name", "", "name");
+
+                if (!gameClient.client.isToServerConnected) gameClient.client.connectToServer();
             }
         }
 
-        // if nickname is entered - change screen to MenuScreen
+        // If nickname is entered
         if (nickname != null) {
+            // Send a request to the server to check if player's nickname is unique.
+            gameClient.client.sendPacketCheckNickname(nickname);
+        }
+
+        // If player's nickname is unique -> proceed and show menu screen.
+        if (KryoClient.isNicknameUnique)
             gameClient.setScreen(new MenuScreen(gameClient));
+
+        if (!KryoClient.isNicknameUnique) {
+            nickname = null;
+            isWindowOpened = false;
         }
 
         // draw transparent buttons
