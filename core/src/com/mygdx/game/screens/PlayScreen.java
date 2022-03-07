@@ -1,6 +1,8 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +19,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
-
+        batch = new SpriteBatch();
     }
 
     @Override
@@ -25,6 +27,31 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setTitle("Play (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
+
+        batch.begin();
+
+        detectInput();
+
+        batch.end();
+    }
+
+    private void detectInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//            clientConnection.sendPlayerInformation(0, movementSpeed, "up", health);
+            System.out.println("up");
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+//            clientConnection.sendPlayerInformation(-movementSpeed, 0, "left", health);
+            System.out.println("left");
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//            clientConnection.sendPlayerInformation(0, -movementSpeed, "down", health);
+            System.out.println("down");
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+//            clientConnection.sendPlayerInformation(movementSpeed, 0, "right", health);
+            System.out.println("right");
+        }
     }
 
     @Override
