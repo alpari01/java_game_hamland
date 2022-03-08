@@ -37,8 +37,8 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("play_button_active.png");
-        playButtonWhiteTexture = new Texture("play_button_inactive.png");
+        playButtonTexture = new Texture("button_place.png");
+        playButtonWhiteTexture = new Texture("button_place.png");
 
         // Button objects with position in the center of the screen
         playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 100f,100f);

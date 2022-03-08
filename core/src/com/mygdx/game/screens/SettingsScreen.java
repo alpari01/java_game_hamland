@@ -42,8 +42,8 @@ public class SettingsScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        returnButtonTexture = new Texture("return_button_active.png");
-        returnButtonWhiteTexture = new Texture("return_button_inactive.png");
+        returnButtonTexture = new Texture("button_place.png");
+        returnButtonWhiteTexture = new Texture("button_place.png");
         soundUpButtonTexture = new Texture("sound_up.png");
         soundMuteButtonTexture = new Texture("sound_mute.png");
         musicUpButtonTexture = new Texture("music_up.png");
