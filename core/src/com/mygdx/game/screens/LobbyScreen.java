@@ -30,8 +30,8 @@ public class LobbyScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        returnButtonTexture = new Texture("return_button_active.png");
-        returnButtonWhiteTexture = new Texture("return_button_inactive.png");
+        returnButtonTexture = new Texture("button_place.png");
+        returnButtonWhiteTexture = new Texture("button_place.png");
 
         // Button objects
         returnButton = new Button(returnButtonTexture, 60, 60, 100f, 100f);
