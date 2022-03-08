@@ -6,9 +6,11 @@ import com.esotericsoftware.kryonet.Listener;
 import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 import com.mygdx.game.packets.PacketMessage;
 import com.mygdx.game.packets.PacketSendPlayerMovement;
+import com.mygdx.game.packets.PacketUpdatePlayers;
 import com.sun.tools.jdi.Packet;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class KryoClient extends Listener {
@@ -30,6 +32,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketMessage.class);  // Register the packet object.
         client.getKryo().register(PacketCheckPlayerNicknameUnique.class);
         client.getKryo().register(PacketSendPlayerMovement.class);
+        client.getKryo().register(PacketUpdatePlayers.class);
     }
 
     /**
@@ -60,10 +63,11 @@ public class KryoClient extends Listener {
         client.sendTCP(packetCheckNickname);
     }
 
-    public void sendPlayerMovementInformation(String movementDirection) {
+    public void sendPlayerMovementInformation(float posX, float posY) {
         PacketSendPlayerMovement packetSendPlayerMovement = new PacketSendPlayerMovement();
         packetSendPlayerMovement.playerNickname = nickname;
-        packetSendPlayerMovement.playerMovementDirection = movementDirection;
+        packetSendPlayerMovement.playerCurrentPositionX = posX;
+        packetSendPlayerMovement.playerCurrentPositionY = posY;
         client.sendUDP(packetSendPlayerMovement);
     }
 
@@ -77,7 +81,7 @@ public class KryoClient extends Listener {
             System.out.println("Server reply: " + packet.message);
         }
 
-        // Check if player's nickname is unique.
+        // Server response if player's nickname is unique.
         if (p instanceof PacketCheckPlayerNicknameUnique) {
             PacketCheckPlayerNicknameUnique packet = (PacketCheckPlayerNicknameUnique) p;
             if (packet.isNicknameUnique) {
@@ -88,6 +92,12 @@ public class KryoClient extends Listener {
                 System.out.println("Nickname " + packet.playerNickname + " is not unique -> change it.");
                 isNicknameUnique = false;
             }
+        }
+
+        // Server update players' position packet.
+        if (p instanceof PacketUpdatePlayers) {
+            PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
+            System.out.println("Player's " + packet.playerNickname + " new position is " + Arrays.toString(new float[]{packet.playerPositionX, packet.playerPositionY}));
         }
     }
 }
