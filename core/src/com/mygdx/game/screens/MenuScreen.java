@@ -46,12 +46,12 @@ public class MenuScreen implements Screen {
         quitButtonWhiteTexture = new Texture("quit_button2.png");
 
         // Button objects with position in the center of the screen
-        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2 - 200,(float) GameClient.HEIGHT / 2, 100f,100f);
-        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2 - 200,(float) GameClient.HEIGHT / 2, 100f,100f);
+        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2,(float) 480 , 100f,100f);
+        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) 480, 100f,100f);
         settingsButton = new Button(settingsButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2, 100f,100f);
         settingsButtonWhite = new Button(settingsButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2, 100f,100f);
-        quitButton = new Button(quitButtonTexture, (float) GameClient.WIDTH / 2 + 200,(float) GameClient.HEIGHT / 2, 100f,100f);
-        quitButtonWhite = new Button(quitButtonWhiteTexture, (float) GameClient.WIDTH / 2 + 200,(float) GameClient.HEIGHT / 2, 100f,100f);
+        quitButton = new Button(quitButtonTexture, (float) GameClient.WIDTH / 2,(float) 240, 100f,100f);
+        quitButtonWhite = new Button(quitButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) 240, 100f,100f);
     }
 
     @Override
@@ -64,19 +64,20 @@ public class MenuScreen implements Screen {
 
         batch.begin(); // start
 
-            // if mouse X-coordinate and Y-coordinate on the left button
+        // if mouse X-coordinate and Y-coordinate on the left button
         if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 100f &&
-                Gdx.input.getY() > playButton.polygon.getY() && Gdx.input.getY() < playButton.polygon.getY() + 100f) {
-            playButton.draw(batch); // draw in color selected button
+                GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 100f) {
+            playButton.draw(batch);
+            // draw in color selected button
 
             // if click - set screen to PlayScreen
             if (Gdx.input.isTouched()) {
-                gameClient.setScreen(new PlayScreen(gameClient));
+                gameClient.setScreen(new LobbyScreen(gameClient));
             }
 
             // if mouse X-coordinate and Y-coordinate on the center button
         } else if (Gdx.input.getX() > settingsButton.polygon.getX() && Gdx.input.getX() < settingsButton.polygon.getX() + 100f &&
-                Gdx.input.getY() > settingsButton.polygon.getY() && Gdx.input.getY() < settingsButton.polygon.getY() + 100f) {
+                GameClient.HEIGHT - Gdx.input.getY() > settingsButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < settingsButton.polygon.getY() + 100f) {
             settingsButton.draw(batch); // draw in color selected button
 
             // if click - set screen to SettingsScreen
@@ -86,7 +87,8 @@ public class MenuScreen implements Screen {
 
             // if mouse X-coordinate and Y-coordinate on the right button
         } else if (Gdx.input.getX() > quitButton.polygon.getX() && Gdx.input.getX() < quitButton.polygon.getX() + 100f &&
-                Gdx.input.getY() > quitButton.polygon.getY() && Gdx.input.getY() < quitButton.polygon.getY() + 100f) {
+                GameClient.HEIGHT - Gdx.input.getY() > quitButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < quitButton.polygon.getY() + 100f) {
+
             quitButton.draw(batch); // draw in color selected button
 
             // if click - app exit
