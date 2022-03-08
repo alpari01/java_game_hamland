@@ -5,6 +5,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 import com.mygdx.game.packets.PacketMessage;
+import com.mygdx.game.packets.PacketSendPlayerMovement;
+import com.sun.tools.jdi.Packet;
 
 import java.io.IOException;
 
@@ -26,6 +28,7 @@ public class KryoClient extends Listener {
         // Register all the packets here
         client.getKryo().register(PacketMessage.class);  // Register the packet object.
         client.getKryo().register(PacketCheckPlayerNicknameUnique.class);
+        client.getKryo().register(PacketSendPlayerMovement.class);
     }
 
     /**
