@@ -38,12 +38,12 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("play_button_active.png");
-        playButtonWhiteTexture = new Texture("play_button_inactive.png");
-        settingsButtonTexture = new Texture("settings_button_active.png");
-        settingsButtonWhiteTexture = new Texture("settings_button_inactive.png");
-        quitButtonTexture = new Texture("quit_button_active.png");
-        quitButtonWhiteTexture = new Texture("quit_button_inactive.png");
+        playButtonTexture = new Texture("play_button1.png");
+        playButtonWhiteTexture = new Texture("play_button2.png");
+        settingsButtonTexture = new Texture("tools_button1.png");
+        settingsButtonWhiteTexture = new Texture("tools_button2.png");
+        quitButtonTexture = new Texture("quit_button1.png");
+        quitButtonWhiteTexture = new Texture("quit_button2.png");
 
         // Button objects with position in the center of the screen
         playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2 - 200,(float) GameClient.HEIGHT / 2, 100f,100f);
