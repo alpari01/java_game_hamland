@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Player;
 
 public class PlayScreen implements Screen {
@@ -16,12 +17,14 @@ public class PlayScreen implements Screen {
 
     private Texture playerTexture;
     private Player player;
+    private Player friend;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
 
         playerTexture = new Texture("hamster1.png");
         player = new Player(playerTexture, 100, 100, 100, 100);
+        friend = new Player(playerTexture, 100, 100, 100, 100);
     }
 
     @Override
@@ -39,6 +42,9 @@ public class PlayScreen implements Screen {
 
         detectInput();
         player.draw(batch);
+
+        updateFriendPosition();
+        friend.draw(batch);
 
         batch.end();
     }
@@ -71,6 +77,10 @@ public class PlayScreen implements Screen {
         if (isPlayerMoving) {
             gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY());
         }
+    }
+
+    public void updateFriendPosition() {
+        friend.polygon.setPosition(KryoClient.friendPositionX, KryoClient.friendPositionY);
     }
 
     @Override
