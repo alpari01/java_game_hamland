@@ -16,6 +16,7 @@ public class KryoClient extends Listener {
     private final Client client;  // Client object.
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
+    public static String nickname;
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -59,6 +60,13 @@ public class KryoClient extends Listener {
         client.sendTCP(packetCheckNickname);
     }
 
+    public void sendPlayerMovementInformation(String movementDirection) {
+        PacketSendPlayerMovement packetSendPlayerMovement = new PacketSendPlayerMovement();
+        packetSendPlayerMovement.playerNickname = nickname;
+        packetSendPlayerMovement.playerMovementDirection = movementDirection;
+        client.sendUDP(packetSendPlayerMovement);
+    }
+
     // Run this method when client receives any packet from the server.
     public void received(Connection c, Object p) {
         if (p instanceof PacketMessage) {
@@ -69,10 +77,12 @@ public class KryoClient extends Listener {
             System.out.println("Server reply: " + packet.message);
         }
 
+        // Check if player's nickname is unique.
         if (p instanceof PacketCheckPlayerNicknameUnique) {
             PacketCheckPlayerNicknameUnique packet = (PacketCheckPlayerNicknameUnique) p;
             if (packet.isNicknameUnique) {
                 isNicknameUnique = true;
+                nickname = packet.playerNickname;
             }
             if (!packet.isNicknameUnique) {
                 System.out.println("Nickname " + packet.playerNickname + " is not unique -> change it.");
