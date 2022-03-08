@@ -44,32 +44,32 @@ public class PlayScreen implements Screen {
     }
 
     private void detectInput() {
-        String playerMovement = null;
+        boolean isPlayerMoving = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
 //            clientConnection.sendPlayerInformation(0, movementSpeed, "up", health);
             player.polygon.setPosition(player.polygon.getX(), player.polygon.getY() + 1);
-            playerMovement = "up";
+            isPlayerMoving = true;
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 //            clientConnection.sendPlayerInformation(-movementSpeed, 0, "left", health);
             player.polygon.setPosition(player.polygon.getX() - 1, player.polygon.getY());
-            playerMovement = "left";
+            isPlayerMoving = true;
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 //            clientConnection.sendPlayerInformation(0, -movementSpeed, "down", health);
             player.polygon.setPosition(player.polygon.getX(), player.polygon.getY() - 1);
-            playerMovement = "down";
+            isPlayerMoving = true;
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 //            clientConnection.sendPlayerInformation(movementSpeed, 0, "right", health);
             player.polygon.setPosition(player.polygon.getX() + 1, player.polygon.getY());
-            playerMovement = "right";
+            isPlayerMoving = true;
         }
 
         // Do not spam packet if player is not moving.
-        if (playerMovement != null) {
-            gameClient.client.sendPlayerMovementInformation(playerMovement, player.polygon.getX(), player.polygon.getY());
+        if (isPlayerMoving) {
+            gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY());
         }
     }
 

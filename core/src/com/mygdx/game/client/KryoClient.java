@@ -63,10 +63,9 @@ public class KryoClient extends Listener {
         client.sendTCP(packetCheckNickname);
     }
 
-    public void sendPlayerMovementInformation(String movementDirection, float posX, float posY) {
+    public void sendPlayerMovementInformation(float posX, float posY) {
         PacketSendPlayerMovement packetSendPlayerMovement = new PacketSendPlayerMovement();
         packetSendPlayerMovement.playerNickname = nickname;
-        packetSendPlayerMovement.playerMovementDirection = movementDirection;
         packetSendPlayerMovement.playerCurrentPositionX = posX;
         packetSendPlayerMovement.playerCurrentPositionY = posY;
         client.sendUDP(packetSendPlayerMovement);
