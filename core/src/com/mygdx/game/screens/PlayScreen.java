@@ -50,31 +50,10 @@ public class PlayScreen implements Screen {
     }
 
     private void detectInput() {
-        boolean isPlayerMoving = false;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-//            clientConnection.sendPlayerInformation(0, movementSpeed, "up", health);
-            player.polygon.setPosition(player.polygon.getX(), player.polygon.getY() + 1);
-            isPlayerMoving = true;
-        }
-        else if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//            clientConnection.sendPlayerInformation(-movementSpeed, 0, "left", health);
-            player.polygon.setPosition(player.polygon.getX() - 1, player.polygon.getY());
-            isPlayerMoving = true;
-        }
-        else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-//            clientConnection.sendPlayerInformation(0, -movementSpeed, "down", health);
-            player.polygon.setPosition(player.polygon.getX(), player.polygon.getY() - 1);
-            isPlayerMoving = true;
-        }
-        else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//            clientConnection.sendPlayerInformation(movementSpeed, 0, "right", health);
-            player.polygon.setPosition(player.polygon.getX() + 1, player.polygon.getY());
-            isPlayerMoving = true;
-        }
-
-        // Do not spam packet if player is not moving.
-        if (isPlayerMoving) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
+                Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
+                Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) ||
+                Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY());
         }
     }
