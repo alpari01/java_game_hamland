@@ -40,7 +40,7 @@ public class MenuScreen implements Screen {
         // Textures
         playButtonTexture = new Texture("play_button1.png");
         playButtonWhiteTexture = new Texture("play_button2.png");
-        settingsButtonTexture = new Texture("tools_button1.png");
+        settingsButtonTexture = new Texture("tools.png");
         settingsButtonWhiteTexture = new Texture("tools_button2.png");
         quitButtonTexture = new Texture("quit_button1.png");
         quitButtonWhiteTexture = new Texture("quit_button2.png");
