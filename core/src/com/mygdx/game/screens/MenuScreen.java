@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Button;
 
@@ -20,6 +21,9 @@ public class MenuScreen implements Screen {
     private Texture settingsButtonWhiteTexture;
     private Texture quitButtonTexture;
     private Texture quitButtonWhiteTexture;
+    private Texture backgroundTexture;
+    private Texture hamsters;
+    private Texture welcome;
 
     // Objects
     private Button playButton;
@@ -44,6 +48,10 @@ public class MenuScreen implements Screen {
         settingsButtonWhiteTexture = new Texture("tools_button2.png");
         quitButtonTexture = new Texture("quit_button1.png");
         quitButtonWhiteTexture = new Texture("quit_button2.png");
+        backgroundTexture = new Texture("back.png");
+        hamsters = new Texture("hamsters.png");
+        welcome = new Texture("welcome.png");
+
 
         // Button objects with position in the center of the screen
         playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2, (float) GameClient.HEIGHT / 2 + 200, 200f,162f);
@@ -63,6 +71,9 @@ public class MenuScreen implements Screen {
         Gdx.graphics.setTitle("Menu (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
         batch.begin(); // start
+        batch.draw(backgroundTexture,0,0,1280,720);
+        batch.draw(hamsters,180,100,300,300);
+        batch.draw(welcome,900,200,300,300);
 
         // if mouse X-coordinate and Y-coordinate on the left button
         if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 200f &&
