@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Player;
+import com.mygdx.game.objects.Teammate;
 
 public class PlayScreen implements Screen {
 
@@ -20,7 +21,7 @@ public class PlayScreen implements Screen {
 
     // Objects
     private Player player;
-    private Player teammate;
+    private Teammate teammate;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -30,7 +31,7 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, 100, 100, 100, 100);
-        teammate = new Player(playerTexture, 100, 100, 100, 100);
+        teammate = new Teammate(playerTexture, 100, 100, 100, 100);
     }
 
     @Override
@@ -101,5 +102,6 @@ public class PlayScreen implements Screen {
 
         // Clear memory when game is off
         playerTexture.dispose();
+        batch.dispose();
     }
 }
