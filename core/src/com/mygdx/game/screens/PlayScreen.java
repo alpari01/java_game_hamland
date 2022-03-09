@@ -15,16 +15,22 @@ public class PlayScreen implements Screen {
     private final GameClient gameClient;
     private SpriteBatch batch;
 
+    // Textures
     private Texture playerTexture;
+
+    // Objects
     private Player player;
-    private Player friend;
+    private Player teammate;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
 
+        // Textures
         playerTexture = new Texture("hamster1.png");
+
+        // Objects
         player = new Player(playerTexture, 100, 100, 100, 100);
-        friend = new Player(playerTexture, 100, 100, 100, 100);
+        teammate = new Player(playerTexture, 100, 100, 100, 100);
     }
 
     @Override
@@ -34,21 +40,26 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+        // Update screen white background
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setTitle("Play (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
-        batch.begin();
+        batch.begin(); // start
 
-        detectInput();
-        player.draw(batch);
+        detectInput(); // send packet
+        player.draw(batch); // draw player
 
-        updateFriendPosition();
-        friend.draw(batch);
+        updateTeammatePosition(); // update teammate position
+        teammate.draw(batch); // draw teammate
 
-        batch.end();
+        batch.end(); // end
     }
 
+    /**
+     * Send a packet with the player's coordinates to the server, if one of the control buttons is pressed.
+     */
     private void detectInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
@@ -58,8 +69,11 @@ public class PlayScreen implements Screen {
         }
     }
 
-    public void updateFriendPosition() {
-        friend.polygon.setPosition(KryoClient.friendPositionX, KryoClient.friendPositionY);
+    /**
+     * Change the position of another player (works in the loop).
+     */
+    public void updateTeammatePosition() {
+        teammate.polygon.setPosition(KryoClient.teammatePositionX, KryoClient.teammatePositionY);
     }
 
     @Override
@@ -84,6 +98,8 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+
+        // Clear memory when game is off
         playerTexture.dispose();
     }
 }

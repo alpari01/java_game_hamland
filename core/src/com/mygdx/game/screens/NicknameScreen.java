@@ -48,6 +48,8 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
     @Override
     public void render(float delta) {
+
+        // Update screen with white background
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setTitle("Nickname (" + Gdx.graphics.getFramesPerSecond() + "FPS)");

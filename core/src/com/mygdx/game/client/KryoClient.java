@@ -7,10 +7,8 @@ import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 import com.mygdx.game.packets.PacketMessage;
 import com.mygdx.game.packets.PacketSendPlayerMovement;
 import com.mygdx.game.packets.PacketUpdatePlayers;
-import com.sun.tools.jdi.Packet;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 
 public class KryoClient extends Listener {
@@ -19,8 +17,8 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
-    public static float friendPositionX = 50f;
-    public static float friendPositionY = 50f;
+    public static float teammatePositionX = 50f;
+    public static float teammatePositionY = 50f;
 
 
     // Ports to connect on.
@@ -100,10 +98,11 @@ public class KryoClient extends Listener {
         // Server update players' position packet.
         if (p instanceof PacketUpdatePlayers) {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
-//            System.out.println("Player's " + packet.playerNickname + " new position is " + Arrays.toString(new float[]{packet.playerPositionX, packet.playerPositionY}));
+
+            // Takes only other player's coordinates.
             if (!packet.playerNickname.equals(nickname)) {
-                friendPositionX = packet.playerPositionX;
-                friendPositionY = packet.playerPositionY;
+                teammatePositionX = packet.playerPositionX;
+                teammatePositionY = packet.playerPositionY;
             }
         }
     }
