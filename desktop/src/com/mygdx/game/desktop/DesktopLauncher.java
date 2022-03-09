@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.width = GameClient.WIDTH;
 		config.height = GameClient.HEIGHT;
 		config.resizable = false;
-		config.foregroundFPS = 0;
+		config.foregroundFPS = 120;
 		config.vSyncEnabled = false;
 
 		new LwjglApplication(new GameClient(), config);
