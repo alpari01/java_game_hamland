@@ -27,4 +27,5 @@ To verify you are connected to the server check server console outputs.
 - Game controls: WASD and arrows, mouse for aiming.
 
 **_Step 4_**
+
 -Enjoy the game
