@@ -3,7 +3,7 @@
 ITI0301 Tarkvaraarenduse projekt - mäng
 
 
-**How to launch our game? (for project state at 09.03.2022)**
+**How to launch our game? (for project state on 09.03.2022)**
 
 **_Step 1_**
 
