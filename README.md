@@ -15,11 +15,13 @@ We use two separate gitlab projects for our game.
 **_Step 2_**
 - While in IDEA open Server and Client projects in different windows.
 - In server project run **iti0301-2022-server\core\src\com\mygdx\gameserver\server\KryoServer.java**.
+
 This will launch the server on localhost. 
 To verify server runs correctly ensure it has printed "Server is up!" in IDEA console :)
 
 **_Step 3_**
 - In client project run **iti0301-2022-game\desktop\src\com\mygdx\game\desktop\DesktopLauncher.java**.
+
 This will launch the game.
 To verify you are connected to the server check server console outputs.
 
