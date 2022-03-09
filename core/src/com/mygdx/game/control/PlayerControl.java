@@ -4,6 +4,7 @@ package com.mygdx.game.control;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Polygon;
+import com.mygdx.game.GameClient;
 
 public class PlayerControl {
 
@@ -37,5 +38,31 @@ public class PlayerControl {
         if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             polygon.setPosition(polygon.getX(), polygon.getY() - 1);
         }
+
+        // ROTATE TOWARDS MOUSE CURSOR
+        polygon.setRotation((float) getMouseCursorAngle() - 90);
+    }
+
+    /**
+     * Return the angle of the mouse cursor based on the position of the player
+     * @return positive angle in deg.
+     */
+    public double getMouseCursorAngle() {
+        double result = 0;
+
+        // difference between player position and mouse cursor position
+        float x = Gdx.input.getX() - polygon.getX() - polygon.getOriginX();
+        float y = Math.abs(Gdx.input.getY() - GameClient.HEIGHT) - polygon.getY() - polygon.getOriginY();
+
+        // arc-tangent of the modulus of the ratio of coordinates (in deg)
+        double angle = Math.abs(Math.atan(y / x) * 180 / Math.PI);
+
+        // change the angle based on the quarter in which the mouse cursor is located
+        if (x >= 0 && y > 0) result = angle;
+        else if (x > 0 && y <= 0) result = 360 - angle;
+        else if (x < 0 && y >= 0) result = 180 - angle;
+        else if (x <= 0 && y < 0) result = 180 + angle;
+
+        return result;
     }
 }
