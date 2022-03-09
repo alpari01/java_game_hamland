@@ -19,6 +19,9 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
+    public static float friendPositionX = 50f;
+    public static float friendPositionY = 50f;
+
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -97,7 +100,11 @@ public class KryoClient extends Listener {
         // Server update players' position packet.
         if (p instanceof PacketUpdatePlayers) {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
-            System.out.println("Player's " + packet.playerNickname + " new position is " + Arrays.toString(new float[]{packet.playerPositionX, packet.playerPositionY}));
+//            System.out.println("Player's " + packet.playerNickname + " new position is " + Arrays.toString(new float[]{packet.playerPositionX, packet.playerPositionY}));
+            if (!packet.playerNickname.equals(nickname)) {
+                friendPositionX = packet.playerPositionX;
+                friendPositionY = packet.playerPositionY;
+            }
         }
     }
 }
