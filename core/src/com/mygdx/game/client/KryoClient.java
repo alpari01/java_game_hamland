@@ -19,8 +19,8 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
-    public static float friendPositionX;
-    public static float friendPositionY;
+    public static float friendPositionX = 50f;
+    public static float friendPositionY = 50f;
 
 
     // Ports to connect on.
