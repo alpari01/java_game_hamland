@@ -13,7 +13,7 @@ We use two separate gitlab projects for our game.
 - Make sure both are cloned :)
 
 **_Step 2_**
-- Open Server and Client projects in different windows.
+- While in IDEA open Server and Client projects in different windows.
 - In server project run **iti0301-2022-server\core\src\com\mygdx\gameserver\server\KryoServer.java**.
 This will launch the server on localhost. 
 To verify server runs correctly ensure it has printed "Server is up!" in IDEA console :)
