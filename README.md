@@ -6,6 +6,7 @@ ITI0301 Tarkvaraarenduse projekt - mäng
 **How to launch our game? (for project state at 09.03.2022)**
 
 **_Step 1_**
+
 We use two separate gitlab projects for our game.
 - One for game itself aka client part (available here https://gitlab.cs.ttu.ee/illast/iti0301-2022-game)
 - And one for server part (available here https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server)
