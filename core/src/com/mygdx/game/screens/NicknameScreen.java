@@ -37,7 +37,7 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
     // Text input window
     private String nickname;
-    private boolean isWindowOpened;
+    public static boolean isWindowOpened;
 
     public NicknameScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -97,7 +97,6 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
         if (!KryoClient.isNicknameUnique) {
             nickname = null;
-            isWindowOpened = false;
         }
 
         batch.end(); //end
