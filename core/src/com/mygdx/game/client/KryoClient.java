@@ -20,6 +20,7 @@ public class KryoClient extends Listener {
     public static String nickname;
     public static float teammatePositionX = 50f;
     public static float teammatePositionY = 50f;
+    public static float teammateRotation;
 
 
     // Ports to connect on.
@@ -103,12 +104,10 @@ public class KryoClient extends Listener {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
 
             // Takes only other player's coordinates.
-            if (packet.playerNickname.equals(nickname)) {
+            if (!packet.playerNickname.equals(nickname)) {
                 teammatePositionX = packet.playerPositionX;
                 teammatePositionY = packet.playerPositionY;
-
-                // FOR TEST
-                System.out.println("Player " + packet.playerNickname + " rotation is now " + packet.playerRotation);
+                teammateRotation = packet.playerRotation;
             }
         }
     }

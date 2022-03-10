@@ -85,6 +85,7 @@ public class PlayScreen implements Screen {
      */
     public void updateTeammatePosition() {
         teammate.polygon.setPosition(KryoClient.teammatePositionX, KryoClient.teammatePositionY);
+        teammate.polygon.setRotation(KryoClient.teammateRotation);
     }
 
     @Override
