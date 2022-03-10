@@ -65,11 +65,12 @@ public class KryoClient extends Listener {
         client.sendTCP(packetCheckNickname);
     }
 
-    public void sendPlayerMovementInformation(float posX, float posY) {
+    public void sendPlayerMovementInformation(float posX, float posY, float rotation) {
         PacketSendPlayerMovement packetSendPlayerMovement = new PacketSendPlayerMovement();
         packetSendPlayerMovement.playerNickname = nickname;
         packetSendPlayerMovement.playerCurrentPositionX = posX;
         packetSendPlayerMovement.playerCurrentPositionY = posY;
+        packetSendPlayerMovement.playerCurrentRotation = rotation;
         client.sendUDP(packetSendPlayerMovement);
     }
 
@@ -102,9 +103,12 @@ public class KryoClient extends Listener {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
 
             // Takes only other player's coordinates.
-            if (!packet.playerNickname.equals(nickname)) {
+            if (packet.playerNickname.equals(nickname)) {
                 teammatePositionX = packet.playerPositionX;
                 teammatePositionY = packet.playerPositionY;
+
+                // FOR TEST
+                System.out.println("Player " + packet.playerNickname + " rotation is now " + packet.playerRotation);
             }
         }
     }
