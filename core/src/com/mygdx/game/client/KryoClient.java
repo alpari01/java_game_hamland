@@ -7,6 +7,7 @@ import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
 import com.mygdx.game.packets.PacketMessage;
 import com.mygdx.game.packets.PacketSendPlayerMovement;
 import com.mygdx.game.packets.PacketUpdatePlayers;
+import com.mygdx.game.screens.NicknameScreen;
 
 import java.io.IOException;
 
@@ -92,6 +93,7 @@ public class KryoClient extends Listener {
             if (!packet.isNicknameUnique) {
                 System.out.println("Nickname " + packet.playerNickname + " is not unique -> change it.");
                 isNicknameUnique = false;
+                NicknameScreen.isWindowOpened = false;
             }
         }
 

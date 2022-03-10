@@ -2,10 +2,8 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Button;
 
@@ -13,6 +11,22 @@ public class MenuScreen implements Screen {
 
     private final GameClient gameClient;
     private SpriteBatch batch;
+
+    // Properties
+    public static final float BUTTON_X = (float) GameClient.WIDTH / 2;
+    public static final float BUTTON_Y = (float) GameClient.HEIGHT / 2;
+    public static final float BUTTON_WIDTH = 200f;
+    public static final float BUTTON_HEIGHT = (float) 790 / 973 * BUTTON_WIDTH;
+
+    public static final int HAMSTERS_X = 180;
+    public static final int HAMSTERS_Y = 40;
+    public static final int HAMSTERS_WIDTH = 300;
+    public static final int HAMSTERS_HEIGHT = 300;
+
+    public static final int WELCOME_X = 850;
+    public static final int WELCOME_Y = 200;
+    public static final int WELCOME_WIDTH = 300;
+    public static final int WELCOME_HEIGHT = 300;
 
     // Textures
     private Texture playButtonTexture;
@@ -22,8 +36,8 @@ public class MenuScreen implements Screen {
     private Texture quitButtonTexture;
     private Texture quitButtonWhiteTexture;
     private Texture backgroundTexture;
-    private Texture hamsters;
-    private Texture welcome;
+    private Texture hamstersTexture;
+    private Texture welcomeTexture;
 
     // Objects
     private Button playButton;
@@ -42,42 +56,40 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("play_button1.png");
-        playButtonWhiteTexture = new Texture("play_button2.png");
-        settingsButtonTexture = new Texture("tools.png");
-        settingsButtonWhiteTexture = new Texture("tools_button2.png");
-        quitButtonTexture = new Texture("quit_button1.png");
-        quitButtonWhiteTexture = new Texture("quit_button2.png");
-        backgroundTexture = new Texture("back.png");
-        hamsters = new Texture("hamsters.png");
-        welcome = new Texture("welcome.png");
+        playButtonTexture = new Texture("play_button_active.png");
+        playButtonWhiteTexture = new Texture("play_button_inactive.png");
+        settingsButtonTexture = new Texture("tools_button_active.png");
+        settingsButtonWhiteTexture = new Texture("tools_button_inactive.png");
+        quitButtonTexture = new Texture("quit_button_active.png");
+        quitButtonWhiteTexture = new Texture("quit_button_inactive.png");
 
+        backgroundTexture = new Texture("background.png");
+        hamstersTexture = new Texture("hamsters.png");
+        welcomeTexture = new Texture("welcome.png");
 
-        // Button objects with position in the center of the screen
-        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2, (float) GameClient.HEIGHT / 2 + 200, 200f,162f);
-        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2, (float) GameClient.HEIGHT / 2 + 200, 200f,162f);
-        settingsButton = new Button(settingsButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2, 200f,162f);
-        settingsButtonWhite = new Button(settingsButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2, 200f,162f);
-        quitButton = new Button(quitButtonTexture, (float) GameClient.WIDTH / 2, (float) GameClient.HEIGHT / 2 - 200, 200f,162f);
-        quitButtonWhite = new Button(quitButtonWhiteTexture, (float) GameClient.WIDTH / 2, (float) GameClient.HEIGHT / 2 - 200, 200f,162f);
+        // Button objects
+        playButton = new Button(playButtonTexture, BUTTON_X, BUTTON_Y + BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
+        playButtonWhite = new Button(playButtonWhiteTexture, BUTTON_X, BUTTON_Y + BUTTON_WIDTH, BUTTON_WIDTH,BUTTON_HEIGHT);
+        settingsButton = new Button(settingsButtonTexture, BUTTON_X, BUTTON_Y, BUTTON_WIDTH,BUTTON_HEIGHT);
+        settingsButtonWhite = new Button(settingsButtonWhiteTexture, BUTTON_X,BUTTON_Y, BUTTON_WIDTH,BUTTON_HEIGHT);
+        quitButton = new Button(quitButtonTexture, BUTTON_X, BUTTON_Y - BUTTON_WIDTH, BUTTON_WIDTH,BUTTON_HEIGHT);
+        quitButtonWhite = new Button(quitButtonWhiteTexture, BUTTON_X, BUTTON_Y - BUTTON_WIDTH, BUTTON_WIDTH,BUTTON_HEIGHT);
     }
 
     @Override
     public void render(float delta) {
 
-        // Update screen with white background
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setTitle("Menu (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
         batch.begin(); // start
-        batch.draw(backgroundTexture,0,0,1280,720);
-        batch.draw(hamsters,180,100,300,300);
-        batch.draw(welcome,900,200,300,300);
+
+        batch.draw(backgroundTexture,0,0, GameClient.WIDTH, GameClient.HEIGHT);
+        batch.draw(hamstersTexture, HAMSTERS_X, HAMSTERS_Y, HAMSTERS_WIDTH, HAMSTERS_HEIGHT);
+        batch.draw(welcomeTexture, WELCOME_X, WELCOME_Y, WELCOME_WIDTH, WELCOME_HEIGHT);
 
         // if mouse X-coordinate and Y-coordinate on the left button
-        if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 200f &&
-                GameClient.HEIGHT - Gdx.input.getY() - 15 > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < playButton.polygon.getY() + 162f) {
+        if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + BUTTON_WIDTH &&
+                GameClient.HEIGHT - Gdx.input.getY() - 15 > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < playButton.polygon.getY() + BUTTON_HEIGHT) {
 
             playButton.draw(batch); // draw in color selected button
 
@@ -91,8 +103,8 @@ public class MenuScreen implements Screen {
         }
 
         // if mouse X-coordinate and Y-coordinate on the center button
-        if (Gdx.input.getX() > settingsButton.polygon.getX() && Gdx.input.getX() < settingsButton.polygon.getX() + 200f &&
-                GameClient.HEIGHT - Gdx.input.getY() - 15 > settingsButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < settingsButton.polygon.getY() + 162f) {
+        if (Gdx.input.getX() > settingsButton.polygon.getX() && Gdx.input.getX() < settingsButton.polygon.getX() + BUTTON_WIDTH &&
+                GameClient.HEIGHT - Gdx.input.getY() - 15 > settingsButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < settingsButton.polygon.getY() + BUTTON_HEIGHT) {
 
             settingsButton.draw(batch); // draw in color selected button
 
@@ -106,8 +118,8 @@ public class MenuScreen implements Screen {
             settingsButtonWhite.draw(batch); // draw transparent button
         }
 
-        if (Gdx.input.getX() > quitButton.polygon.getX() && Gdx.input.getX() < quitButton.polygon.getX() + 200f &&
-                GameClient.HEIGHT - Gdx.input.getY() - 15 > quitButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < quitButton.polygon.getY() + 162f) {
+        if (Gdx.input.getX() > quitButton.polygon.getX() && Gdx.input.getX() < quitButton.polygon.getX() + BUTTON_WIDTH &&
+                GameClient.HEIGHT - Gdx.input.getY() - 15 > quitButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 25 < quitButton.polygon.getY() + BUTTON_HEIGHT) {
 
             quitButton.draw(batch); // draw in color selected button
 
@@ -154,5 +166,9 @@ public class MenuScreen implements Screen {
         settingsButtonWhiteTexture.dispose();
         quitButtonTexture.dispose();
         quitButtonWhiteTexture.dispose();
+        backgroundTexture.dispose();
+        hamstersTexture.dispose();
+        welcomeTexture.dispose();
+        gameClient.dispose();
     }
 }
