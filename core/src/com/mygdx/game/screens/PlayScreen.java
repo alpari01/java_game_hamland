@@ -16,9 +16,14 @@ public class PlayScreen implements Screen {
     private final GameClient gameClient;
     private SpriteBatch batch;
 
+    // Properties
+    public static final int PLAYER_X = 100;
+    public static final int PLAYER_Y = 100;
+    public static final int PLAYER_WIDTH = 100;
+    public static final int PLAYER_HEIGHT = 100;
+
     // Textures
     private Texture playerTexture;
-    private Texture background;
 
     // Objects
     private Player player;
@@ -28,12 +33,11 @@ public class PlayScreen implements Screen {
         this.gameClient = gameClient;
 
         // Textures
-        playerTexture = new Texture("hamster1.png");
-        background = new Texture("backloop.png");
+        playerTexture = new Texture("player1.png");
 
         // Objects
-        player = new Player(playerTexture, 100, 100, 100, 100);
-        teammate = new Teammate(playerTexture, 100, 100, 100, 100);
+        player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+        teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
 
     @Override
@@ -50,8 +54,6 @@ public class PlayScreen implements Screen {
         Gdx.graphics.setTitle("Play (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
         batch.begin(); // start
-
-        batch.draw(background,0,0,1280,720);
 
         detectInput(); // send packet
         player.draw(batch); // draw player
@@ -105,7 +107,8 @@ public class PlayScreen implements Screen {
     public void dispose() {
 
         // Clear memory when game is off
-        playerTexture.dispose();
         batch.dispose();
+        playerTexture.dispose();
+        gameClient.dispose();
     }
 }
