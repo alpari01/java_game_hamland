@@ -76,7 +76,7 @@ public class PlayScreen implements Screen {
                 Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
                 player.polygon.getRotation() != prevRotation) {
             prevRotation = player.polygon.getRotation();
-            gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY());
+            gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY(), player.polygon.getRotation());
         }
     }
 
