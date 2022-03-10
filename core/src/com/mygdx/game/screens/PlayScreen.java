@@ -18,6 +18,7 @@ public class PlayScreen implements Screen {
 
     // Textures
     private Texture playerTexture;
+    private Texture background;
 
     // Objects
     private Player player;
@@ -28,6 +29,7 @@ public class PlayScreen implements Screen {
 
         // Textures
         playerTexture = new Texture("hamster1.png");
+        background = new Texture("backloop.png");
 
         // Objects
         player = new Player(playerTexture, 100, 100, 100, 100);
@@ -48,6 +50,8 @@ public class PlayScreen implements Screen {
         Gdx.graphics.setTitle("Play (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
         batch.begin(); // start
+
+        batch.draw(background,0,0,1280,720);
 
         detectInput(); // send packet
         player.draw(batch); // draw player
