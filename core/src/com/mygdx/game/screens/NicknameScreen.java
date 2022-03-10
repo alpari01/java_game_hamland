@@ -37,12 +37,12 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("button_place.png");
-        playButtonWhiteTexture = new Texture("button_place.png");
+        playButtonTexture = new Texture("active.png");
+        playButtonWhiteTexture = new Texture("noactive.png");
 
         // Button objects with position in the center of the screen
-        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 100f,100f);
-        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 100f,100f);
+        playButton = new Button(playButtonTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 200f,162f);
+        playButtonWhite = new Button(playButtonWhiteTexture, (float) GameClient.WIDTH / 2,(float) GameClient.HEIGHT / 2 - 150, 200f,162f);
 
     }
 
@@ -57,8 +57,8 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         batch.begin(); // start
 
         // if mouse X-coordinate and Y-coordinate on the button
-        if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 100f &&
-                GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 100f) {
+        if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + 200f &&
+                GameClient.HEIGHT - Gdx.input.getY() > playButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < playButton.polygon.getY() + 162f) {
             playButton.draw(batch); // draw in color selected button
 
             // if click - open text input window
