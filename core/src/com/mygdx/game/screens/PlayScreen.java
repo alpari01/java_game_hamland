@@ -16,6 +16,8 @@ public class PlayScreen implements Screen {
     private final GameClient gameClient;
     private SpriteBatch batch;
 
+    private float prevRotation;
+
     // Properties
     public static final int PLAYER_X = 100;
     public static final int PLAYER_Y = 100;
@@ -71,7 +73,9 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
                 Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
                 Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) ||
-                Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
+                player.polygon.getRotation() != prevRotation) {
+            prevRotation = player.polygon.getRotation();
             gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY());
         }
     }
