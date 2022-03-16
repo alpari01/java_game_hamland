@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
+import com.mygdx.game.objects.Octopus;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
+import com.mygdx.game.objects.Zombie;
 
 public class PlayScreen implements Screen {
 
@@ -26,20 +28,28 @@ public class PlayScreen implements Screen {
 
     // Textures
     private Texture playerTexture;
+    private Texture zombieTexture;
+    private Texture octopusTexture;
 
     // Objects
     private Player player;
     private Teammate teammate;
+    private Zombie zombie;
+    private Octopus octopus;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
 
         // Textures
         playerTexture = new Texture("player1.png");
+        zombieTexture = new Texture("zombie_enemy.png");
+        octopusTexture = new Texture("octopus_enemy.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
         teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+        zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5);
+        octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3);
     }
 
     @Override
@@ -59,6 +69,12 @@ public class PlayScreen implements Screen {
 
         detectInput(); // send packet
         player.draw(batch); // draw player
+
+        octopus.draw(batch);
+        octopus.followPlayer(player.polygon);
+
+        zombie.draw(batch);
+        zombie.followPlayer(player.polygon);
 
         updateTeammatePosition(); // update teammate position
         teammate.draw(batch); // draw teammate
@@ -114,6 +130,8 @@ public class PlayScreen implements Screen {
         // Clear memory when game is off
         batch.dispose();
         playerTexture.dispose();
+        zombieTexture.dispose();
+        octopusTexture.dispose();
         gameClient.dispose();
     }
 }
