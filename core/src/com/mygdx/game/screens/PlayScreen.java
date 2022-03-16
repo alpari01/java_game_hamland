@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
+import com.mygdx.game.objects.Bullet;
 import com.mygdx.game.objects.Octopus;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.objects.Zombie;
+
+import java.util.Random;
 
 public class PlayScreen implements Screen {
 
@@ -30,26 +33,35 @@ public class PlayScreen implements Screen {
     private Texture playerTexture;
     private Texture zombieTexture;
     private Texture octopusTexture;
+    private Texture bulletTexture;
 
     // Objects
     private Player player;
     private Teammate teammate;
     private Zombie zombie;
     private Octopus octopus;
+    private Bullet bullet;
+
+    private float time = 0;
+    private Random random;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
+
+        random = new Random();
 
         // Textures
         playerTexture = new Texture("player1.png");
         zombieTexture = new Texture("zombie_enemy.png");
         octopusTexture = new Texture("octopus_enemy.png");
+        bulletTexture = new Texture("game_enemy.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
         teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-        zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5);
-        octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3);
+        zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5, 5);
+        octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3, 5);
+        bullet = new Bullet(bulletTexture, 100, 100, 50, 50);
     }
 
     @Override
@@ -70,11 +82,34 @@ public class PlayScreen implements Screen {
         detectInput(); // send packet
         player.draw(batch); // draw player
 
-        octopus.draw(batch);
-        octopus.followPlayer(player.polygon);
+        bullet.shot(player.polygon, octopus, zombie);
+        if (bullet.isShot) {
+            bullet.draw(batch);
+        }
 
-        zombie.draw(batch);
-        zombie.followPlayer(player.polygon);
+        if (octopus.isAlive()) {
+            octopus.followPlayer(player.polygon);
+            octopus.draw(batch);
+        } else {
+            time += delta;
+            if (time > 0.5) {
+                octopus.setHp(5);
+                octopus.polygon.setPosition(random.nextInt(GameClient.WIDTH), random.nextInt(GameClient.HEIGHT));
+                time = 0;
+            }
+        }
+
+        if (zombie.isAlive()) {
+            zombie.followPlayer(player.polygon);
+            zombie.draw(batch);
+        } else {
+            time += delta;
+            if (time > 0.5) {
+                zombie.setHp(5);
+                zombie.polygon.setPosition(random.nextInt(GameClient.WIDTH), random.nextInt(GameClient.HEIGHT));
+                time = 0;
+            }
+        }
 
         updateTeammatePosition(); // update teammate position
         teammate.draw(batch); // draw teammate
@@ -132,6 +167,7 @@ public class PlayScreen implements Screen {
         playerTexture.dispose();
         zombieTexture.dispose();
         octopusTexture.dispose();
+        bulletTexture.dispose();
         gameClient.dispose();
     }
 }
