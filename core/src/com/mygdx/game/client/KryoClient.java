@@ -3,10 +3,12 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
 
 import java.io.IOException;
+import java.util.Map;
 
 
 public class KryoClient extends Listener {
@@ -18,6 +20,8 @@ public class KryoClient extends Listener {
     public static float teammatePositionX = 50f;
     public static float teammatePositionY = 50f;
     public static float teammateRotation;
+    private static Map<String, Teammate> teammates;
+
 
 
     // Ports to connect on.
@@ -73,6 +77,10 @@ public class KryoClient extends Listener {
         client.sendUDP(packetSendPlayerMovement);
     }
 
+    public void sendPacketRequestAllPlayersConnected() {
+
+    }
+
     // Run this method when client receives any packet from the server.
     public void received(Connection c, Object p) {
         if (p instanceof PacketMessage) {
@@ -108,5 +116,15 @@ public class KryoClient extends Listener {
                 teammateRotation = packet.playerRotation;
             }
         }
+    }
+
+    /**
+     * Add teammate to teammates hashmap.
+     *
+     * @param teammateNickname nickname of the teammate
+     * @param teammate teammate object to add
+     */
+    public void addTeammate(String teammateNickname, Teammate teammate) {
+        if (!teammates.containsKey(teammateNickname)) teammates.put(teammateNickname, teammate);
     }
 }

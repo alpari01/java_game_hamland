@@ -92,8 +92,12 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         }
 
         // If player's nickname is unique -> proceed and show menu screen.
-        if (KryoClient.isNicknameUnique)
+        if (KryoClient.isNicknameUnique) {
             gameClient.setScreen(new MenuScreen(gameClient));
+
+            // When client has connected to the server -> send packet to discover if there are any players on the server already.
+            gameClient.client.sendPacketRequestAllPlayersConnected();
+        }
 
         if (!KryoClient.isNicknameUnique) {
             nickname = null;
