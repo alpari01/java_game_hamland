@@ -14,6 +14,8 @@ import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.objects.Zombie;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class PlayScreen implements Screen {
@@ -37,7 +39,7 @@ public class PlayScreen implements Screen {
 
     // Objects
     private Player player;
-    private Teammate teammate;
+//    private Teammate teammate;
     private Zombie zombie;
     private Octopus octopus;
     private Bullet bullet;
@@ -58,10 +60,15 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-        teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+//        teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
         zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5, 5);
         octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3, 5);
         bullet = new Bullet(bulletTexture, 100, 100, 50, 50);
+
+        for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
+            gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
+        }
+        System.out.println(gameClient.client.getTeammates());
     }
 
     @Override
@@ -111,8 +118,7 @@ public class PlayScreen implements Screen {
             }
         }
 
-        updateTeammatePosition(); // update teammate position
-        teammate.draw(batch); // draw teammate
+        updateTeammatePosition(); // update teammates' positions
 
         batch.end(); // end
     }
@@ -135,8 +141,15 @@ public class PlayScreen implements Screen {
      * Change the position of another player (works in the loop).
      */
     public void updateTeammatePosition() {
-        teammate.polygon.setPosition(KryoClient.teammatePositionX, KryoClient.teammatePositionY);
-        teammate.polygon.setRotation(KryoClient.teammateRotation);
+//        teammate.polygon.setPosition(KryoClient.teammatePositionX, KryoClient.teammatePositionY);
+//        teammate.polygon.setRotation(KryoClient.teammateRotation);
+//        teammate.draw(batch); // draw teammate
+
+        for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
+            if (gameClient.client.getTeammates().get(teammateNickname) != null) {
+                gameClient.client.getTeammates().get(teammateNickname).draw(batch);
+            }
+        }
     }
 
     @Override

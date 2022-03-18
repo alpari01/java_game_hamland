@@ -1,6 +1,5 @@
 package com.mygdx.game.client;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -20,9 +19,11 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
-    public static float teammatePositionX = 50f;
-    public static float teammatePositionY = 50f;
-    public static float teammateRotation;
+
+//    public static String teammateNickname;
+//    public static float teammatePositionX = 50f;
+//    public static float teammatePositionY = 50f;
+//    public static float teammateRotation;
     public static Map<String, Teammate> teammates = new HashMap<>();
 
 
@@ -43,6 +44,10 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketRequestConnectedPlayers.class);
         client.getKryo().register(java.util.ArrayList.class);
         client.getKryo().register(PacketPlayerConnected.class);
+    }
+
+    public Map<String, Teammate> getTeammates() {
+        return teammates;
     }
 
     /**
@@ -118,9 +123,10 @@ public class KryoClient extends Listener {
 
             // Takes only other player's coordinates.
             if (!packet.playerNickname.equals(nickname)) {
-                teammatePositionX = packet.playerPositionX;
-                teammatePositionY = packet.playerPositionY;
-                teammateRotation = packet.playerRotation;
+                if (teammates.get(packet.playerNickname) != null) {
+                    teammates.get(packet.playerNickname).polygon.setPosition(packet.playerPositionX, packet.playerPositionY);
+                    teammates.get(packet.playerNickname).polygon.setRotation(packet.playerRotation);
+                }
             }
         }
 
