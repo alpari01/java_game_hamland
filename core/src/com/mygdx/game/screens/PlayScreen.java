@@ -68,7 +68,6 @@ public class PlayScreen implements Screen {
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
         }
-        System.out.println(gameClient.client.getTeammates());
     }
 
     @Override
