@@ -1,9 +1,7 @@
 package com.mygdx.game.packets;
 
-import com.mygdx.game.objects.Player;
-
-import java.util.Map;
+import java.util.List;
 
 public class PacketRequestConnectedPlayers {
-    public Map<String, Player> allPlayers;
+    public List<String> allPlayers;
 }

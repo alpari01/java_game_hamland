@@ -1,5 +1,6 @@
 package com.mygdx.game.client;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -8,6 +9,8 @@ import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -20,7 +23,7 @@ public class KryoClient extends Listener {
     public static float teammatePositionX = 50f;
     public static float teammatePositionY = 50f;
     public static float teammateRotation;
-    private static Map<String, Teammate> teammates;
+    public static Map<String, Teammate> teammates = new HashMap<>();
 
 
 
@@ -38,6 +41,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketSendPlayerMovement.class);
         client.getKryo().register(PacketUpdatePlayers.class);
         client.getKryo().register(PacketRequestConnectedPlayers.class);
+        client.getKryo().register(java.util.ArrayList.class);
     }
 
     /**
@@ -78,7 +82,9 @@ public class KryoClient extends Listener {
     }
 
     public void sendPacketRequestAllPlayersConnected() {
-
+        PacketRequestConnectedPlayers packetRequestConnectedPlayers = new PacketRequestConnectedPlayers();
+        packetRequestConnectedPlayers.allPlayers = new ArrayList<>();
+        client.sendTCP(packetRequestConnectedPlayers);
     }
 
     // Run this method when client receives any packet from the server.
@@ -105,7 +111,7 @@ public class KryoClient extends Listener {
             }
         }
 
-        // Server update players' position packet.
+        // Update players' position packet.
         if (p instanceof PacketUpdatePlayers) {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
 
@@ -116,15 +122,30 @@ public class KryoClient extends Listener {
                 teammateRotation = packet.playerRotation;
             }
         }
+
+        // Receive all players that are connected to ths server.
+        if (p instanceof PacketRequestConnectedPlayers) {
+            PacketRequestConnectedPlayers packet = (PacketRequestConnectedPlayers) p;
+
+            for (String teammateNickname : packet.allPlayers) {
+                if (!teammateNickname.equals(nickname)) {
+                    // If players nickname is not the same as this player's nickname (we cannot be a teammate of ourselves :D)
+                    addTeammate(teammateNickname);
+                }
+            }
+        }
     }
 
     /**
      * Add teammate to teammates hashmap.
      *
      * @param teammateNickname nickname of the teammate
-     * @param teammate teammate object to add
      */
-    public void addTeammate(String teammateNickname, Teammate teammate) {
-        if (!teammates.containsKey(teammateNickname)) teammates.put(teammateNickname, teammate);
+    public void addTeammate(String teammateNickname) {
+        if (!teammates.containsKey(teammateNickname)) {
+            teammates.put(teammateNickname, null);
+
+            System.out.println("Teammates " + teammates);
+        }
     }
 }
