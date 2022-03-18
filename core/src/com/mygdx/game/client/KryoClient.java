@@ -44,6 +44,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketRequestConnectedPlayers.class);
         client.getKryo().register(java.util.ArrayList.class);
         client.getKryo().register(PacketPlayerConnected.class);
+        client.getKryo().register(PacketPlayerDisconnected.class);
     }
 
     public Map<String, Teammate> getTeammates() {
@@ -150,6 +151,12 @@ public class KryoClient extends Listener {
                 addTeammate(packet.teammateNickname);
             }
         }
+
+        // Receive if someone disconnects from the server.
+        if (p instanceof PacketPlayerDisconnected) {
+            PacketPlayerDisconnected packet = (PacketPlayerDisconnected) p;
+            removeTeammate(packet.disconnectedPlayerNickname);
+        }
     }
 
     /**
@@ -160,8 +167,15 @@ public class KryoClient extends Listener {
     public void addTeammate(String teammateNickname) {
         if (!teammates.containsKey(teammateNickname)) {
             teammates.put(teammateNickname, null);
-
-            System.out.println(nickname + "'s teammates: " + teammates);
         }
+    }
+
+    /**
+     * Remove teammate from player's teammates.
+     *
+     * @param teammateNickname teammate to remove
+     */
+    public void removeTeammate(String teammateNickname) {
+        teammates.remove(teammateNickname);
     }
 }
