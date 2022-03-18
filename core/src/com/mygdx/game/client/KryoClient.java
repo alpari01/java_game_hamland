@@ -3,13 +3,14 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.mygdx.game.packets.PacketCheckPlayerNicknameUnique;
-import com.mygdx.game.packets.PacketMessage;
-import com.mygdx.game.packets.PacketSendPlayerMovement;
-import com.mygdx.game.packets.PacketUpdatePlayers;
+import com.mygdx.game.objects.Teammate;
+import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class KryoClient extends Listener {
@@ -18,9 +19,13 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
-    public static float teammatePositionX = 50f;
-    public static float teammatePositionY = 50f;
-    public static float teammateRotation;
+
+//    public static String teammateNickname;
+//    public static float teammatePositionX = 50f;
+//    public static float teammatePositionY = 50f;
+//    public static float teammateRotation;
+    public static Map<String, Teammate> teammates = new HashMap<>();
+
 
 
     // Ports to connect on.
@@ -36,6 +41,13 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketCheckPlayerNicknameUnique.class);
         client.getKryo().register(PacketSendPlayerMovement.class);
         client.getKryo().register(PacketUpdatePlayers.class);
+        client.getKryo().register(PacketRequestConnectedPlayers.class);
+        client.getKryo().register(java.util.ArrayList.class);
+        client.getKryo().register(PacketPlayerConnected.class);
+    }
+
+    public Map<String, Teammate> getTeammates() {
+        return teammates;
     }
 
     /**
@@ -75,6 +87,12 @@ public class KryoClient extends Listener {
         client.sendUDP(packetSendPlayerMovement);
     }
 
+    public void sendPacketRequestAllPlayersConnected() {
+        PacketRequestConnectedPlayers packetRequestConnectedPlayers = new PacketRequestConnectedPlayers();
+        packetRequestConnectedPlayers.allPlayers = new ArrayList<>();
+        client.sendTCP(packetRequestConnectedPlayers);
+    }
+
     // Run this method when client receives any packet from the server.
     public void received(Connection c, Object p) {
         if (p instanceof PacketMessage) {
@@ -99,16 +117,51 @@ public class KryoClient extends Listener {
             }
         }
 
-        // Server update players' position packet.
+        // Update players' position packet.
         if (p instanceof PacketUpdatePlayers) {
             PacketUpdatePlayers packet = (PacketUpdatePlayers) p;
 
             // Takes only other player's coordinates.
             if (!packet.playerNickname.equals(nickname)) {
-                teammatePositionX = packet.playerPositionX;
-                teammatePositionY = packet.playerPositionY;
-                teammateRotation = packet.playerRotation;
+                if (teammates.get(packet.playerNickname) != null) {
+                    teammates.get(packet.playerNickname).polygon.setPosition(packet.playerPositionX, packet.playerPositionY);
+                    teammates.get(packet.playerNickname).polygon.setRotation(packet.playerRotation);
+                }
             }
+        }
+
+        // Receive all players that are connected to the server. We use this packet to discover all players.
+        if (p instanceof PacketRequestConnectedPlayers) {
+            PacketRequestConnectedPlayers packet = (PacketRequestConnectedPlayers) p;
+
+            for (String teammateNickname : packet.allPlayers) {
+                if (!teammateNickname.equals(nickname)) {
+                    // If players nickname is not the same as this player's nickname (we cannot be a teammate of ourselves :D)
+                    addTeammate(teammateNickname);
+                }
+            }
+        }
+
+        // Receive if someone connects to the server after us. We use this packet for others to discover us.
+        if (p instanceof PacketPlayerConnected) {
+            PacketPlayerConnected packet = (PacketPlayerConnected) p;
+
+            if (!packet.teammateNickname.equals(nickname)) {
+                addTeammate(packet.teammateNickname);
+            }
+        }
+    }
+
+    /**
+     * Add teammate to teammates hashmap.
+     *
+     * @param teammateNickname nickname of the teammate
+     */
+    public void addTeammate(String teammateNickname) {
+        if (!teammates.containsKey(teammateNickname)) {
+            teammates.put(teammateNickname, null);
+
+            System.out.println(nickname + "'s teammates: " + teammates);
         }
     }
 }
