@@ -87,8 +87,18 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
         // If nickname is entered
         if (nickname != null) {
+            if (nickname.trim().length() == 0) {
+                // Check if nickname is not 'spaces only'.
+                System.out.println("Nickname cannot contain only 'spaces'.");
+                isWindowOpened = false;
+            } else if (nickname.trim().length() < 3) {
+                // Check if nickname is longer that 3 characters.
+                System.out.println("Nickname must be longer than 2 characters.");
+                isWindowOpened = false;
+            }
+
             // Send a request to the server to check if player's nickname is unique.
-            gameClient.client.sendPacketCheckNickname(nickname);
+            else gameClient.client.sendPacketCheckNickname(nickname);
         }
 
         // If player's nickname is unique -> proceed and show menu screen.
