@@ -42,6 +42,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketUpdatePlayers.class);
         client.getKryo().register(PacketRequestConnectedPlayers.class);
         client.getKryo().register(java.util.ArrayList.class);
+        client.getKryo().register(PacketPlayerConnected.class);
     }
 
     /**
@@ -123,7 +124,7 @@ public class KryoClient extends Listener {
             }
         }
 
-        // Receive all players that are connected to ths server.
+        // Receive all players that are connected to the server. We use this packet to discover all players.
         if (p instanceof PacketRequestConnectedPlayers) {
             PacketRequestConnectedPlayers packet = (PacketRequestConnectedPlayers) p;
 
@@ -132,6 +133,15 @@ public class KryoClient extends Listener {
                     // If players nickname is not the same as this player's nickname (we cannot be a teammate of ourselves :D)
                     addTeammate(teammateNickname);
                 }
+            }
+        }
+
+        // Receive if someone connects to the server after us. We use this packet for others to discover us.
+        if (p instanceof PacketPlayerConnected) {
+            PacketPlayerConnected packet = (PacketPlayerConnected) p;
+
+            if (!packet.teammateNickname.equals(nickname)) {
+                addTeammate(packet.teammateNickname);
             }
         }
     }
@@ -145,7 +155,7 @@ public class KryoClient extends Listener {
         if (!teammates.containsKey(teammateNickname)) {
             teammates.put(teammateNickname, null);
 
-            System.out.println("Teammates " + teammates);
+            System.out.println(nickname + "'s teammates: " + teammates);
         }
     }
 }
