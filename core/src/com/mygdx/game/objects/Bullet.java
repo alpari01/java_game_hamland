@@ -35,10 +35,10 @@ public class Bullet extends GameObject {
         if (isShot) {
             super.draw(batch);
         } else if (ammo > 0) {
-            batch.draw(ammoTexture, player.polygon.getX() - 620, player.polygon.getY() - 300, 100, 100);
+            batch.draw(ammoTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
         }
-        batch.draw(ammoWhiteTexture, player.polygon.getX() - 620, player.polygon.getY() - 300, 100, 100);
-        font.draw(batch, "x" + ammo, player.polygon.getX() - 570, player.polygon.getY() - 300);
+        batch.draw(ammoWhiteTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
+        font.draw(batch, "x" + ammo, player.polygon.getX() - 520, player.polygon.getY() - 250);
     }
 
     public void shot(Octopus octopus, Zombie zombie, float delta) {

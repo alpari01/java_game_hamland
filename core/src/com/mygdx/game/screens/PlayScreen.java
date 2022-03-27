@@ -81,7 +81,7 @@ public class PlayScreen implements Screen {
 
         batch.begin(); // start
 
-        camera.position.set(player.polygon.getX(), player.polygon.getY(), 0);
+        camera.position.set(player.polygon.getX() + 50, player.polygon.getY() + 50, 0);
         camera.update();
 
         detectInput(); // send packet
