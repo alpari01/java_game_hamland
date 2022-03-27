@@ -85,7 +85,7 @@ public class PlayScreen implements Screen {
         camera.update();
 
         detectInput(); // send packet
-        player.draw(batch); // draw player
+        player.draw(batch, bullet); // draw player
 
         octopus.draw(batch, delta, player);
         zombie.draw(batch, delta, player);

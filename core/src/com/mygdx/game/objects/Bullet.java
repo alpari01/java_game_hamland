@@ -13,11 +13,15 @@ public class Bullet extends GameObject {
     public boolean isShot;
     private float bulletRotation;
 
-    private float time = 0;
+    private float timeShot = 0;
+    private float timeReload = 0;
 
     private int ammo = 30;
+    private int ammoTotal = 60;
+    private boolean isReload;
 
-    private final BitmapFont font = new BitmapFont();
+    private final BitmapFont ammoFont = new BitmapFont();
+    private final BitmapFont reloadFont = new BitmapFont();
 
     private Texture ammoTexture = new Texture("ammo1.png");
     private Texture ammoWhiteTexture = new Texture("ammo2.png");
@@ -25,35 +29,60 @@ public class Bullet extends GameObject {
     public Bullet(Texture texture, float x, float y, float width, float height, Player player) {
         super(texture, x, y, width, height);
         this.player = player;
-        font.setColor(0, 0, 0, 1);
-        font.getData().setScale(2);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        ammoFont.setColor(0, 0, 0, 1);
+        ammoFont.getData().setScale(2);
+        ammoFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        reloadFont.setColor(1, 0, 0, 1);
+        reloadFont.getData().setScale(2);
+        reloadFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         if (isShot) {
             super.draw(batch);
-        } else if (ammo > 0) {
+        } else if (ammo > 0 && !isReload) {
             batch.draw(ammoTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
         }
         batch.draw(ammoWhiteTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
-        font.draw(batch, "x" + ammo, player.polygon.getX() - 520, player.polygon.getY() - 250);
+        ammoFont.draw(batch, ammo + " / " + ammoTotal, player.polygon.getX() - 560, player.polygon.getY() - 260);
+
+        if (isReload) {
+            reloadFont.draw(batch, "reload: " + (3 - (int) Math.floor(timeReload)), player.polygon.getX() - 570, player.polygon.getY() - 200);
+        }
     }
 
     public void shot(Octopus octopus, Zombie zombie, float delta) {
 
-        if (Gdx.input.isTouched() && !isShot && ammo > 0) {
-            polygon.setPosition(player.polygon.getX() + polygon.getOriginX(), player.polygon.getY() + polygon.getOriginX());
-            bulletRotation = player.polygon.getRotation() + 90;
-            isShot = true;
-            ammo--;
+        if (!isReload) {
+
+            if (Gdx.input.isTouched() && !isShot && ammo > 0) {
+                polygon.setPosition(player.polygon.getX() + polygon.getOriginX(), player.polygon.getY() + polygon.getOriginX());
+                bulletRotation = player.polygon.getRotation() + 90;
+                isShot = true;
+                ammo--;
+            }
+
+        } else {
+            timeReload += delta;
+
+            if (timeReload > 3) {
+                timeReload = 0;
+                isReload = false;
+                if (ammoTotal >= 30 - ammo) {
+                    ammoTotal -= (30 - ammo);
+                    ammo = 30;
+                } else {
+                    ammo += ammoTotal;
+                    ammoTotal = 0;
+                }
+            }
         }
 
         if (isShot) {
-            time += delta;
-            if (time > 0.5) {
-                time = 0;
+            timeShot += delta;
+            if (timeShot > 0.5) {
+                timeShot = 0;
                 isShot = false;
             }
         }
@@ -75,6 +104,10 @@ public class Bullet extends GameObject {
             polygon.setPosition(9999999, 9999999);
             zombie.setHp(zombie.getHp() - 1);
         }
+    }
+
+    public void setReload(boolean reload) {
+        isReload = reload;
     }
 }
 
