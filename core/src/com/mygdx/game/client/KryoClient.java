@@ -3,6 +3,7 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.objects.Enemy;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
@@ -20,13 +21,8 @@ public class KryoClient extends Listener {
     public boolean isToServerConnected = false;
     public static String nickname;
 
-//    public static String teammateNickname;
-//    public static float teammatePositionX = 50f;
-//    public static float teammatePositionY = 50f;
-//    public static float teammateRotation;
     public static Map<String, Teammate> teammates = new HashMap<>();
-
-
+    public static Map<Integer, Enemy> enemies = new HashMap<>();
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -45,6 +41,8 @@ public class KryoClient extends Listener {
         client.getKryo().register(java.util.ArrayList.class);
         client.getKryo().register(PacketPlayerConnected.class);
         client.getKryo().register(PacketPlayerDisconnected.class);
+        client.getKryo().register(PacketUpdateMobs.class);
+        client.getKryo().register(java.util.HashMap.class);
     }
 
     public Map<String, Teammate> getTeammates() {
