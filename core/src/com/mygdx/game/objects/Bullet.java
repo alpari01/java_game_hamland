@@ -2,34 +2,52 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
 
 public class Bullet extends GameObject {
+
+    private final Player player;
 
     public boolean isShot;
     private float bulletRotation;
 
     private float time = 0;
 
-    public Bullet(Texture texture, float x, float y, float width, float height) {
+    private int ammo = 30;
+
+    private final BitmapFont font = new BitmapFont();
+
+    private Texture ammoTexture = new Texture("ammo1.png");
+    private Texture ammoWhiteTexture = new Texture("ammo2.png");
+
+    public Bullet(Texture texture, float x, float y, float width, float height, Player player) {
         super(texture, x, y, width, height);
+        this.player = player;
+        font.setColor(0, 0, 0, 1);
+        font.getData().setScale(2);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         if (isShot) {
             super.draw(batch);
+        } else if (ammo > 0) {
+            batch.draw(ammoTexture, player.polygon.getX() - 620, player.polygon.getY() - 300, 100, 100);
         }
+        batch.draw(ammoWhiteTexture, player.polygon.getX() - 620, player.polygon.getY() - 300, 100, 100);
+        font.draw(batch, "x" + ammo, player.polygon.getX() - 570, player.polygon.getY() - 300);
     }
 
-    public void shot(Polygon playerPolygon, Octopus octopus, Zombie zombie, float delta) {
+    public void shot(Octopus octopus, Zombie zombie, float delta) {
 
-        if (Gdx.input.isTouched() && !isShot) {
-            polygon.setPosition(playerPolygon.getX() + polygon.getOriginX(), playerPolygon.getY() + polygon.getOriginX());
-            bulletRotation = playerPolygon.getRotation() + 90;
+        if (Gdx.input.isTouched() && !isShot && ammo > 0) {
+            polygon.setPosition(player.polygon.getX() + polygon.getOriginX(), player.polygon.getY() + polygon.getOriginX());
+            bulletRotation = player.polygon.getRotation() + 90;
             isShot = true;
+            ammo--;
         }
 
         if (isShot) {

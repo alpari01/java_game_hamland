@@ -14,8 +14,6 @@ import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.objects.Zombie;
 
-import java.util.Random;
-
 public class PlayScreen implements Screen {
 
     private final GameClient gameClient;
@@ -41,15 +39,11 @@ public class PlayScreen implements Screen {
     private Octopus octopus;
     private Bullet bullet;
 
-    private float time = 0;
-    private Random random;
-
+    // Camera
     private OrthographicCamera camera;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
-
-        random = new Random();
 
         // Textures
         playerTexture = new Texture("player1.png");
@@ -61,12 +55,13 @@ public class PlayScreen implements Screen {
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
         zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5, 5);
         octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3, 5);
-        bullet = new Bullet(bulletTexture, 100, 100, 50, 50);
+        bullet = new Bullet(bulletTexture, 100, 100, 50, 50, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
         }
 
+        // Camera
         camera = new OrthographicCamera(player.polygon.getX(), player.polygon.getY());
         camera.setToOrtho(false);
     }
@@ -92,15 +87,15 @@ public class PlayScreen implements Screen {
         detectInput(); // send packet
         player.draw(batch); // draw player
 
-        bullet.shot(player.polygon, octopus, zombie, delta);
-        bullet.draw(batch);
-
         octopus.draw(batch, delta, player);
         zombie.draw(batch, delta, player);
 
+        bullet.shot(octopus, zombie, delta); // shot bullet
+        bullet.draw(batch); //draw bullet
+
         updateTeammatePosition(); // update teammates' positions
 
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);  // camera
 
         batch.end(); // end
     }
