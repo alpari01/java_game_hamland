@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
@@ -43,6 +44,8 @@ public class PlayScreen implements Screen {
     private float time = 0;
     private Random random;
 
+    private OrthographicCamera camera;
+
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
 
@@ -63,6 +66,9 @@ public class PlayScreen implements Screen {
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
         }
+
+        camera = new OrthographicCamera(player.polygon.getX(), player.polygon.getY());
+        camera.setToOrtho(false);
     }
 
     @Override
@@ -80,18 +86,21 @@ public class PlayScreen implements Screen {
 
         batch.begin(); // start
 
+        camera.position.set(player.polygon.getX(), player.polygon.getY(), 0);
+        camera.update();
+
         detectInput(); // send packet
         player.draw(batch); // draw player
 
-        bullet.shot(player.polygon, octopus, zombie);
-        if (bullet.isShot) {
-            bullet.draw(batch);
-        }
+        bullet.shot(player.polygon, octopus, zombie, delta);
+        bullet.draw(batch);
 
         octopus.draw(batch, delta, player);
         zombie.draw(batch, delta, player);
 
         updateTeammatePosition(); // update teammates' positions
+
+        batch.setProjectionMatrix(camera.combined);
 
         batch.end(); // end
     }
