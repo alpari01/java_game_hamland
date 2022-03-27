@@ -22,8 +22,8 @@ public class PlayScreen implements Screen {
     private float prevRotation;
 
     // Properties
-    public static final int PLAYER_X = 100;
-    public static final int PLAYER_Y = 100;
+    public static final int PLAYER_X = 0;
+    public static final int PLAYER_Y = 0;
     public static final int PLAYER_WIDTH = 100;
     public static final int PLAYER_HEIGHT = 100;
 
@@ -81,7 +81,7 @@ public class PlayScreen implements Screen {
 
         batch.begin(); // start
 
-        camera.position.set(player.polygon.getX() + 50, player.polygon.getY() + 50, 0);
+        camera.position.set(player.polygon.getX() + 50, player.polygon.getY() + 50, 0); // set camera position
         camera.update();
 
         detectInput(); // send packet

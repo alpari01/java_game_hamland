@@ -1,6 +1,5 @@
 package com.mygdx.game.control;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Polygon;
@@ -40,6 +39,7 @@ public class PlayerControl {
             polygon.setPosition(polygon.getX(), polygon.getY() - 1);
         }
 
+        // WEAPON RELOAD
         if (Gdx.input.isKeyPressed(Input.Keys.R)) {
             bullet.setReload(true);
         }

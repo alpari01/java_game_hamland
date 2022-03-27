@@ -27,10 +27,14 @@ public class Enemy extends GameObject {
     public void draw(SpriteBatch batch, float delta, Player player) {
         sprite.setPosition(polygon.getX(), polygon.getY()); // set Sprite position equal to Polygon position
         sprite.setRotation(polygon.getRotation()); // set Sprite rotation around the Polygon center
+
+        // If the enemy is alive, he is drawn on the map and chases the player.
         if (isAlive()) {
             followPlayer(player.polygon);
             sprite.draw(batch);
             font.draw(batch, String.valueOf(hp), polygon.getX(), polygon.getY());
+
+        // If the enemy died, a timer is set, after which he resurrects in a random position.
         } else {
             time += delta;
             if (time > 0.5) {
@@ -41,6 +45,11 @@ public class Enemy extends GameObject {
         }
     }
 
+    /**
+     * Simple AI that chases the specified player.
+     * Changes the position of the enemy based on the position of the player.
+     * @param playerPolygon player polygon.
+     */
     public void followPlayer(Polygon playerPolygon) {
         if (polygon.getX() > playerPolygon.getX()) {
             polygon.setPosition((float) (polygon.getX() - speed), polygon.getY());
