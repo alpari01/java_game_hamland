@@ -51,8 +51,8 @@ public class PlayerControl {
         double result = 0;
 
         // difference between player position and mouse cursor position
-        float x = Gdx.input.getX() - polygon.getX() - polygon.getOriginX();
-        float y = Math.abs(Gdx.input.getY() - GameClient.HEIGHT) - polygon.getY() - polygon.getOriginY();
+        float x = Gdx.input.getX() - (float) GameClient.WIDTH / 2 - polygon.getOriginX();
+        float y = Math.abs(Gdx.input.getY() - GameClient.HEIGHT) - (float) GameClient.HEIGHT / 2 - polygon.getOriginY();
 
         // arc-tangent of the modulus of the ratio of coordinates (in deg)
         double angle = Math.abs(Math.atan(y / x) * 180 / Math.PI);
