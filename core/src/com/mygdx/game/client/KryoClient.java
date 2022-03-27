@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class KryoClient extends Listener {
 
     private final Client client;  // Client object.
@@ -20,13 +19,7 @@ public class KryoClient extends Listener {
     public boolean isToServerConnected = false;
     public static String nickname;
 
-//    public static String teammateNickname;
-//    public static float teammatePositionX = 50f;
-//    public static float teammatePositionY = 50f;
-//    public static float teammateRotation;
     public static Map<String, Teammate> teammates = new HashMap<>();
-
-
 
     // Ports to connect on.
     static int tcpPort = 27960;

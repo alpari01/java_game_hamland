@@ -1,10 +1,10 @@
 package com.mygdx.game.control;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Polygon;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.objects.Bullet;
 
 public class PlayerControl {
 
@@ -17,7 +17,7 @@ public class PlayerControl {
     /**
      * Change the position of the player according to the pressed button.
      */
-    public void handle() {
+    public void handle(Bullet bullet) {
 
         // RIGHT
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -37,6 +37,11 @@ public class PlayerControl {
         // DOWN
         if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             polygon.setPosition(polygon.getX(), polygon.getY() - 1);
+        }
+
+        // WEAPON RELOAD
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            bullet.setReload(true);
         }
 
         // ROTATE TOWARDS MOUSE CURSOR

@@ -13,9 +13,8 @@ public class Player extends GameObject {
         playerControl = new PlayerControl(polygon);
     }
 
-    @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, Bullet bullet) {
         super.draw(batch);
-        playerControl.handle();
+        playerControl.handle(bullet);
     }
 }
