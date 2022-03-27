@@ -7,15 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
-import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Bullet;
 import com.mygdx.game.objects.Octopus;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.objects.Zombie;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class PlayScreen implements Screen {
@@ -39,7 +36,6 @@ public class PlayScreen implements Screen {
 
     // Objects
     private Player player;
-//    private Teammate teammate;
     private Zombie zombie;
     private Octopus octopus;
     private Bullet bullet;
@@ -60,7 +56,6 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-//        teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
         zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5, 5);
         octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3, 5);
         bullet = new Bullet(bulletTexture, 100, 100, 50, 50);
@@ -93,29 +88,8 @@ public class PlayScreen implements Screen {
             bullet.draw(batch);
         }
 
-        if (octopus.isAlive()) {
-            octopus.followPlayer(player.polygon);
-            octopus.draw(batch);
-        } else {
-            time += delta;
-            if (time > 0.5) {
-                octopus.setHp(5);
-                octopus.polygon.setPosition(random.nextInt(GameClient.WIDTH), random.nextInt(GameClient.HEIGHT));
-                time = 0;
-            }
-        }
-
-        if (zombie.isAlive()) {
-            zombie.followPlayer(player.polygon);
-            zombie.draw(batch);
-        } else {
-            time += delta;
-            if (time > 0.5) {
-                zombie.setHp(5);
-                zombie.polygon.setPosition(random.nextInt(GameClient.WIDTH), random.nextInt(GameClient.HEIGHT));
-                time = 0;
-            }
-        }
+        octopus.draw(batch, delta, player);
+        zombie.draw(batch, delta, player);
 
         updateTeammatePosition(); // update teammates' positions
 
@@ -140,10 +114,6 @@ public class PlayScreen implements Screen {
      * Change the position of another player (works in the loop).
      */
     public void updateTeammatePosition() {
-//        teammate.polygon.setPosition(KryoClient.teammatePositionX, KryoClient.teammatePositionY);
-//        teammate.polygon.setRotation(KryoClient.teammateRotation);
-//        teammate.draw(batch); // draw teammate
-
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             if (gameClient.client.getTeammates().get(teammateNickname) != null) {
                 gameClient.client.getTeammates().get(teammateNickname).draw(batch);
