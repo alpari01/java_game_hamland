@@ -1,6 +1,7 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.mygdx.game.GameClient;
@@ -14,11 +15,13 @@ public class Enemy extends GameObject {
 
     private float time = 0;
     private final Random random = new Random();
+    private final BitmapFont font = new BitmapFont();
 
     public Enemy(Texture texture, float x, float y, float width, float height, double speed, int hp) {
         super(texture, x, y, width, height);
         this.speed = speed;
         this.hp = hp;
+        font.setColor(1, 0, 0, 1);
     }
 
     public void draw(SpriteBatch batch, float delta, Player player) {
@@ -27,6 +30,7 @@ public class Enemy extends GameObject {
         if (isAlive()) {
             followPlayer(player.polygon);
             sprite.draw(batch);
+            font.draw(batch, String.valueOf(hp), polygon.getX(), polygon.getY());
         } else {
             time += delta;
             if (time > 0.5) {
