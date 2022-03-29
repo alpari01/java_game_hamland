@@ -92,7 +92,7 @@ public class PlayScreen implements Screen {
         detectInput(); // send packet
         player.draw(batch); // draw player
 
-//        bullet.shot(player.polygon, octopus, zombie, delta);
+        bullet.shot(player.polygon, enemies, delta);
         bullet.draw(batch);
 
 //        octopus.draw(batch, delta, player);
@@ -191,7 +191,7 @@ public class PlayScreen implements Screen {
         // Clear memory when game is off
         batch.dispose();
         playerTexture.dispose();
-//        zombieTexture.dispose();
+        zombieTexture.dispose();
         octopusTexture.dispose();
         bulletTexture.dispose();
         gameClient.dispose();

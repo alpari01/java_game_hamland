@@ -182,7 +182,6 @@ public class KryoClient extends Listener {
                     enemiesData.put(mobId, mobNewData);
                 }
             }
-            System.out.println("x: " + packet.allEnemies.get(0)[0] + " y: " + packet.allEnemies.get(0)[1] + " type: " + packet.allEnemies.get(0)[2]);
         }
     }
 
