@@ -2,6 +2,6 @@ package com.mygdx.game.packets;
 
 import java.util.Map;
 
-public class PacketUpdateMobs {
+public class PacketUpdateMobsPos {
     public Map<Integer, float[]> allEnemies;
 }

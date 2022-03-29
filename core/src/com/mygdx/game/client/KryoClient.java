@@ -22,7 +22,7 @@ public class KryoClient extends Listener {
     public static String nickname;
 
     public static Map<String, Teammate> teammates = new HashMap<>();
-    public static Map<Integer, Enemy> enemies = new HashMap<>();
+    public static Map<Integer, float[]> enemiesData = new HashMap<>();
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -41,12 +41,17 @@ public class KryoClient extends Listener {
         client.getKryo().register(java.util.ArrayList.class);
         client.getKryo().register(PacketPlayerConnected.class);
         client.getKryo().register(PacketPlayerDisconnected.class);
-        client.getKryo().register(PacketUpdateMobs.class);
+        client.getKryo().register(PacketUpdateMobsPos.class);
         client.getKryo().register(java.util.HashMap.class);
+        client.getKryo().register(float[].class);
     }
 
     public Map<String, Teammate> getTeammates() {
         return teammates;
+    }
+
+    public Map<Integer, float[]> getEnemiesData() {
+        return enemiesData;
     }
 
     /**
@@ -154,6 +159,30 @@ public class KryoClient extends Listener {
         if (p instanceof PacketPlayerDisconnected) {
             PacketPlayerDisconnected packet = (PacketPlayerDisconnected) p;
             removeTeammate(packet.disconnectedPlayerNickname);
+        }
+
+        // Receive packet that updates all mobs' positions.
+        if (p instanceof PacketUpdateMobsPos) {
+            PacketUpdateMobsPos packet = (PacketUpdateMobsPos) p;
+
+            // Iterate through updated mobs received from the server.
+            for (int mobId : packet.allEnemies.keySet()) {
+                float mobPosX = packet.allEnemies.get(mobId)[0];
+                float mobPosY = packet.allEnemies.get(mobId)[1];
+                float mobType = packet.allEnemies.get(mobId)[2];
+                if (!enemiesData.containsKey(mobId)) {
+                    // If there is no mob with this ID added yet -> create new key and new float array.
+                    enemiesData.put(mobId, new float[]{mobPosX, mobPosY, mobType});
+                }
+                else {
+                    // If mob is already added -> simply update it's data.
+                    float[] mobNewData = enemiesData.get(mobId);
+                    mobNewData[0] = mobPosX;
+                    mobNewData[1] = mobPosY;
+                    enemiesData.put(mobId, mobNewData);
+                }
+            }
+            System.out.println("x: " + packet.allEnemies.get(0)[0] + " y: " + packet.allEnemies.get(0)[1] + " type: " + packet.allEnemies.get(0)[2]);
         }
     }
 

@@ -10,16 +10,14 @@ import java.util.Random;
 
 public class Enemy extends GameObject {
 
-    private final double speed;
     private int hp;
 
     private float time = 0;
     private final Random random = new Random();
     private final BitmapFont font = new BitmapFont();
 
-    public Enemy(Texture texture, float x, float y, float width, float height, double speed, int hp) {
+    public Enemy(Texture texture, float x, float y, float width, float height, int hp) {
         super(texture, x, y, width, height);
-        this.speed = speed;
         this.hp = hp;
         font.setColor(1, 0, 0, 1);
     }
@@ -28,7 +26,7 @@ public class Enemy extends GameObject {
         sprite.setPosition(polygon.getX(), polygon.getY()); // set Sprite position equal to Polygon position
         sprite.setRotation(polygon.getRotation()); // set Sprite rotation around the Polygon center
         if (isAlive()) {
-            followPlayer(player.polygon);
+//            followPlayer(player.polygon);
             sprite.draw(batch);
             font.draw(batch, String.valueOf(hp), polygon.getX(), polygon.getY());
         } else {
@@ -41,20 +39,20 @@ public class Enemy extends GameObject {
         }
     }
 
-    public void followPlayer(Polygon playerPolygon) {
-        if (polygon.getX() > playerPolygon.getX()) {
-            polygon.setPosition((float) (polygon.getX() - speed), polygon.getY());
-        }
-        if (polygon.getX() < playerPolygon.getX()) {
-            polygon.setPosition((float) (polygon.getX() + speed), polygon.getY());
-        }
-        if (polygon.getY() > playerPolygon.getY()) {
-            polygon.setPosition(polygon.getX(), (float) (polygon.getY() - speed));
-        }
-        if (polygon.getY() < playerPolygon.getY()) {
-            polygon.setPosition(polygon.getX(), (float) (polygon.getY() + speed));
-        }
-    }
+//    public void followPlayer(Polygon playerPolygon) {
+//        if (polygon.getX() > playerPolygon.getX()) {
+//            polygon.setPosition((float) (polygon.getX() - speed), polygon.getY());
+//        }
+//        if (polygon.getX() < playerPolygon.getX()) {
+//            polygon.setPosition((float) (polygon.getX() + speed), polygon.getY());
+//        }
+//        if (polygon.getY() > playerPolygon.getY()) {
+//            polygon.setPosition(polygon.getX(), (float) (polygon.getY() - speed));
+//        }
+//        if (polygon.getY() < playerPolygon.getY()) {
+//            polygon.setPosition(polygon.getX(), (float) (polygon.getY() + speed));
+//        }
+//    }
 
     public boolean isAlive() {
         return hp > 0;
