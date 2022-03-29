@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Bullet extends GameObject {
@@ -27,12 +29,26 @@ public class Bullet extends GameObject {
     private final BitmapFont reloadFont = new BitmapFont();
 
     // Textures
-    private Texture ammoTexture = new Texture("ammo1.png");
-    private Texture ammoWhiteTexture = new Texture("ammo2.png");
+    private final Texture ammoTexture = new Texture("ammo1.png");
+    private final Texture ammoWhiteTexture = new Texture("ammo2.png");
+    private final TextureAtlas explosionAtlas;
+    private final TextureRegion[] textureRegions;
+
+    private boolean isHit;
+    private float timeHit = 0;
+    private int explosionTextureIndex = 0;
+    private float x = 0, y = 0;
 
     public Bullet(Texture texture, float x, float y, float width, float height, Player player) {
         super(texture, x, y, width, height);
         this.player = player;
+
+        explosionAtlas = new TextureAtlas("explosion.atlas");
+
+        textureRegions = new TextureRegion[40];
+        for (int i = 0; i < 40; i++) {
+            textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));
+        }
 
         // Font settings
         ammoFont.setColor(0, 0, 0, 1); // color
@@ -65,7 +81,7 @@ public class Bullet extends GameObject {
      * @param zombie zombie
      * @param delta delta time.
      */
-    public void shot(Octopus octopus, Zombie zombie, float delta) {
+    public void shot(Octopus octopus, Zombie zombie, float delta, SpriteBatch batch) {
 
         // If it's not reloading now, you can shoot.
         if (!isReload) {
@@ -115,8 +131,13 @@ public class Bullet extends GameObject {
 
         // If a bullet hits a mob, the mob loses one health point.
         // The position of the bullet is replaced by a very large one that it did not damage.
+        // Bullet coordinates are saved for drawing an explosion in it.
         if (isShot && polygon.getX() > octopus.polygon.getX() && polygon.getX() < octopus.polygon.getX() + 100f &&
                 polygon.getY() > octopus.polygon.getY() && polygon.getY() < octopus.polygon.getY() + 100f) {
+            explosionTextureIndex = 0;
+            x = polygon.getX();
+            y = polygon.getY();
+            isHit = true;
             polygon.setPosition(9999999, 9999999);
             octopus.setHp(octopus.getHp() - 1);
         }
@@ -124,8 +145,26 @@ public class Bullet extends GameObject {
         // Same for another type of mob.
         if (isShot && polygon.getX() > zombie.polygon.getX() && polygon.getX() < zombie.polygon.getX() + 100f &&
                 polygon.getY() > zombie.polygon.getY() && polygon.getY() < zombie.polygon.getY() + 100f) {
+            explosionTextureIndex = 0;
+            x = polygon.getX();
+            y = polygon.getY();
+            isHit = true;
             polygon.setPosition(9999999, 9999999);
             zombie.setHp(zombie.getHp() - 1);
+        }
+
+        // Draws explosion animation
+        if (isHit) {
+            if (explosionTextureIndex == 40) {
+                isHit = false;
+                explosionTextureIndex = 0;
+            }
+            timeHit += delta;
+            batch.draw(textureRegions[explosionTextureIndex], x - 64, y - 64);
+            if (timeHit > 0.01) {
+                explosionTextureIndex++;
+                timeHit = 0;
+            }
         }
     }
 
