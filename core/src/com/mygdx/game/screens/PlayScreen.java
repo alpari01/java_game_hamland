@@ -28,19 +28,19 @@ public class PlayScreen implements Screen {
     public static final int PLAYER_HEIGHT = 100;
 
     // Textures
-    private Texture playerTexture;
-    private Texture zombieTexture;
-    private Texture octopusTexture;
-    private Texture bulletTexture;
+    private final Texture playerTexture;
+    private final Texture zombieTexture;
+    private final Texture octopusTexture;
+    private final Texture bulletTexture;
 
     // Objects
-    private Player player;
-    private Zombie zombie;
-    private Octopus octopus;
-    private Bullet bullet;
+    private final Player player;
+    private final Zombie zombie;
+    private final Octopus octopus;
+    private final Bullet bullet;
 
     // Camera
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -49,12 +49,12 @@ public class PlayScreen implements Screen {
         playerTexture = new Texture("player1.png");
         zombieTexture = new Texture("zombie_enemy.png");
         octopusTexture = new Texture("octopus_enemy.png");
-        bulletTexture = new Texture("game_enemy.png");
+        bulletTexture = new Texture("bullet.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-        zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 0.5, 5);
-        octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 0.3, 5);
+        zombie = new Zombie(zombieTexture, 500, 300, 100, 100, 0.5, 5);
+        octopus = new Octopus(octopusTexture, 500, 50, 100, 100, 0.3, 5);
         bullet = new Bullet(bulletTexture, 100, 100, 50, 50, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
@@ -90,7 +90,7 @@ public class PlayScreen implements Screen {
         octopus.draw(batch, delta, player);
         zombie.draw(batch, delta, player);
 
-        bullet.shot(octopus, zombie, delta); // shot bullet
+        bullet.shot(octopus, zombie, delta, batch); // shot bullet
         bullet.draw(batch); //draw bullet
 
         updateTeammatePosition(); // update teammates' positions

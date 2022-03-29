@@ -39,7 +39,7 @@ public class Enemy extends GameObject {
             time += delta;
             if (time > 0.5) {
                 hp = 5;
-                polygon.setPosition(random.nextInt(GameClient.WIDTH), random.nextInt(GameClient.HEIGHT));
+                polygon.setPosition(random.nextInt(640), random.nextInt(360));
                 time = 0;
             }
         }
