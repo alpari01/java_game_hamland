@@ -92,12 +92,10 @@ public class PlayScreen implements Screen {
         detectInput(); // send packet
         player.draw(batch); // draw player
 
-        bullet.shot(player.polygon, enemies, delta);
-        bullet.draw(batch);
-
 //        octopus.draw(batch, delta, player);
 //        zombie.draw(batch, delta, player);
 
+        updateBullet(delta);
         updateTeammatePosition(); // update teammates' positions
         updateEnemiesPosition();
 
@@ -118,6 +116,11 @@ public class PlayScreen implements Screen {
             prevRotation = player.polygon.getRotation();
             gameClient.client.sendPlayerMovementInformation(player.polygon.getX(), player.polygon.getY(), player.polygon.getRotation());
         }
+    }
+
+    public void updateBullet(float delta) {
+        bullet.shot(player.polygon, enemies, delta, gameClient);
+        bullet.draw(batch);
     }
 
     /**

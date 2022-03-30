@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.mygdx.game.GameClient;
 
 import java.util.Map;
 
@@ -26,12 +27,13 @@ public class Bullet extends GameObject {
         }
     }
 
-    public void shot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta) {
+    public void shot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta, GameClient gameClient) {
 
         if (Gdx.input.isTouched() && !isShot) {
             polygon.setPosition(playerPolygon.getX() + polygon.getOriginX(), playerPolygon.getY() + polygon.getOriginX());
             bulletRotation = playerPolygon.getRotation() + 90;
             isShot = true;
+            gameClient.client.sendPacketBulletShot(this.bulletRotation);
         }
 
         if (isShot) {

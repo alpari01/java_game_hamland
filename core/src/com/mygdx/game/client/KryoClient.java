@@ -44,6 +44,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketUpdateMobsPos.class);
         client.getKryo().register(java.util.HashMap.class);
         client.getKryo().register(float[].class);
+        client.getKryo().register(PacketBulletShot.class);
     }
 
     public Map<String, Teammate> getTeammates() {
@@ -95,6 +96,13 @@ public class KryoClient extends Listener {
         PacketRequestConnectedPlayers packetRequestConnectedPlayers = new PacketRequestConnectedPlayers();
         packetRequestConnectedPlayers.allPlayers = new ArrayList<>();
         client.sendTCP(packetRequestConnectedPlayers);
+    }
+
+    public void sendPacketBulletShot(float bulletRotation) {
+        PacketBulletShot packetBulletShot = new PacketBulletShot();
+        packetBulletShot.playerWhoShot = nickname;
+        packetBulletShot.bulletRotation = bulletRotation;
+        client.sendTCP(packetBulletShot);
     }
 
     // Run this method when client receives any packet from the server.
