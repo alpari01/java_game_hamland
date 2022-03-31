@@ -22,7 +22,7 @@ public class KryoClient extends Listener {
 
     public static Map<String, Teammate> teammates = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
-    public static Map<String, Float>  bulletsData = new HashMap<>();
+    public static Map<String, Boolean>  teammatesShots = new HashMap<>();
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -55,8 +55,8 @@ public class KryoClient extends Listener {
         return enemiesData;
     }
 
-    public Map<String, Float> getBulletsData() {
-        return bulletsData;
+    public Map<String, Boolean> getTeammatesShot() {
+        return teammatesShots;
     }
 
     /**
@@ -105,7 +105,6 @@ public class KryoClient extends Listener {
     public void sendPacketBulletShot(float bulletRotation) {
         PacketBulletShot packetBulletShot = new PacketBulletShot();
         packetBulletShot.playerWhoShot = nickname;
-        packetBulletShot.bulletRotation = bulletRotation;
         client.sendTCP(packetBulletShot);
     }
 
@@ -199,7 +198,7 @@ public class KryoClient extends Listener {
         // Receive this packet if any teammate has made a shot. One shot bullet = one packet.
         if (p instanceof PacketBulletShot) {
             PacketBulletShot packet = (PacketBulletShot) p;
-            bulletsData.put(packet.playerWhoShot, packet.bulletRotation);
+            teammatesShots.put(packet.playerWhoShot, true);
         }
     }
 

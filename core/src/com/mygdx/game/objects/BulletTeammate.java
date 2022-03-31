@@ -27,7 +27,8 @@ public class BulletTeammate extends GameObject {
         }
     }
 
-    public void renderShot(Polygon playerPolygon, float delta) {
+//    public void renderShot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta) {
+    public void renderShot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta) {
 
 //        if (Gdx.input.isTouched() && !isShot) {
         if (!isShot) {
@@ -51,14 +52,14 @@ public class BulletTeammate extends GameObject {
             polygon.setRotation(bulletRotation);
 
             // Check bullet hit enemy.
-//            for (Enemy enemy : enemyList.values()) {
-//                if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
-//                        && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
-//                    // If enemy hit.
-//                    polygon.setPosition(9999999, 9999999);
-//                    enemy.setHp(enemy.getHp() - 1);
-//                }
-//            }
+            for (Enemy enemy : enemyList.values()) {
+                if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
+                        && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
+                    // If enemy hit.
+                    polygon.setPosition(9999999, 9999999);
+                    enemy.setHp(enemy.getHp() - 1);
+                }
+            }
         }
     }
 }

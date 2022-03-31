@@ -129,17 +129,23 @@ public class PlayScreen implements Screen {
         bullet.shot(player.polygon, enemies, delta, gameClient);
         bullet.draw(batch);
 
-        // Update teammates' bullets.
-
-
         // Render teammates' bullets.
         for (String teammateNickname : teammateBullets.keySet()) {
-            teammateBullets.get(teammateNickname).renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, delta);
-            teammateBullets.get(teammateNickname).draw(batch);
-        }
+            if (gameClient.client.getTeammatesShot().containsKey(teammateNickname)
+                    && gameClient.client.getTeammatesShot().get(teammateNickname)) {
+                // If this teammate has made a shot.
+                BulletTeammate bulletTeammate = teammateBullets.get(teammateNickname);
 
-        // Remove old bullet
-//        teammateBullets.put(teammateNickname) = null;
+                // Render his bullet.
+                bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta);
+                bulletTeammate.draw(batch);
+
+                // If bullet was shot -> stop rendering it.
+                if (!teammateBullets.get(teammateNickname).isShot) {
+                    gameClient.client.getTeammatesShot().put(teammateNickname, false);
+                }
+            }
+        }
     }
 
     /**
