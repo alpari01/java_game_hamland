@@ -22,6 +22,7 @@ public class PlayScreen implements Screen {
     private float prevRotation;
 
     public Map<Integer, Enemy> enemies = new HashMap<>();
+    public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
     public static final int PLAYER_X = 100;
@@ -69,6 +70,11 @@ public class PlayScreen implements Screen {
 
         camera = new OrthographicCamera(player.polygon.getX(), player.polygon.getY());
         camera.setToOrtho(false);
+
+        // Assign new bullet object for every teammate.
+        for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
+            this.teammateBullets.put(teammateNickname, new BulletTeammate(bulletTexture, 100, 100, 50, 50));
+        }
     }
 
     @Override
@@ -119,8 +125,21 @@ public class PlayScreen implements Screen {
     }
 
     public void updateBullet(float delta) {
+        // Update player's own bullet.
         bullet.shot(player.polygon, enemies, delta, gameClient);
         bullet.draw(batch);
+
+        // Update teammates' bullets.
+
+
+        // Render teammates' bullets.
+        for (String teammateNickname : teammateBullets.keySet()) {
+            teammateBullets.get(teammateNickname).renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, delta);
+            teammateBullets.get(teammateNickname).draw(batch);
+        }
+
+        // Remove old bullet
+//        teammateBullets.put(teammateNickname) = null;
     }
 
     /**

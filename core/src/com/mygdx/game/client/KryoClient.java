@@ -3,7 +3,6 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.mygdx.game.objects.Enemy;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
@@ -23,6 +22,7 @@ public class KryoClient extends Listener {
 
     public static Map<String, Teammate> teammates = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
+    public static Map<String, Float>  bulletsData = new HashMap<>();
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -53,6 +53,10 @@ public class KryoClient extends Listener {
 
     public Map<Integer, float[]> getEnemiesData() {
         return enemiesData;
+    }
+
+    public Map<String, Float> getBulletsData() {
+        return bulletsData;
     }
 
     /**
@@ -190,6 +194,12 @@ public class KryoClient extends Listener {
                     enemiesData.put(mobId, mobNewData);
                 }
             }
+        }
+
+        // Receive this packet if any teammate has made a shot. One shot bullet = one packet.
+        if (p instanceof PacketBulletShot) {
+            PacketBulletShot packet = (PacketBulletShot) p;
+            bulletsData.put(packet.playerWhoShot, packet.bulletRotation);
         }
     }
 
