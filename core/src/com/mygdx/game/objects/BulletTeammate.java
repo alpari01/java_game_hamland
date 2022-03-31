@@ -1,11 +1,11 @@
 package com.mygdx.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
-import com.mygdx.game.GameClient;
 
 import java.util.Map;
 
@@ -16,8 +16,25 @@ public class BulletTeammate extends GameObject {
 
     private float time = 0;
 
+    // Explosion
+    private boolean isHit;
+    private float timeHit = 0;
+    private int explosionTextureIndex = 0;
+    private float x = 0, y = 0;
+
+    // Textures
+    private final TextureAtlas explosionAtlas;
+    private final TextureRegion[] textureRegions;
+
     public BulletTeammate(Texture texture, float x, float y, float width, float height) {
         super(texture, x, y, width, height);
+
+        explosionAtlas = new TextureAtlas("explosion.atlas");
+
+        textureRegions = new TextureRegion[40];
+        for (int i = 0; i < 40; i++) {
+            textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));
+        }
     }
 
     @Override
@@ -27,15 +44,12 @@ public class BulletTeammate extends GameObject {
         }
     }
 
-//    public void renderShot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta) {
-    public void renderShot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta) {
+    public void renderShot(Polygon playerPolygon, Map<Integer, Enemy> enemyList, float delta, SpriteBatch batch) {
 
-//        if (Gdx.input.isTouched() && !isShot) {
         if (!isShot) {
             polygon.setPosition(playerPolygon.getX() + polygon.getOriginX(), playerPolygon.getY() + polygon.getOriginX());
             bulletRotation = playerPolygon.getRotation() + 90;
             isShot = true;
-//            gameClient.client.sendPacketBulletShot(this.bulletRotation);
         }
 
         if (isShot) {
@@ -55,10 +69,26 @@ public class BulletTeammate extends GameObject {
             for (Enemy enemy : enemyList.values()) {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
                         && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
-                    // If enemy hit.
+                    explosionTextureIndex = 0;
+                    x = polygon.getX();
+                    y = polygon.getY();
+                    isHit = true;
                     polygon.setPosition(9999999, 9999999);
-                    enemy.setHp(enemy.getHp() - 1);
                 }
+            }
+        }
+
+        // Draws explosion animation
+        if (isHit) {
+            if (explosionTextureIndex == 40) {
+                isHit = false;
+                explosionTextureIndex = 0;
+            }
+            timeHit += delta;
+            batch.draw(textureRegions[explosionTextureIndex], x - 64, y - 64);
+            if (timeHit > 0.01) {
+                explosionTextureIndex++;
+                timeHit = 0;
             }
         }
     }

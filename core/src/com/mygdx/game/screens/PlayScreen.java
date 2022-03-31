@@ -132,7 +132,7 @@ public class PlayScreen implements Screen {
                 BulletTeammate bulletTeammate = teammateBullets.get(teammateNickname);
 
                 // Render his bullet.
-                bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta);
+                bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta, batch);
                 bulletTeammate.draw(batch);
 
                 // If bullet was shot -> stop rendering it.
