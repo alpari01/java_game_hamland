@@ -25,8 +25,8 @@ public class PlayScreen implements Screen {
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
-    public static final int PLAYER_X = 100;
-    public static final int PLAYER_Y = 100;
+    public static final int PLAYER_X = 0;
+    public static final int PLAYER_Y = 0;
     public static final int PLAYER_WIDTH = 100;
     public static final int PLAYER_HEIGHT = 100;
 
@@ -56,13 +56,11 @@ public class PlayScreen implements Screen {
         playerTexture = new Texture("player1.png");
         zombieTexture = new Texture("zombie_enemy.png");
         octopusTexture = new Texture("octopus_enemy.png");
-        bulletTexture = new Texture("game_enemy.png");
+        bulletTexture = new Texture("bullet.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-//        zombie = new Zombie(zombieTexture, 1000, 600, 100, 100, 5);
-//        octopus = new Octopus(octopusTexture, 1000, 100, 100, 100, 5);
-        bullet = new Bullet(bulletTexture, 100, 100, 50, 50);
+        bullet = new Bullet(bulletTexture, 100, 100, 50, 50, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
@@ -92,18 +90,15 @@ public class PlayScreen implements Screen {
 
         batch.begin(); // start
 
-        camera.position.set(player.polygon.getX(), player.polygon.getY(), 0);
+        camera.position.set(player.polygon.getX() + 50, player.polygon.getY() + 50, 0);
         camera.update();
 
         detectInput(); // send packet
-        player.draw(batch); // draw player
+        player.draw(batch, bullet); // draw player
 
-//        octopus.draw(batch, delta, player);
-//        zombie.draw(batch, delta, player);
-
-        updateBullet(delta);
         updateTeammatePosition(); // update teammates' positions
         updateEnemiesPosition();
+        updateBullet(delta);
 
         batch.setProjectionMatrix(camera.combined);
 
@@ -126,7 +121,7 @@ public class PlayScreen implements Screen {
 
     public void updateBullet(float delta) {
         // Update player's own bullet.
-        bullet.shot(player.polygon, enemies, delta, gameClient);
+        bullet.shot(enemies, delta, gameClient, batch);
         bullet.draw(batch);
 
         // Render teammates' bullets.
