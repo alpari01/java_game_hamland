@@ -52,7 +52,7 @@ public class BulletTeammate extends GameObject {
         }
 
         time += delta;
-        if (time > 0.5) {
+        if (time > 0.49) {
             time = 0;
             isShot = false;
         }
@@ -66,7 +66,7 @@ public class BulletTeammate extends GameObject {
             for (Enemy enemy : enemyList.values()) {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
                         && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
-                    enemy.setHp(enemy.getHp() - 1);
+//                    enemy.setHp(enemy.getHp() - 1);
                     explosionTextureIndex = 0;
                     x = polygon.getX();
                     y = polygon.getY();
@@ -78,7 +78,7 @@ public class BulletTeammate extends GameObject {
 
         // Draws explosion animation
         if (isHit) {
-            if (explosionTextureIndex == 40) {
+            if (explosionTextureIndex == 40 || !isShot) {
                 isHit = false;
                 explosionTextureIndex = 0;
             }

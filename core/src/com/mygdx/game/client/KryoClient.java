@@ -102,7 +102,7 @@ public class KryoClient extends Listener {
         client.sendTCP(packetRequestConnectedPlayers);
     }
 
-    public void sendPacketBulletShot(float bulletRotation) {
+    public void sendPacketBulletShot() {
         PacketBulletShot packetBulletShot = new PacketBulletShot();
         packetBulletShot.playerWhoShot = nickname;
         client.sendTCP(packetBulletShot);
