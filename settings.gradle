@@ -1,4 +1,0 @@
-include 'desktop', 'core'
-include 'client'
-include 'server'
-
