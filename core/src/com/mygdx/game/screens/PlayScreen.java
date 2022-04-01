@@ -30,6 +30,9 @@ public class PlayScreen implements Screen {
     public static final int PLAYER_WIDTH = 100;
     public static final int PLAYER_HEIGHT = 100;
 
+    public static final int BULLET_WIDTH = 50;
+    public static final int BULLET_HEIGHT = 50;
+
     // Textures
     private Texture playerTexture;
     private Texture zombieTexture;
@@ -38,8 +41,6 @@ public class PlayScreen implements Screen {
 
     // Objects
     private Player player;
-//    private Zombie zombie;
-    private Octopus octopus;
     private Bullet bullet;
 
     private float time = 0;
@@ -60,7 +61,7 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-        bullet = new Bullet(bulletTexture, 100, 100, 50, 50, player);
+        bullet = new Bullet(bulletTexture, 0, 0, BULLET_WIDTH, BULLET_HEIGHT, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
@@ -97,7 +98,7 @@ public class PlayScreen implements Screen {
         player.draw(batch, bullet); // draw player
 
         updateTeammatePosition(); // update teammates' positions
-        updateEnemiesPosition();
+        updateEnemiesPosition(delta);
         updateBullet(delta);
 
         batch.setProjectionMatrix(camera.combined);
@@ -157,7 +158,7 @@ public class PlayScreen implements Screen {
     /**
      * Change the positions of all enemies (works in the loop).
      */
-    public void updateEnemiesPosition() {
+    public void updateEnemiesPosition(float delta) {
         for (int mobId : gameClient.client.getEnemiesData().keySet()) {
 
             // Mob data: posX, posY, type.
@@ -176,14 +177,14 @@ public class PlayScreen implements Screen {
                 }
 
                 enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
-                enemies.get(mobId).draw(batch);
+                enemies.get(mobId).draw(batch, delta);
             }
 
             else {
                 // If such mob already exists -> update its data.
                 Enemy enemyToUpdate = enemies.get(mobId);
                 enemyToUpdate.polygon.setPosition(mobData[0], mobData[1]);
-                enemyToUpdate.draw(batch);
+                enemyToUpdate.draw(batch, delta);
             }
         }
     }

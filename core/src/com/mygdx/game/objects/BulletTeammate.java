@@ -23,14 +23,13 @@ public class BulletTeammate extends GameObject {
     private float x = 0, y = 0;
 
     // Textures
-    private final TextureAtlas explosionAtlas;
     private final TextureRegion[] textureRegions;
 
     public BulletTeammate(Texture texture, float x, float y, float width, float height) {
         super(texture, x, y, width, height);
 
-        explosionAtlas = new TextureAtlas("explosion.atlas");
-
+        // Textures
+        TextureAtlas explosionAtlas = new TextureAtlas("explosion.atlas");
         textureRegions = new TextureRegion[40];
         for (int i = 0; i < 40; i++) {
             textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));
@@ -69,6 +68,7 @@ public class BulletTeammate extends GameObject {
             for (Enemy enemy : enemyList.values()) {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
                         && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
+                    enemy.setHp(enemy.getHp() - 1);
                     explosionTextureIndex = 0;
                     x = polygon.getX();
                     y = polygon.getY();

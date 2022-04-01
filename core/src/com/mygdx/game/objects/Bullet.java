@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
 import com.mygdx.game.GameClient;
 
 import java.util.Map;
 
 public class Bullet extends GameObject {
+
+    // Constants
+    public static final int EXPLOSION_HEIGHT = 128;
+    public static final int EXPLOSION_WIDTH = 128;
 
     private final Player player;
 
@@ -40,7 +43,6 @@ public class Bullet extends GameObject {
     // Textures
     private final Texture ammoTexture = new Texture("ammo1.png");
     private final Texture ammoWhiteTexture = new Texture("ammo2.png");
-    private final TextureAtlas explosionAtlas;
     private final TextureRegion[] textureRegions;
 
     public Bullet(Texture texture, float x, float y, float width, float height, Player player) {
@@ -48,7 +50,7 @@ public class Bullet extends GameObject {
         this.player = player;
 
         // Explosion textures
-        explosionAtlas = new TextureAtlas("explosion.atlas");
+        TextureAtlas explosionAtlas = new TextureAtlas("explosion.atlas");
         textureRegions = new TextureRegion[40];
         for (int i = 0; i < 40; i++) {
             textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));
@@ -148,7 +150,9 @@ public class Bullet extends GameObject {
                 explosionTextureIndex = 0;
             }
             timeHit += delta;
-            batch.draw(textureRegions[explosionTextureIndex], x - 64, y - 64);
+            batch.draw(textureRegions[explosionTextureIndex],
+                    x - (float) EXPLOSION_WIDTH / 2,
+                    y - (float) EXPLOSION_HEIGHT / 2);
             if (timeHit > 0.01) {
                 explosionTextureIndex++;
                 timeHit = 0;
