@@ -51,17 +51,15 @@ public class BulletTeammate extends GameObject {
             isShot = true;
         }
 
-        if (isShot) {
-            time += delta;
-            if (time > 0.5) {
-                time = 0;
-                isShot = false;
-            }
+        time += delta;
+        if (time > 0.5) {
+            time = 0;
+            isShot = false;
         }
 
         if (isShot) {
-            polygon.setPosition(polygon.getX() + 20 * MathUtils.cosDeg(bulletRotation),
-                    polygon.getY() + 20 * MathUtils.sinDeg(bulletRotation));
+            polygon.setPosition(polygon.getX() + 1000 * delta * MathUtils.cosDeg(bulletRotation),
+                    polygon.getY() + 1000 * delta * MathUtils.sinDeg(bulletRotation));
             polygon.setRotation(bulletRotation);
 
             // Check bullet hit enemy.
