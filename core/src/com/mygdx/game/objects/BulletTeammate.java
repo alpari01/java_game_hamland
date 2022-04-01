@@ -78,7 +78,7 @@ public class BulletTeammate extends GameObject {
 
         // Draws explosion animation
         if (isHit) {
-            if (explosionTextureIndex == 40 || !isShot) {
+            if (explosionTextureIndex == 40) {
                 isHit = false;
                 explosionTextureIndex = 0;
             }
