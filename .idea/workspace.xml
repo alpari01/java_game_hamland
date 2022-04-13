@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cbd460f-d424-452c-bd7c-affddf0946cf" name="Changes" comment="new main" />
+    <list default="true" id="1cbd460f-d424-452c-bd7c-affddf0946cf" name="Changes" comment="new main">
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/samplemap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/maps/samplemap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/player1.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/player1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player1.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/player1.png" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +76,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="75-handle-packet-update-mob" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,19 +97,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lastovkoi/IdeaProjects/iti0301-2022-game/core/assets/maps&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core/assets/maps" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/core/assets" />
       <recent name="$PROJECT_DIR$/core" />
@@ -120,9 +159,6 @@
       <list>
         <item itemvalue="Application.KryoClient" />
         <item itemvalue="Application.DesktopLauncher" />
-        <item itemvalue="Application.KryoClient" />
-        <item itemvalue="Application.DesktopLauncher" />
-        <item itemvalue="Application.KryoClient" />
       </list>
     </recent_temporary>
   </component>
@@ -201,21 +237,13 @@
       <workItem from="1648821560895" duration="142000" />
       <workItem from="1648821721578" duration="41000" />
       <workItem from="1648821769393" duration="16000" />
-      <workItem from="1648821816392" duration="20000" />
-    </task>
-    <task id="LOCAL-00008" summary="play button method">
-      <created>1645788785811</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1645788785811</updated>
-    </task>
-    <task id="LOCAL-00009" summary="settings button method">
-      <created>1645788869842</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1645788869842</updated>
+      <workItem from="1648821816392" duration="1166000" />
+      <workItem from="1649782929039" duration="307000" />
+      <workItem from="1649783277593" duration="548000" />
+      <workItem from="1649783835113" duration="3101000" />
+      <workItem from="1649788158736" duration="68000" />
+      <workItem from="1649868878700" duration="4898000" />
+      <workItem from="1649873801498" duration="8813000" />
     </task>
     <task id="LOCAL-00010" summary="return to main menu button method">
       <created>1645804204304</created>
@@ -546,7 +574,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648820402474</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="new main">
+      <created>1648821905457</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1648821905457</updated>
+    </task>
+    <task id="LOCAL-00058" summary="new main">
+      <created>1648821928595</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1648821928595</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

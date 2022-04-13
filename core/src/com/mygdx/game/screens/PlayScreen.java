@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class PlayScreen implements Screen {
 
@@ -25,10 +28,10 @@ public class PlayScreen implements Screen {
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
-    public static final int PLAYER_X = 0;
-    public static final int PLAYER_Y = 0;
-    public static final int PLAYER_WIDTH = 100;
-    public static final int PLAYER_HEIGHT = 100;
+    public static final int PLAYER_X = 1190;
+    public static final int PLAYER_Y = 910;
+    public static final int PLAYER_WIDTH = 57;
+    public static final int PLAYER_HEIGHT = 80;
 
     public static final int BULLET_WIDTH = 50;
     public static final int BULLET_HEIGHT = 50;
@@ -43,15 +46,19 @@ public class PlayScreen implements Screen {
     private Player player;
     private Bullet bullet;
 
-    private float time = 0;
-    private Random random;
-
     private OrthographicCamera camera;
+    public static float cameraX, cameraY;
+
+    // TiledMap
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
+    private float tileWidth, tileHeight;
+    private boolean collision;
+    private TiledMapTileLayer waterCollisionLayer;
+    private TiledMapTileLayer buildingsCollisionLayer;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
-
-        random = new Random();
 
         // Textures
         playerTexture = new Texture("player1.png");
@@ -74,6 +81,15 @@ public class PlayScreen implements Screen {
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
             this.teammateBullets.put(teammateNickname, new BulletTeammate(bulletTexture, 100, 100, 50, 50));
         }
+
+        // TiledMap
+        map = new TmxMapLoader().load("maps/samplemap.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
+        waterCollisionLayer = (TiledMapTileLayer) map.getLayers().get("water");
+        buildingsCollisionLayer = (TiledMapTileLayer) map.getLayers().get("building");
+        tileWidth = waterCollisionLayer.getTileWidth();
+        tileHeight = waterCollisionLayer.getTileHeight();
+
     }
 
     @Override
@@ -89,13 +105,24 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.graphics.setTitle("Play (" + Gdx.graphics.getFramesPerSecond() + "FPS)");
 
+        renderer.setView(camera);
+        renderer.render();
+
         batch.begin(); // start
 
-        camera.position.set(player.polygon.getX() + 50, player.polygon.getY() + 50, 0);
+        // Previous player's position
+        float prevPlayerX = player.polygon.getX();
+        float prevPlayerY = player.polygon.getY();
+
+        // Camera
+        detectEdgeOfTheMap();
+        camera.position.set(cameraX, cameraY, 0);
         camera.update();
 
         detectInput(); // send packet
         player.draw(batch, bullet); // draw player
+
+        detectCollision(prevPlayerX, prevPlayerY); // detect collision
 
         updateTeammatePosition(); // update teammates' positions
         updateEnemiesPosition(delta);
@@ -189,25 +216,80 @@ public class PlayScreen implements Screen {
         }
     }
 
-    @Override
-    public void resize(int width, int height) {
+    /**
+     * Check if the player's position is on a blocked cell.
+     * If yes, change the player's position to the previous one.
+     * @param prevPlayerX player's previous X position.
+     * @param prevPlayerY player's previous Y position.
+     */
+    public void detectCollision(float prevPlayerX, float prevPlayerY) {
+        if (!collision) {
 
+            // If the key on the cell where the player is located is "blocked", assert a collision
+            if (waterCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+
+                    buildingsCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null) {
+
+                collision = true;
+//                        collisionLayer
+//                                .getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight))
+//                                .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked");
+
+            // If this cell is the end of the world
+            }
+//            else {
+//                collision = true;
+//            }
+
+            // If a collision is detected, teleport one step back
+            if (collision) {
+                player.polygon.setPosition(prevPlayerX, prevPlayerY);
+                collision = false;
+            }
+        }
+    }
+
+    /**
+     * When a player is at the edge of the map, stop following him with the camera.
+     */
+    public void detectEdgeOfTheMap() {
+        if (player.polygon.getX() < 1230 && player.polygon.getX() > 590) {
+            cameraX = player.polygon.getX() + 50;
+        }
+        if (player.polygon.getY() < 1510 && player.polygon.getY() > 310) {
+            cameraY = player.polygon.getY() + 50;
+        }
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void resize(int width, int height) { }
 
     @Override
-    public void resume() {
-
-    }
+    public void pause() { }
 
     @Override
-    public void hide() {
+    public void resume() { }
 
-    }
+    @Override
+    public void hide() { }
 
     @Override
     public void dispose() {
@@ -219,5 +301,8 @@ public class PlayScreen implements Screen {
         octopusTexture.dispose();
         bulletTexture.dispose();
         gameClient.dispose();
+        renderer.dispose();
+        map.dispose();
+
     }
 }

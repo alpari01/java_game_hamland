@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.screens.PlayScreen;
 
 import java.util.Map;
 
@@ -71,13 +72,13 @@ public class Bullet extends GameObject {
         if (isShot) {
             super.draw(batch);
         } else if (ammo > 0 && !isReload) {
-            batch.draw(ammoTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
+            batch.draw(ammoTexture, PlayScreen.cameraX - 620, PlayScreen.cameraY - 300, 100, 100);
         }
-        batch.draw(ammoWhiteTexture, player.polygon.getX() - 570, player.polygon.getY() - 250, 100, 100);
-        ammoFont.draw(batch, ammo + " / " + ammoTotal, player.polygon.getX() - 560, player.polygon.getY() - 260);
+        batch.draw(ammoWhiteTexture, PlayScreen.cameraX - 620, PlayScreen.cameraY - 300, 100, 100);
+        ammoFont.draw(batch, ammo + " / " + ammoTotal, PlayScreen.cameraX - 610, PlayScreen.cameraY - 310);
 
         if (isReload) {
-            reloadFont.draw(batch, "reload: " + (3 - (int) Math.floor(timeReload)), player.polygon.getX() - 570, player.polygon.getY() - 200);
+            reloadFont.draw(batch, "reload: " + (3 - (int) Math.floor(timeReload)), PlayScreen.cameraX - 620, PlayScreen.cameraY - 250);
         }
     }
 
