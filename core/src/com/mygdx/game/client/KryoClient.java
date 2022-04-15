@@ -29,6 +29,10 @@ public class KryoClient extends Listener {
     static int udpPort = 27960;
     static String ip = "localhost";  // Change this IP later.
 
+//    static int udpPort = 8080;
+//    static int tcpPort = 8081;
+//    static String ip = "193.40.156.122";
+
     public KryoClient() {
         client = new Client();  // Create the client.
 

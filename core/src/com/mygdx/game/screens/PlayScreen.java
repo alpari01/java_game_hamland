@@ -28,13 +28,24 @@ public class PlayScreen implements Screen {
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
+    public static final float TEXTURE_SIZES_CONSTANT = 0.065f;
+
     public static final int PLAYER_X = 1190;
     public static final int PLAYER_Y = 910;
-    public static final int PLAYER_WIDTH = 57;
-    public static final int PLAYER_HEIGHT = 80;
 
-    public static final int BULLET_WIDTH = 50;
-    public static final int BULLET_HEIGHT = 50;
+    public static final int PLAYER_WIDTH = (int) (771 * TEXTURE_SIZES_CONSTANT);
+    public static final int PLAYER_HEIGHT = (int) (1054 * TEXTURE_SIZES_CONSTANT);
+
+    public static final int BULLET_WIDTH = (int) (512 * TEXTURE_SIZES_CONSTANT);;
+    public static final int BULLET_HEIGHT = (int) (512 * TEXTURE_SIZES_CONSTANT);;
+
+    public static final int ZOMBIE_WIDTH = (int) (694 * TEXTURE_SIZES_CONSTANT);
+    public static final int ZOMBIE_HEIGHT = (int) (1167 * TEXTURE_SIZES_CONSTANT);
+
+    public static final int OCTOPUS_WIDTH = (int) (923 * TEXTURE_SIZES_CONSTANT);
+    public static final int OCTOPUS_HEIGHT = (int) (986 * TEXTURE_SIZES_CONSTANT);
+
+
 
     // Textures
     private Texture playerTexture;
@@ -195,12 +206,12 @@ public class PlayScreen implements Screen {
                 // If such Enemy object was not created yet -> check Enemy type and create respective object.
                 if (mobData[2] == 0.0) {
                     // If mob is zombie.
-                    enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], 100, 100, 5));
+                    enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 5));
                 }
 
                 if (mobData[2] == 1.0) {
                     // If mob is octopus.
-                    enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], 100, 100, 5));
+                    enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 5));
                 }
 
                 enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
@@ -237,27 +248,7 @@ public class PlayScreen implements Screen {
                     buildingsCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null) {
 
                 collision = true;
-//                        collisionLayer
-//                                .getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight))
-//                                .getTile().getProperties().containsKey("blocked") ||
-//
-//                                collisionLayer
-//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight))
-//                                        .getTile().getProperties().containsKey("blocked") ||
-//
-//                                collisionLayer
-//                                        .getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
-//                                        .getTile().getProperties().containsKey("blocked") ||
-//
-//                                collisionLayer
-//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
-//                                        .getTile().getProperties().containsKey("blocked");
-
-            // If this cell is the end of the world
             }
-//            else {
-//                collision = true;
-//            }
 
             // If a collision is detected, teleport one step back
             if (collision) {
