@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cbd460f-d424-452c-bd7c-affddf0946cf" name="Changes" comment="new main">
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/samplemap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/maps/samplemap.tmx" afterDir="false" />
+    <list default="true" id="1cbd460f-d424-452c-bd7c-affddf0946cf" name="Changes" comment="texture sizes constant">
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -34,15 +16,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/player1.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/player1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/samplemap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/maps/samplemap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/client/KryoClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/client/KryoClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player1.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/player1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/octopus_enemy.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/octopus_enemy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player2.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/player2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player3.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/player3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player4.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/player4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/zombie_enemy.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/zombie_enemy.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +59,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="100-texture-size-constant" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -157,6 +140,8 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.KryoClient" />
+        <item itemvalue="Application.DesktopLauncher" />
         <item itemvalue="Application.KryoClient" />
         <item itemvalue="Application.DesktopLauncher" />
       </list>
@@ -244,13 +229,8 @@
       <workItem from="1649788158736" duration="68000" />
       <workItem from="1649868878700" duration="4898000" />
       <workItem from="1649873801498" duration="8813000" />
-    </task>
-    <task id="LOCAL-00010" summary="return to main menu button method">
-      <created>1645804204304</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1645804204304</updated>
+      <workItem from="1650002614566" duration="2276000" />
+      <workItem from="1650563970881" duration="3569000" />
     </task>
     <task id="LOCAL-00011" summary="return button in lobby">
       <created>1645813576401</created>
@@ -588,7 +568,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648821928595</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="texture sizes constant">
+      <created>1650004663272</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1650004663272</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="constants" />
     <MESSAGE value="many entering a nickname windows bug" />
     <MESSAGE value="recognize rotation" />
     <MESSAGE value="draw teammate rotation" />
@@ -631,6 +617,7 @@
     <MESSAGE value="enemy hp" />
     <MESSAGE value="enemy hit animation" />
     <MESSAGE value="new main" />
-    <option name="LAST_COMMIT_MESSAGE" value="new main" />
+    <MESSAGE value="texture sizes constant" />
+    <option name="LAST_COMMIT_MESSAGE" value="texture sizes constant" />
   </component>
 </project>
