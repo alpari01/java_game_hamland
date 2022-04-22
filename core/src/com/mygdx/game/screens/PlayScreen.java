@@ -252,32 +252,39 @@ public class PlayScreen implements Screen {
 
     /**
      * If the player is on the cell of the layer - assert a collision.
+     *
+     * 3.--8.--4.
+     * |       |
+     * 5.      7.
+     * |       |
+     * 1.--6.--2.
+     *
      * @param layer TiledMap layer.
      */
     public void layerCollision(TiledMapTileLayer layer) {
         if (
-        // lower left corner of the player
+        // 1. lower left corner of the player
         layer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
 
-        // lower right corner of the player
+        // 2. lower right corner of the player
         layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
 
-        // upper left corner of the player
+        // 3. upper left corner of the player
         layer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
 
-        // upper right corner of the player
+        // 4. upper right corner of the player
         layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
 
-        // left center point of the player
+        // 5. left center point of the player
         layer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
 
-        // lower center point of the player
+        // 6. lower center point of the player
         layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH / 2) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
 
-        // right center point of the player
+        // 7. right center point of the player
         layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
 
-        // upper center point of the player
+        // 8. upper center point of the player
         layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH / 2) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null) {
 
             collision = true;
