@@ -131,7 +131,7 @@ public class PlayScreen implements Screen {
         camera.update();
 
         detectInput(); // send packet
-        player.draw(batch, bullet); // draw player
+        player.draw(batch, bullet, camera); // draw player
 
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
 
