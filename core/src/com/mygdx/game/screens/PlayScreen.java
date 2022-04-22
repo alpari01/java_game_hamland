@@ -64,7 +64,8 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private float tileWidth, tileHeight;
-    private boolean collision;
+    private boolean collisionX;
+    private boolean collisionY;
     private TiledMapTileLayer waterCollisionLayer;
     private TiledMapTileLayer buildingsCollisionLayer;
 
@@ -234,60 +235,89 @@ public class PlayScreen implements Screen {
      * @param prevPlayerY player's previous Y position.
      */
     public void detectCollision(float prevPlayerX, float prevPlayerY) {
-        if (!collision) {
 
-            // Water collision
-            layerCollision(waterCollisionLayer);
+        // Water collision
+        layerCollision(waterCollisionLayer);
 
-            // Buildings collision
-            layerCollision(buildingsCollisionLayer);
+        // Buildings collision
+        layerCollision(buildingsCollisionLayer);
 
-            // If a collision is detected, teleport one step back
-            if (collision) {
-                player.polygon.setPosition(prevPlayerX, prevPlayerY);
-                collision = false;
-            }
+        // If collision is detected on X, teleport one step back on X
+        if (collisionX) {
+            player.polygon.setPosition(prevPlayerX, player.polygon.getY());
+            collisionX = false;
+        }
+
+        // If collision is detected on Y, teleport one step back on Y
+        if (collisionY) {
+            player.polygon.setPosition(player.polygon.getX(), prevPlayerY);
+            collisionY = false;
         }
     }
 
     /**
      * If the player is on the cell of the layer - assert a collision.
      *
-     * 3.--8.--4.
-     * |       |
-     * 5.      7.
-     * |       |
-     * 1.--6.--2.
+     * Player:
+     * -9--12--10-
+     * 3        4
+     * |        |
+     * 5        6
+     * |        |
+     * 1        2
+     * -7--11--8-
      *
      * @param layer TiledMap layer.
      */
     public void layerCollision(TiledMapTileLayer layer) {
-        if (
+
+        float playerX = player.polygon.getX();
+        float playerY = player.polygon.getY();
+
+        if ( // Horizontal collision
+
         // 1. lower left corner of the player
-        layer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + 2) / tileHeight)) != null ||
 
         // 2. lower right corner of the player
-        layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) ((playerY + 2) / tileHeight)) != null ||
 
         // 3. upper left corner of the player
-        layer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + PLAYER_HEIGHT - 2) / tileHeight)) != null ||
 
         // 4. upper right corner of the player
-        layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) (((playerY - 2) + PLAYER_HEIGHT) / tileHeight)) != null ||
 
         // 5. left center point of the player
-        layer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
+        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
 
-        // 6. lower center point of the player
-        layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH / 2) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+        // 6. right center point of the player
+        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) ((playerY + PLAYER_HEIGHT / 2) / tileHeight)) != null) {
 
-        // 7. right center point of the player
-        layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
+            collisionX = true;
+        }
 
-        // 8. upper center point of the player
-        layer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH / 2) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null) {
+        if ( // Vertical collision
 
-            collision = true;
+        // 7. lower left corner of the player
+        layer.getCell((int) ((playerX + 2) / tileWidth), (int) (playerY / tileHeight)) != null ||
+
+        // 8. lower right corner of the player
+        layer.getCell((int) (((playerX - 2) + PLAYER_WIDTH) / tileWidth), (int) (playerY / tileHeight)) != null ||
+
+        // 9. upper left corner of the player
+        layer.getCell((int) ((playerX + 2) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null ||
+
+        // 10. upper right corner of the player
+        layer.getCell((int) (((playerX - 2) + PLAYER_WIDTH) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null ||
+
+        // 11. lower center point of the player
+        layer.getCell((int) ((playerX + PLAYER_WIDTH / 2) / tileWidth), (int) (playerY / tileHeight)) != null ||
+
+        // 12. upper center point of the player
+        layer.getCell((int) ((playerX + PLAYER_WIDTH / 2) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null) {
+
+            collisionY = true;
         }
     }
 
