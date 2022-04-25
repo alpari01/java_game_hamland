@@ -24,6 +24,7 @@ So in this case all you need to do is to clone client part.
 
 In client part please go to **core/src/com/mygdx/game/client/KryoClient.java** 
 and ensure **static String ip** value is set to **"193.40.156.122"**, not **"localhost"**,
+
 so it should be like that: static String ip = "193.40.156.122".
 
 
