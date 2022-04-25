@@ -20,7 +20,7 @@ if you do not want to run/test server (localhost server) on your machine.
 
 So in this case all you need to do is to clone client part.
 
-**_How to connect to our game's TalTech server?_**
+**_How to play our game via TalTech server?_**
 
 In **core/src/com/mygdx/game/client/KryoClient.java** please ensure **static String ip** value is set to **"193.40.156.122"**, not **"localhost"**.
 
