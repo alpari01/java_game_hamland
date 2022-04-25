@@ -3,7 +3,7 @@
 ITI0301 Tarkvaraarenduse projekt - mäng
 
 
-**How to launch our game? (for project state on 09.03.2022)**
+**How to launch our game? (for project state on 25.04.2022)**
 
 **_Step 1_**
 
@@ -12,12 +12,25 @@ We use two separate gitlab projects for our game.
 - And one for server part (available here https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server)
 - Make sure both are cloned :)
 
+
+**NB!**
+
+Since now our server runs on the dedicated TalTech server you do not need to clone project's server part
+if you do not want to run/test server (localhost server) on your machine.
+
+So in this case all you need to do is to clone client part.
+
+**_How to connect to our game's TalTech server?_**
+
+In **core/src/com/mygdx/game/client/KryoClient.java** please ensure **static String ip** value is **"193.40.156.122"**, not **"localhost"**.
+
+
 **_Step 2_**
-- While in IDEA open Server and Client projects in different windows.
+- While in IntelliJ IDEA (or any other IDE) open Server and Client projects in different windows.
 - In server project run **iti0301-2022-server\core\src\com\mygdx\gameserver\server\KryoServer.java**.
 
-This will launch the server on localhost. 
-To verify server runs correctly ensure it has printed "Server is up!" in IDEA console :)
+This will launch the server on **localhost**. 
+To verify server runs correctly ensure it has printed "Server is up!" in IDE console :)
 
 **_Step 3_**
 - In client project run **iti0301-2022-game\desktop\src\com\mygdx\game\desktop\DesktopLauncher.java**.
@@ -31,4 +44,4 @@ To verify you are connected to the server check server console outputs.
 
 **_Step 4_**
 
--Enjoy the game
+- Enjoy the game
