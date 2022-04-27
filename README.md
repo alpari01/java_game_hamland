@@ -11,7 +11,7 @@
 
 -> To play on the local server put: **tcpPort = 27960, udpPort = 27960, ip = "localhost"**.
 
--> To play on the TalTech server put: **udpPort = 8080, tcpPort = 8081, ip = "193.40.156.122"**.
+-> To play on the TalTech server put: **tcpPort = 8081, udpPort = 8080, ip = "193.40.156.122"**.
 
 **_Step 3_**
 
