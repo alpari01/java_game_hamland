@@ -2,8 +2,8 @@
 
 **_Step 1_**
 
-- Clone this project
-- Clone server https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server
+- Clone this project.
+- Clone server https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server.
 
 **_Step 2_**
 
