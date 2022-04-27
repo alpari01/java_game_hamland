@@ -1,50 +1,30 @@
-# iti0301-2022-game
-
-ITI0301 Tarkvaraarenduse projekt - mäng
-
-
-**How to launch our game? (for project state on 25.04.2022)**
+**How to launch our game?**
 
 **_Step 1_**
 
-We use two separate gitlab projects for our game.
-- One for game itself aka client part (available here https://gitlab.cs.ttu.ee/illast/iti0301-2022-game)
-- And one for server part (available here https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server)
-- Make sure both are cloned :)
-
-
-**NB!**
-
-Since now our server runs on the dedicated TalTech server you do not need to clone project's server part
-if you do not want to run/test server (localhost server) on your machine.
-
-So in this case all you need to do is to clone client part.
-
-**_How to play our game via TalTech server?_**
-
-In client part please go to **core/src/com/mygdx/game/client/KryoClient.java** 
-and ensure **static String ip** value is set to **"193.40.156.122"**, not **"localhost"**,
-
-so it should be like that: **static String ip = "193.40.156.122"**.
-
+- Clone this project
+- Clone server https://gitlab.cs.ttu.ee/alpari/iti0301-2022-server
 
 **_Step 2_**
-- While in IntelliJ IDEA (or any other IDE) open Server and Client projects in different windows.
-- In server project run **iti0301-2022-server\core\src\com\mygdx\gameserver\server\KryoServer.java**.
 
-This will launch the server on **localhost**. 
-To verify server runs correctly ensure it has printed "Server is up!" in IDE console :)
+-Go to **KryoClient.java** on this project
+
+- To play on the local server put:
+    static int tcpPort = 27960;
+    static int udpPort = 27960;
+    static String ip = "localhost";
+
+- To play on the TalTech server put:
+    static int udpPort = 8080;
+    static int tcpPort = 8081;
+    static String ip = "193.40.156.122"; 
 
 **_Step 3_**
-- In client project run **iti0301-2022-game\desktop\src\com\mygdx\game\desktop\DesktopLauncher.java**.
 
-This will launch the game.
-To verify you are connected to the server check server console outputs.
+- To play on the local server run **KryoServer.java** on the server project, then run **DesktopLauncher.java** on this project.
 
-- To test multiplayer functions run multiple **DesktopLauncher.java** simultaneously.
-
-- Game controls: WASD and arrows, mouse for aiming.
+- To play on the TalTech server run **DesktopLauncher.java** on this project.
 
 **_Step 4_**
 
-- Enjoy the game
+- Game controls: WASD and arrows, mouse for aiming.
