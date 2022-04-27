@@ -1,4 +1,4 @@
-**How to launch our game?**
+# How to launch our game?
 
 **_Step 1_**
 
