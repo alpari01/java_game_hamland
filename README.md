@@ -7,7 +7,7 @@
 
 **_Step 2_**
 
-- Go to **KryoClient.java** on this project
+- Go to **KryoClient.java** on this project.
 
 -> To play on the local server put: **tcpPort = 27960, udpPort = 27960, ip = "localhost"**.
 
