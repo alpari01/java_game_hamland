@@ -131,10 +131,15 @@ public class Bullet extends GameObject {
             polygon.setRotation(bulletRotation);
 
             // Check bullet hit enemy.
-            for (Enemy enemy : enemyList.values()) {
+            for (int mobId : enemyList.keySet()) {
+                Enemy enemy = enemyList.get(mobId);
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + 100f
                     && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + 100f) {
-//                    enemy.setHp(enemy.getHp() - 1);
+
+                    enemy.setHp(enemy.getHp() - 1);
+
+                    gameClient.client.sendPacketMobHit(mobId);
+
                     explosionTextureIndex = 0;
                     x = polygon.getX();
                     y = polygon.getY();

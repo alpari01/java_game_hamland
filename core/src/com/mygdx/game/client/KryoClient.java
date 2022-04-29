@@ -27,7 +27,10 @@ public class KryoClient extends Listener {
     // Ports to connect on.
     static int tcpPort = 27960;
     static int udpPort = 27960;
-    static String ip = "localhost";  // Change this IP later.
+    static String ip = "localhost";
+//    static int udpPort = 8080;
+//    static int tcpPort = 8081;
+//    static String ip = "193.40.156.122";
 
 //    static int udpPort = 8080;
 //    static int tcpPort = 8081;
@@ -49,6 +52,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(java.util.HashMap.class);
         client.getKryo().register(float[].class);
         client.getKryo().register(PacketBulletShot.class);
+        client.getKryo().register(PacketMobHit.class);
     }
 
     public Map<String, Teammate> getTeammates() {
@@ -110,6 +114,12 @@ public class KryoClient extends Listener {
         PacketBulletShot packetBulletShot = new PacketBulletShot();
         packetBulletShot.playerWhoShot = nickname;
         client.sendTCP(packetBulletShot);
+    }
+
+    public void sendPacketMobHit(int mobId) {
+        PacketMobHit packetMobHit = new PacketMobHit();
+        packetMobHit.mobId = mobId;
+        client.sendTCP(packetMobHit);
     }
 
     // Run this method when client receives any packet from the server.
@@ -185,12 +195,13 @@ public class KryoClient extends Listener {
                 float mobPosX = packet.allEnemies.get(mobId)[0];
                 float mobPosY = packet.allEnemies.get(mobId)[1];
                 float mobType = packet.allEnemies.get(mobId)[2];
+                float mobHp = packet.allEnemies.get(mobId)[3];
                 if (!enemiesData.containsKey(mobId)) {
                     // If there is no mob with this ID added yet -> create new key and new float array.
-                    enemiesData.put(mobId, new float[]{mobPosX, mobPosY, mobType});
+                    enemiesData.put(mobId, new float[]{mobPosX, mobPosY, mobType, mobHp});
                 }
                 else {
-                    // If mob is already added -> simply update it's data.
+                    // If mob is already added -> simply update it's position data.
                     float[] mobNewData = enemiesData.get(mobId);
                     mobNewData[0] = mobPosX;
                     mobNewData[1] = mobPosY;
@@ -203,6 +214,17 @@ public class KryoClient extends Listener {
         if (p instanceof PacketBulletShot) {
             PacketBulletShot packet = (PacketBulletShot) p;
             teammatesShots.put(packet.playerWhoShot, true);
+        }
+
+        // Receive this packet if any teammate has hit any mob.
+        if (p instanceof PacketMobHit) {
+            PacketMobHit packet = (PacketMobHit) p;
+
+            // Update mob hp data.
+            float[] existingMobData = enemiesData.get(packet.mobId);  // Get current mob data.
+            float currentHp = existingMobData[3];  // Get hp old hp value.
+            existingMobData[3] = --currentHp;  // Decrease hp by 1.
+            System.out.println("Received packet hit: mob hit id is " + packet.mobId + " HP is now " + existingMobData[3]);
         }
     }
 

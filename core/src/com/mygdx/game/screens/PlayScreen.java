@@ -15,7 +15,9 @@ import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class PlayScreen implements Screen {
 
@@ -25,27 +27,17 @@ public class PlayScreen implements Screen {
     private float prevRotation;
 
     public Map<Integer, Enemy> enemies = new HashMap<>();
+    public Set<Integer> killedEnemiesId = new HashSet<>();
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
-    public static final float TEXTURE_SIZES_CONSTANT = 0.065f;
-
     public static final int PLAYER_X = 1190;
     public static final int PLAYER_Y = 910;
+    public static final int PLAYER_WIDTH = 57;
+    public static final int PLAYER_HEIGHT = 80;
 
-    public static final int PLAYER_WIDTH = (int) (771 * TEXTURE_SIZES_CONSTANT);
-    public static final int PLAYER_HEIGHT = (int) (1054 * TEXTURE_SIZES_CONSTANT);
-
-    public static final int BULLET_WIDTH = (int) (512 * TEXTURE_SIZES_CONSTANT);;
-    public static final int BULLET_HEIGHT = (int) (512 * TEXTURE_SIZES_CONSTANT);;
-
-    public static final int ZOMBIE_WIDTH = (int) (694 * TEXTURE_SIZES_CONSTANT);
-    public static final int ZOMBIE_HEIGHT = (int) (1167 * TEXTURE_SIZES_CONSTANT);
-
-    public static final int OCTOPUS_WIDTH = (int) (923 * TEXTURE_SIZES_CONSTANT);
-    public static final int OCTOPUS_HEIGHT = (int) (986 * TEXTURE_SIZES_CONSTANT);
-
-
+    public static final int BULLET_WIDTH = 50;
+    public static final int BULLET_HEIGHT = 50;
 
     // Textures
     private Texture playerTexture;
@@ -64,8 +56,7 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private float tileWidth, tileHeight;
-    private boolean collisionX;
-    private boolean collisionY;
+    private boolean collision;
     private TiledMapTileLayer waterCollisionLayer;
     private TiledMapTileLayer buildingsCollisionLayer;
 
@@ -175,7 +166,7 @@ public class PlayScreen implements Screen {
                 bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta, batch);
                 bulletTeammate.draw(batch);
 
-                // If bullet was shot -> stop rendering it.
+                // If bullet was shot -> stop rendering it after certain amount of time.
                 if (!teammateBullets.get(teammateNickname).isShot) {
                     gameClient.client.getTeammatesShot().put(teammateNickname, false);
                 }
@@ -196,34 +187,49 @@ public class PlayScreen implements Screen {
 
     /**
      * Change the positions of all enemies (works in the loop).
+     *
+     * The data from client.getEnemiesData is received from the server every iteration.
      */
     public void updateEnemiesPosition(float delta) {
         for (int mobId : gameClient.client.getEnemiesData().keySet()) {
 
-            // Mob data: posX, posY, type.
+            // Mob data: posX, posY, type, hp.
             float[] mobData = gameClient.client.getEnemiesData().get(mobId);
 
-            if (!enemies.containsKey(mobId)) {
+            if (!this.enemies.containsKey(mobId) && !this.killedEnemiesId.contains(mobId)) {
                 // If such Enemy object was not created yet -> check Enemy type and create respective object.
                 if (mobData[2] == 0.0) {
                     // If mob is zombie.
-                    enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 5));
+                    this.enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], 100, 100, 5));
                 }
 
                 if (mobData[2] == 1.0) {
                     // If mob is octopus.
-                    enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 5));
+                    this.enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], 100, 100, 5));
                 }
 
-                enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
-                enemies.get(mobId).draw(batch, delta);
+                this.enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
+                this.enemies.get(mobId).draw(batch, delta);
             }
 
             else {
                 // If such mob already exists -> update its data.
                 Enemy enemyToUpdate = enemies.get(mobId);
                 enemyToUpdate.polygon.setPosition(mobData[0], mobData[1]);
-                enemyToUpdate.draw(batch, delta);
+
+                // Only update mob HP if it was hit.
+                if (enemyToUpdate.getHp() != mobData[3]) {
+                    // mobData[3] contains mob HP value.
+                    enemyToUpdate.setHp((int) mobData[3]);
+                }
+
+                if (enemyToUpdate.getHp() == 0) {
+                    // If mob HP is 0 -> kill him (but actually spawn far beyond the map :))
+                    this.killedEnemiesId.add(mobId);
+                    enemyToUpdate.polygon.setPosition(99999, 99999);  // FIND BETTER SOLUTION?
+                }
+
+                if (!this.killedEnemiesId.contains(mobId)) enemyToUpdate.draw(batch, delta);
             }
         }
     }
@@ -235,89 +241,47 @@ public class PlayScreen implements Screen {
      * @param prevPlayerY player's previous Y position.
      */
     public void detectCollision(float prevPlayerX, float prevPlayerY) {
+        if (!collision) {
 
-        // Water collision
-        layerCollision(waterCollisionLayer);
+            // If the key on the cell where the player is located is "blocked", assert a collision
+            if (waterCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+                    waterCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
 
-        // Buildings collision
-        layerCollision(buildingsCollisionLayer);
+                    buildingsCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null ||
+                    buildingsCollisionLayer.getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight)) != null) {
 
-        // If collision is detected on X, teleport one step back on X
-        if (collisionX) {
-            player.polygon.setPosition(prevPlayerX, player.polygon.getY());
-            collisionX = false;
-        }
+                collision = true;
+//                        collisionLayer
+//                                .getCell((int) (player.polygon.getX() / tileWidth), (int) (player.polygon.getY() / tileHeight))
+//                                .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) (player.polygon.getY() / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) (player.polygon.getX() / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked") ||
+//
+//                                collisionLayer
+//                                        .getCell((int) ((player.polygon.getX() + PLAYER_WIDTH) / tileWidth), (int) ((player.polygon.getY() + PLAYER_HEIGHT) / tileHeight))
+//                                        .getTile().getProperties().containsKey("blocked");
 
-        // If collision is detected on Y, teleport one step back on Y
-        if (collisionY) {
-            player.polygon.setPosition(player.polygon.getX(), prevPlayerY);
-            collisionY = false;
-        }
-    }
+            // If this cell is the end of the world
+            }
+//            else {
+//                collision = true;
+//            }
 
-    /**
-     * If the player is on the cell of the layer - assert a collision.
-     *
-     * Player:
-     * -9--12--10-
-     * 3        4
-     * |        |
-     * 5        6
-     * |        |
-     * 1        2
-     * -7--11--8-
-     *
-     * @param layer TiledMap layer.
-     */
-    public void layerCollision(TiledMapTileLayer layer) {
-
-        float playerX = player.polygon.getX();
-        float playerY = player.polygon.getY();
-
-        if ( // Horizontal collision
-
-        // 1. lower left corner of the player
-        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + 2) / tileHeight)) != null ||
-
-        // 2. lower right corner of the player
-        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) ((playerY + 2) / tileHeight)) != null ||
-
-        // 3. upper left corner of the player
-        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + PLAYER_HEIGHT - 2) / tileHeight)) != null ||
-
-        // 4. upper right corner of the player
-        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) (((playerY - 2) + PLAYER_HEIGHT) / tileHeight)) != null ||
-
-        // 5. left center point of the player
-        layer.getCell((int) (playerX / tileWidth), (int) ((playerY + PLAYER_HEIGHT / 2) / tileHeight)) != null ||
-
-        // 6. right center point of the player
-        layer.getCell((int) ((playerX + PLAYER_WIDTH) / tileWidth), (int) ((playerY + PLAYER_HEIGHT / 2) / tileHeight)) != null) {
-
-            collisionX = true;
-        }
-
-        if ( // Vertical collision
-
-        // 7. lower left corner of the player
-        layer.getCell((int) ((playerX + 2) / tileWidth), (int) (playerY / tileHeight)) != null ||
-
-        // 8. lower right corner of the player
-        layer.getCell((int) (((playerX - 2) + PLAYER_WIDTH) / tileWidth), (int) (playerY / tileHeight)) != null ||
-
-        // 9. upper left corner of the player
-        layer.getCell((int) ((playerX + 2) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null ||
-
-        // 10. upper right corner of the player
-        layer.getCell((int) (((playerX - 2) + PLAYER_WIDTH) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null ||
-
-        // 11. lower center point of the player
-        layer.getCell((int) ((playerX + PLAYER_WIDTH / 2) / tileWidth), (int) (playerY / tileHeight)) != null ||
-
-        // 12. upper center point of the player
-        layer.getCell((int) ((playerX + PLAYER_WIDTH / 2) / tileWidth), (int) ((playerY + PLAYER_HEIGHT) / tileHeight)) != null) {
-
-            collisionY = true;
+            // If a collision is detected, teleport one step back
+            if (collision) {
+                player.polygon.setPosition(prevPlayerX, prevPlayerY);
+                collision = false;
+            }
         }
     }
 
@@ -325,13 +289,9 @@ public class PlayScreen implements Screen {
      * When a player is at the edge of the map, stop following him with the camera.
      */
     public void detectEdgeOfTheMap() {
-
-        // Stop camera horizontally
         if (player.polygon.getX() < 1230 && player.polygon.getX() > 590) {
             cameraX = player.polygon.getX() + 50;
         }
-
-        // Stop camera vertically
         if (player.polygon.getY() < 1510 && player.polygon.getY() > 310) {
             cameraY = player.polygon.getY() + 50;
         }
