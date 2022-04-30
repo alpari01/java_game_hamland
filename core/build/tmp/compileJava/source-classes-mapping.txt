@@ -44,9 +44,9 @@ com/mygdx/game/screens/MenuScreen.java
  com.mygdx.game.screens.MenuScreen
 com/mygdx/game/screens/SettingsScreen.java
  com.mygdx.game.screens.SettingsScreen
-com/mygdx/game/screens/NicknameScreen.java
- com.mygdx.game.screens.NicknameScreen
 com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
  com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
+com/mygdx/game/screens/NicknameScreen.java
+ com.mygdx.game.screens.NicknameScreen
 com/mygdx/game/screens/PlayScreen.java
  com.mygdx.game.screens.PlayScreen
