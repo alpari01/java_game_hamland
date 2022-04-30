@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.control.PlayerControl;
@@ -12,8 +13,8 @@ public class Player extends GameObject {
         super(texture, x, y, width, height);
         playerControl = new PlayerControl(polygon);
     }
-    public void draw(SpriteBatch batch, Bullet bullet) {
+    public void draw(SpriteBatch batch, Bullet bullet, OrthographicCamera camera) {
         super.draw(batch);
-        playerControl.handle(bullet);
+        playerControl.handle(bullet, camera);
     }
 }

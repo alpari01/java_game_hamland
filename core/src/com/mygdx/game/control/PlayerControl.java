@@ -3,9 +3,11 @@ package com.mygdx.game.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Polygon;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Bullet;
+import com.mygdx.game.screens.PlayScreen;
 
 public class PlayerControl {
 
@@ -18,7 +20,7 @@ public class PlayerControl {
     /**
      * Change the position of the player according to the pressed button.
      */
-    public void handle(Bullet bullet) {
+    public void handle(Bullet bullet, OrthographicCamera camera) {
 
         // RIGHT
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -46,19 +48,19 @@ public class PlayerControl {
         }
 
         // ROTATE TOWARDS MOUSE CURSOR
-        polygon.setRotation((float) getMouseCursorAngle() - 90);
+        polygon.setRotation((float) getMouseCursorAngle(camera) - 90);
     }
 
     /**
      * Return the angle of the mouse cursor based on the position of the player
      * @return positive angle in deg.
      */
-    public double getMouseCursorAngle() {
+    public double getMouseCursorAngle(OrthographicCamera camera) {
         double result = 0;
 
         // difference between player position and mouse cursor position
-        float x = Gdx.input.getX() - (float) GameClient.WIDTH / 2;
-        float y = Math.abs(Gdx.input.getY() - GameClient.HEIGHT) - (float) GameClient.HEIGHT / 2;
+        float x = Gdx.input.getX() - (float) GameClient.WIDTH / 2 + (camera.position.x - 50 - polygon.getX()) + (float) (PlayScreen.PLAYER_WIDTH / 2);
+        float y = Math.abs(Gdx.input.getY() - GameClient.HEIGHT) - (float) GameClient.HEIGHT / 2 + (camera.position.y - 50 - polygon.getY()) + (float) (PlayScreen.PLAYER_HEIGHT / 2);
 
         // arc-tangent of the modulus of the ratio of coordinates (in deg)
         double angle = Math.abs(Math.atan(y / x) * 180 / Math.PI);
