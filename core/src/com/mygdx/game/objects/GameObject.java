@@ -21,15 +21,15 @@ public abstract class GameObject {
     public GameObject(Texture texture, float x, float y, float width, float height) {
 
         // Create a Sprite with given texture
-        sprite = new Sprite(texture);
-        sprite.setSize(width, height); // resize the texture
-        sprite.setOrigin(width / 2f, height / 2f); // set texture center
-        sprite.setPosition(x - width / 2f, y - height / 2f); // set texture position
+        this.sprite = new Sprite(texture);
+        this.sprite.setSize(width, height); // resize the texture
+        this.sprite.setOrigin(width / 2f, height / 2f); // set texture center
+        this.sprite.setPosition(x - width / 2f, y - height / 2f); // set texture position
 
         // Create a Polygon with given vertices
-        polygon = new Polygon(new float[]{0f, 0f, width, 0f, width, height, 0f, height});
-        polygon.setOrigin(width / 2f, height / 2f); // set polygon center
-        polygon.setPosition(x - width / 2f, y - height / 2f); // set polygon position
+        this.polygon = new Polygon(new float[]{0f, 0f, width, 0f, width, height, 0f, height});
+        this.polygon.setOrigin(width / 2f, height / 2f); // set polygon center
+        this.polygon.setPosition(x - width / 2f, y - height / 2f); // set polygon position
 
     }
 
@@ -41,5 +41,9 @@ public abstract class GameObject {
         sprite.setPosition(polygon.getX(), polygon.getY()); // set Sprite position equal to Polygon position
         sprite.setRotation(polygon.getRotation()); // set Sprite rotation around the Polygon center
         sprite.draw(batch); // draw an object on the batch
+    }
+
+    public void setSpriteDeadPlayer() {
+        this.sprite.setColor(0.5f, 0.5f, 0.5f, 0.5f);
     }
 }

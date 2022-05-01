@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -31,6 +32,8 @@ public class PlayScreen implements Screen {
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
 
     // Properties
+    private final static int PLAYER_START_HP = 3;
+
     public static final int PLAYER_X = 1190;
     public static final int PLAYER_Y = 910;
 
@@ -70,6 +73,9 @@ public class PlayScreen implements Screen {
     private TiledMapTileLayer waterCollisionLayer;
     private TiledMapTileLayer buildingsCollisionLayer;
 
+    private final BitmapFont fontPlayer = new BitmapFont();
+    private final BitmapFont fontTeammate = new BitmapFont();
+
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
 
@@ -81,10 +87,18 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+
+        player.setHp(PLAYER_START_HP);
+
+        fontPlayer.setColor(0, 1, 0, 1);
+        fontTeammate.setColor(0, 1, 0, 1);
+
         bullet = new Bullet(bulletTexture, 0, 0, BULLET_WIDTH, BULLET_HEIGHT, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
-            gameClient.client.getTeammates().put(teammateNickname, new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT));
+            Teammate teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+            teammate.setHp(PLAYER_START_HP);
+            gameClient.client.getTeammates().put(teammateNickname, teammate);
         }
 
         camera = new OrthographicCamera(player.polygon.getX(), player.polygon.getY());
@@ -102,7 +116,6 @@ public class PlayScreen implements Screen {
         buildingsCollisionLayer = (TiledMapTileLayer) map.getLayers().get("building");
         tileWidth = waterCollisionLayer.getTileWidth();
         tileHeight = waterCollisionLayer.getTileHeight();
-
     }
 
     @Override
@@ -131,15 +144,31 @@ public class PlayScreen implements Screen {
         detectEdgeOfTheMap();
         camera.position.set(cameraX, cameraY, 0);
         camera.update();
-
-        detectInput(); // send packet
         player.draw(batch, bullet, camera); // draw player
+        detectInput(); // send packet
 
+        if (player.isAlive()) {
+            // If player is alive.
+
+            updateBullet(delta);
+
+            // Draw some text near player's sprite.
+            fontPlayer.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
+        }
+
+        else {
+            // If player has died.
+
+            player.setSpriteDeadPlayer();
+            player.getPlayerControl().isControlActive(false);
+
+            fontPlayer.setColor(0, 0, 0, 1);
+            // Draw some text near player's sprite.
+            fontPlayer.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
+        }
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
-
         updateTeammatePosition(); // update teammates' positions
         updateEnemiesPosition(delta);
-        updateBullet(delta);
 
         batch.setProjectionMatrix(camera.combined);
 
@@ -188,9 +217,24 @@ public class PlayScreen implements Screen {
      * Change the position of another player (works in the loop).
      */
     public void updateTeammatePosition() {
-        for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
-            if (gameClient.client.getTeammates().get(teammateNickname) != null) {
-                gameClient.client.getTeammates().get(teammateNickname).draw(batch);
+
+        for (Teammate teammate : gameClient.client.getTeammates().values()) {
+
+            if (teammate != null) {
+
+                teammate.draw(batch);
+
+                if (teammate.isAlive()) {
+                    // If teammate is alive.
+                    fontTeammate.draw(batch, String.valueOf(teammate.getHp()), teammate.polygon.getX(), teammate.polygon.getY());
+                }
+
+                if (!teammate.isAlive()) {
+                    // If teammate is dead.
+                    teammate.setSpriteDeadPlayer();
+                    fontTeammate.setColor(0, 0, 0, 1);
+                    fontTeammate.draw(batch, "RIP", teammate.polygon.getX(), teammate.polygon.getY());
+                }
             }
         }
     }

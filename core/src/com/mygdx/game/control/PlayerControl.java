@@ -12,9 +12,11 @@ import com.mygdx.game.screens.PlayScreen;
 public class PlayerControl {
 
     private final Polygon polygon;
+    private boolean isActive;
 
     public PlayerControl(Polygon polygon){
         this.polygon = polygon;
+        this.isActive = true;
     }
 
     /**
@@ -22,33 +24,36 @@ public class PlayerControl {
      */
     public void handle(Bullet bullet, OrthographicCamera camera) {
 
-        // RIGHT
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            polygon.setPosition(polygon.getX() + 1, polygon.getY());
-        }
+        if (this.isActive) {
 
-        // LEFT
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            polygon.setPosition(polygon.getX() - 1, polygon.getY());
-        }
+            // RIGHT
+            if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                polygon.setPosition(polygon.getX() + 1, polygon.getY());
+            }
 
-        // UP
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            polygon.setPosition(polygon.getX(), polygon.getY() + 1);
-        }
+            // LEFT
+            if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                polygon.setPosition(polygon.getX() - 1, polygon.getY());
+            }
 
-        // DOWN
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            polygon.setPosition(polygon.getX(), polygon.getY() - 1);
-        }
+            // UP
+            if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                polygon.setPosition(polygon.getX(), polygon.getY() + 1);
+            }
 
-        // WEAPON RELOAD
-        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-            bullet.setReload(true);
-        }
+            // DOWN
+            if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                polygon.setPosition(polygon.getX(), polygon.getY() - 1);
+            }
 
-        // ROTATE TOWARDS MOUSE CURSOR
-        polygon.setRotation((float) getMouseCursorAngle(camera) - 90);
+            // WEAPON RELOAD
+            if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+                bullet.setReload(true);
+            }
+
+            // ROTATE TOWARDS MOUSE CURSOR
+            polygon.setRotation((float) getMouseCursorAngle(camera) - 90);
+        }
     }
 
     /**
@@ -72,5 +77,9 @@ public class PlayerControl {
         else if (x <= 0 && y < 0) result = 180 + angle;
 
         return result;
+    }
+
+    public void isControlActive(boolean state) {
+        this.isActive = state;
     }
 }
