@@ -28,16 +28,17 @@ public class Enemy extends GameObject {
         if (isAlive()) {
             sprite.draw(batch);
             font.draw(batch, String.valueOf(hp), polygon.getX(), polygon.getY());
+        }
 
         // If the enemy died, a timer is set, after which he resurrects in a random position.
-        } else {
-            time += delta;
-            if (time > 0.5) {
-                hp = 5;
-                polygon.setPosition(random.nextInt(640), random.nextInt(360));
-                time = 0;
-            }
-        }
+//        else {
+//            time += delta;
+//            if (time > 0.5) {
+//                hp = 5;
+//                polygon.setPosition(random.nextInt(640), random.nextInt(360));
+//                time = 0;
+//            }
+//        }
     }
 
     public boolean isAlive() {
