@@ -87,8 +87,8 @@ public class PlayScreen implements Screen {
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-
         player.setHp(PLAYER_START_HP);
+        gameClient.client.setPlayer(player);
 
         fontPlayer.setColor(0, 1, 0, 1);
         fontTeammate.setColor(0, 1, 0, 1);

@@ -1,7 +1,7 @@
-com/mygdx/game/objects/Bullet.java
- com.mygdx.game.objects.Bullet
 com/mygdx/game/objects/Player.java
  com.mygdx.game.objects.Player
+com/mygdx/game/objects/Bullet.java
+ com.mygdx.game.objects.Bullet
 com/mygdx/game/packets/PacketMessage.java
  com.mygdx.game.packets.PacketMessage
 com/mygdx/game/objects/Octopus.java
@@ -50,5 +50,7 @@ com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
  com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
 com/mygdx/game/screens/NicknameScreen.java
  com.mygdx.game.screens.NicknameScreen
+com/mygdx/game/packets/PacketPlayerHit.java
+ com.mygdx.game.packets.PacketPlayerHit
 com/mygdx/game/screens/PlayScreen.java
  com.mygdx.game.screens.PlayScreen
