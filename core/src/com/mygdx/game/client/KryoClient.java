@@ -3,6 +3,7 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.packets.*;
 import com.mygdx.game.screens.NicknameScreen;
@@ -19,7 +20,7 @@ public class KryoClient extends Listener {
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
     public static String nickname;
-
+    public static Player player = null;
     public static Map<String, Teammate> teammates = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
     public static Map<String, Boolean>  teammatesShots = new HashMap<>();
@@ -50,6 +51,11 @@ public class KryoClient extends Listener {
         client.getKryo().register(float[].class);
         client.getKryo().register(PacketBulletShot.class);
         client.getKryo().register(PacketMobHit.class);
+        client.getKryo().register(PacketPlayerHit.class);
+    }
+
+    public void setPlayer(Player newPlayer) {
+        player = newPlayer;
     }
 
     public Map<String, Teammate> getTeammates() {
@@ -221,7 +227,19 @@ public class KryoClient extends Listener {
             float[] existingMobData = enemiesData.get(packet.mobId);  // Get current mob data.
             float currentHp = existingMobData[3];  // Get hp old hp value.
             existingMobData[3] = --currentHp;  // Decrease hp by 1.
-            System.out.println("Received packet hit: mob hit id is " + packet.mobId + " HP is now " + existingMobData[3]);
+//            System.out.println("Received packet hit: mob hit id is " + packet.mobId + " HP is now " + existingMobData[3]);
+        }
+
+        // Receive this packet if any player was hit by a mob.
+        if (p instanceof PacketPlayerHit) {
+            PacketPlayerHit packet = (PacketPlayerHit) p;
+
+            if (!packet.playerNickname.equals(nickname)) {
+                Teammate teammate = teammates.get(packet.playerNickname);
+                teammate.setHp(teammate.getHp() - 1);
+            }
+
+            else player.setHp(player.getHp() - 1);
         }
     }
 
