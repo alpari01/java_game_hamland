@@ -13,13 +13,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
-import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -165,28 +162,10 @@ public class PlayScreen implements Screen {
         player.draw(batch, bullet, camera, delta); // draw player
         detectInput(); // send packet
 
-        if (player.isAlive()) {
-            // If player is alive.
-
-            updateBullet(delta);
-
-            // Draw some text near player's sprite.
-            fontPlayer.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
-        }
-
-        else {
-            // If player has died.
-
-            player.setSpriteDeadPlayer();
-            player.getPlayerControl().isControlActive(false);
-
-            fontPlayer.setColor(0, 0, 0, 1);
-            // Draw some text near player's sprite.
-            fontPlayer.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
-        }
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
         updateTeammatePosition(delta); // update teammates' positions
         updateEnemiesPosition(delta);
+        drawBullet(delta); // bullets
 
         batch.setProjectionMatrix(camera.combined);
 
@@ -428,6 +407,32 @@ public class PlayScreen implements Screen {
         // Stop camera vertically
         if (player.polygon.getY() < 1510 && player.polygon.getY() > 310) {
             cameraY = player.polygon.getY() + 50;
+        }
+    }
+
+    /**
+     * Draw the player's bullets and the amount of hp if he is alive, else draw the rip.
+     * @param delta delta time.
+     */
+    public void drawBullet(float delta) {
+        if (player.isAlive()) {
+            // If player is alive.
+
+            updateBullet(delta);
+
+            // Draw some text near player's sprite.
+            fontPlayer.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
+        }
+
+        else {
+            // If player has died.
+
+            player.setSpriteDeadPlayer();
+            player.getPlayerControl().isControlActive(false);
+
+            fontPlayer.setColor(0, 0, 0, 1);
+            // Draw some text near player's sprite.
+            fontPlayer.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
         }
     }
 
