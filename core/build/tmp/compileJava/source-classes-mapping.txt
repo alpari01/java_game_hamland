@@ -14,6 +14,8 @@ com/mygdx/game/packets/PacketSendPlayerMovement.java
  com.mygdx.game.packets.PacketSendPlayerMovement
 com/mygdx/game/objects/Teammate.java
  com.mygdx.game.objects.Teammate
+com/mygdx/game/objects/GreenGuy.java
+ com.mygdx.game.objects.GreenGuy
 com/mygdx/game/packets/PacketMobHit.java
  com.mygdx.game.packets.PacketMobHit
 com/mygdx/game/packets/PacketBulletShot.java
@@ -24,6 +26,10 @@ com/mygdx/game/objects/Enemy.java
  com.mygdx.game.objects.Enemy
 com/mygdx/game/packets/PacketUpdateMobsPos.java
  com.mygdx.game.packets.PacketUpdateMobsPos
+com/mygdx/game/objects/BlueGuy.java
+ com.mygdx.game.objects.BlueGuy
+com/mygdx/game/objects/Crab.java
+ com.mygdx.game.objects.Crab
 com/mygdx/game/packets/PacketPlayerDisconnected.java
  com.mygdx.game.packets.PacketPlayerDisconnected
 com/mygdx/game/client/KryoClient.java
