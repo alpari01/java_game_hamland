@@ -237,9 +237,13 @@ public class KryoClient extends Listener {
             if (!packet.playerNickname.equals(nickname)) {
                 Teammate teammate = teammates.get(packet.playerNickname);
                 teammate.setHp(teammate.getHp() - 1);
+                teammate.setDamaged(true);
             }
 
-            else player.setHp(player.getHp() - 1);
+            else {
+                player.setHp(player.getHp() - 1);
+                player.setDamaged(true);
+            }
         }
     }
 

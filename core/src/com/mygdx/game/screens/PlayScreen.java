@@ -13,10 +13,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -144,7 +147,7 @@ public class PlayScreen implements Screen {
         detectEdgeOfTheMap();
         camera.position.set(cameraX, cameraY, 0);
         camera.update();
-        player.draw(batch, bullet, camera); // draw player
+        player.draw(batch, bullet, camera, delta); // draw player
         detectInput(); // send packet
 
         if (player.isAlive()) {
@@ -167,7 +170,7 @@ public class PlayScreen implements Screen {
             fontPlayer.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
         }
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
-        updateTeammatePosition(); // update teammates' positions
+        updateTeammatePosition(delta); // update teammates' positions
         updateEnemiesPosition(delta);
 
         batch.setProjectionMatrix(camera.combined);
@@ -216,13 +219,13 @@ public class PlayScreen implements Screen {
     /**
      * Change the position of another player (works in the loop).
      */
-    public void updateTeammatePosition() {
+    public void updateTeammatePosition(float delta) {
 
         for (Teammate teammate : gameClient.client.getTeammates().values()) {
 
             if (teammate != null) {
 
-                teammate.draw(batch);
+                teammate.draw(batch, delta);
 
                 if (teammate.isAlive()) {
                     // If teammate is alive.
