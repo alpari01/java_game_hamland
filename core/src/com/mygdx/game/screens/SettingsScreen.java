@@ -41,11 +41,13 @@ public class SettingsScreen implements Screen {
     private Button musicMuteButton;
 
     // Music
-    private boolean isMusicUp = true;
-    private boolean isSoundUp = true;
+    private boolean isMusicUp;
+    private boolean isSoundUp;
 
     public SettingsScreen(GameClient gameClient) {
         this.gameClient = gameClient;
+        isMusicUp = gameClient.getIsMusicUp();
+        isSoundUp = gameClient.getIsSoundUp();
     }
 
     @Override
@@ -99,7 +101,7 @@ public class SettingsScreen implements Screen {
 
             // if click - change boolean value
             if (Gdx.input.justTouched()) {
-                isSoundUp = !isSoundUp;
+                gameClient.setIsSoundUp(!gameClient.getIsSoundUp());
             }
         }
 
@@ -109,25 +111,28 @@ public class SettingsScreen implements Screen {
 
             // if click - change boolean value
             if (Gdx.input.justTouched()) {
-                isMusicUp = !isMusicUp;
+                gameClient.setIsMusicUp(!gameClient.getIsMusicUp());
+
+                float musicVolume = gameClient.getMusic().getVolume();
+                if (musicVolume == 1f) gameClient.getMusic().setVolume(0);
+                else if (musicVolume == 0) gameClient.getMusic().setVolume(1f);
             }
         }
 
         // draw sound/music buttons
-        if (isSoundUp) {
+        if (gameClient.getIsSoundUp()) {
             soundUpButton.draw(batch);
         } else {
             soundMuteButton.draw(batch);
         }
 
-        if (isMusicUp) {
+        if (gameClient.getIsMusicUp()) {
             musicUpButton.draw(batch);
         } else {
             musicMuteButton.draw(batch);
         }
 
         batch.end(); //end
-
     }
 
     @Override
