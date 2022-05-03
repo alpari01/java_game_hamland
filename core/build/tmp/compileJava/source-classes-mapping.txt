@@ -42,8 +42,8 @@ com/mygdx/game/screens/LobbyScreen.java
  com.mygdx.game.screens.LobbyScreen
 com/mygdx/game/packets/PacketUpdatePlayers.java
  com.mygdx.game.packets.PacketUpdatePlayers
-com/mygdx/game/objects/BulletTeammate.java
- com.mygdx.game.objects.BulletTeammate
+com/mygdx/game/packets/PacketPlayerHit.java
+ com.mygdx.game.packets.PacketPlayerHit
 com/mygdx/game/objects/Button.java
  com.mygdx.game.objects.Button
 com/mygdx/game/objects/GameObject.java
@@ -56,7 +56,7 @@ com/mygdx/game/screens/NicknameScreen.java
  com.mygdx.game.screens.NicknameScreen
 com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
  com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
-com/mygdx/game/packets/PacketPlayerHit.java
- com.mygdx.game.packets.PacketPlayerHit
+com/mygdx/game/objects/BulletTeammate.java
+ com.mygdx.game.objects.BulletTeammate
 com/mygdx/game/screens/PlayScreen.java
  com.mygdx.game.screens.PlayScreen

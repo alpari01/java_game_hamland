@@ -9,6 +9,8 @@ public abstract class GameObject {
 
     public Polygon polygon;
     public Sprite sprite;
+    public float width;
+    public float height;
 
     /**
      * Constructor for all objects on the screen.
@@ -19,6 +21,9 @@ public abstract class GameObject {
      * @param height object height.
      */
     public GameObject(Texture texture, float x, float y, float width, float height) {
+
+        this.width = width;
+        this.height = height;
 
         // Create a Sprite with given texture
         this.sprite = new Sprite(texture);
@@ -45,5 +50,13 @@ public abstract class GameObject {
 
     public void setSpriteDeadPlayer() {
         this.sprite.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }
