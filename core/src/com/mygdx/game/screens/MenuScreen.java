@@ -95,7 +95,7 @@ public class MenuScreen implements Screen {
 
             // if click - set screen to PlayScreen
             if (Gdx.input.isTouched()) {
-                gameClient.setScreen(new PlayScreen(gameClient));
+                gameClient.setScreen(new LobbyScreen(gameClient));
             }
 
         } else {
