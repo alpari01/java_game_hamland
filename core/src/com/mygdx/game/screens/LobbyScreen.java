@@ -139,7 +139,11 @@ public class LobbyScreen implements Screen {
         // Write all nicknames of teammates
         StringBuilder teammates = new StringBuilder();
         for (String teammateNickname : KryoClient.teammates.keySet()) {
-            teammates.append(index++).append(". ").append(teammateNickname.toUpperCase(Locale.ROOT)).append("\n");
+            teammates
+                    .append(index++)
+                    .append(". ")
+                    .append(teammateNickname.toUpperCase(Locale.ROOT))
+                    .append("\n");
         }
         font.draw(batch, teammates, 100, 500);
     }
