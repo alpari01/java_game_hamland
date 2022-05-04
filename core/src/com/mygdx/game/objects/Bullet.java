@@ -42,8 +42,8 @@ public class Bullet extends GameObject {
     private final BitmapFont reloadFont = new BitmapFont();
 
     // Textures
-    private final Texture ammoTexture = new Texture("ammo1.png");
-    private final Texture ammoWhiteTexture = new Texture("ammo2.png");
+    private final Texture ammoTexture = new Texture("background/ammo1.png");
+    private final Texture ammoWhiteTexture = new Texture("background/ammo2.png");
     private final TextureRegion[] textureRegions;
 
     public Bullet(Texture texture, float x, float y, float width, float height, Player player) {

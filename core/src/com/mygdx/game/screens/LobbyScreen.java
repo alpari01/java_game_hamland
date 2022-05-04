@@ -18,21 +18,23 @@ public class LobbyScreen implements Screen {
     public static final int EXIT_BUTTON_X = 175;
     public static final int EXIT_BUTTON_Y = 100;
 
-    public static final int MAP_WIDTH = 300;
-    public static final int MAP_HEIGHT = 300;
-    public static final int MAP_X = GameClient.WIDTH - 50 - MAP_WIDTH;
-    public static final int MAP_Y = GameClient.HEIGHT - 50 - MAP_HEIGHT;
-
+    public static final float READY_BUTTON_WIDTH = 170f;
+    public static final float READY_BUTTON_HEIGHT = (float) 808 / 1107 * READY_BUTTON_WIDTH;
+    public static final int READY_BUTTON_X = 650;
+    public static final int READY_BUTTON_Y = 120;
 
     // Textures
-    private Texture exitButtonTexture;
-    private Texture exitButtonWhiteTexture;
+    private Texture exitButtonActiveTexture;
+    private Texture exitButtonInactiveTexture;
+    private Texture readyButtonActiveTexture;
+    private Texture readyButtonInactiveTexture;
     private Texture backgroundTexture;
-    private Texture mapTexture;
 
     // Objects
-    private Button exitButton;
-    private Button exitButtonWhite;
+    private Button exitButtonActive;
+    private Button exitButtonInactive;
+    private Button readyButtonActive;
+    private Button readyButtonInactive;
 
     public LobbyScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -43,14 +45,17 @@ public class LobbyScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        exitButtonTexture = new Texture("buttons/exit_button_active.png");
-        exitButtonWhiteTexture = new Texture("buttons/exit_button_inactive.png");
-        backgroundTexture = new Texture("background/background.png");
-        mapTexture = new Texture("background/samplemap.jpg");
+        exitButtonActiveTexture = new Texture("buttons/exit_button_active.png");
+        exitButtonInactiveTexture = new Texture("buttons/exit_button_inactive.png");
+        readyButtonActiveTexture = new Texture("buttons/ready_button_active.png");
+        readyButtonInactiveTexture = new Texture("buttons/ready_button_inactive.png");
+        backgroundTexture = new Texture("background/background3.png");
 
         // Button objects
-        exitButton = new Button(exitButtonTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-        exitButtonWhite = new Button(exitButtonWhiteTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        exitButtonActive = new Button(exitButtonActiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        exitButtonInactive = new Button(exitButtonInactiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        readyButtonActive = new Button(readyButtonActiveTexture, READY_BUTTON_X, READY_BUTTON_Y, READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT);
+        readyButtonInactive = new Button(readyButtonInactiveTexture, READY_BUTTON_X, READY_BUTTON_Y, READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT);
     }
 
     @Override
@@ -62,12 +67,26 @@ public class LobbyScreen implements Screen {
 
         batch.draw(backgroundTexture, 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
 
-        batch.draw(mapTexture, MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
+        drawExitButton();
+
+        batch.end(); //end
+    }
+
+    /**
+     * Draw buttons and check if there is a cursor on them.
+     * If yes - change the button to the active one.
+     * If the exit button is pressed - change the screen to the menu screen.
+     * If the ready button is pressed - ...
+     */
+    public void drawExitButton() {
 
         // if mouse X-coordinate and Y-coordinate on the exit button
-        if (Gdx.input.getX() > exitButton.polygon.getX() && Gdx.input.getX() + 30 < exitButton.polygon.getX() + EXIT_BUTTON_WIDTH &&
-                GameClient.HEIGHT - Gdx.input.getY() - 45 > exitButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() + 30 < exitButton.polygon.getY() + EXIT_BUTTON_HEIGHT) {
-            exitButton.draw(batch); // draw in color selected button
+        if (Gdx.input.getX() > exitButtonActive.polygon.getX()
+         && Gdx.input.getX() + 30 < exitButtonActive.polygon.getX() + EXIT_BUTTON_WIDTH
+         && GameClient.HEIGHT - Gdx.input.getY() - 45 > exitButtonActive.polygon.getY()
+         && GameClient.HEIGHT - Gdx.input.getY() + 30 < exitButtonActive.polygon.getY() + EXIT_BUTTON_HEIGHT) {
+
+            exitButtonActive.draw(batch); // draw in color selected button
 
             // if click - set screen to MenuScreen
             if (Gdx.input.isTouched()) {
@@ -75,10 +94,25 @@ public class LobbyScreen implements Screen {
             }
 
         } else {
-            exitButtonWhite.draw(batch); // draw transparent exit button
+            exitButtonInactive.draw(batch); // draw transparent exit button
         }
 
-        batch.end(); //end
+        // if mouse X-coordinate and Y-coordinate on the ready button
+        if (Gdx.input.getX() > readyButtonActive.polygon.getX()
+                && Gdx.input.getX() < readyButtonActive.polygon.getX() + READY_BUTTON_WIDTH
+                && GameClient.HEIGHT - Gdx.input.getY() > readyButtonActive.polygon.getY()
+                && GameClient.HEIGHT - Gdx.input.getY() + 22 < readyButtonActive.polygon.getY() + READY_BUTTON_HEIGHT) {
+
+            readyButtonActive.draw(batch); // draw in color selected button
+
+            // if click - set screen to PlayScreen
+            if (Gdx.input.isTouched()) {
+                gameClient.setScreen(new PlayScreen(gameClient));
+            }
+
+        } else {
+            readyButtonInactive.draw(batch); // draw transparent ready button
+        }
     }
 
     @Override
@@ -106,10 +140,11 @@ public class LobbyScreen implements Screen {
 
         // Clear memory when game is off
         batch.dispose();
-        exitButtonTexture.dispose();
-        exitButtonWhiteTexture.dispose();
+        exitButtonActiveTexture.dispose();
+        exitButtonInactiveTexture.dispose();
+        readyButtonActiveTexture.dispose();
+        readyButtonInactiveTexture.dispose();
         backgroundTexture.dispose();
-        mapTexture.dispose();
         gameClient.dispose();
     }
 }
