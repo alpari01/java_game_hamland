@@ -49,7 +49,7 @@ public class LobbyScreen implements Screen {
         exitButtonInactiveTexture = new Texture("buttons/exit_button_inactive.png");
         readyButtonActiveTexture = new Texture("buttons/ready_button_active.png");
         readyButtonInactiveTexture = new Texture("buttons/ready_button_inactive.png");
-        backgroundTexture = new Texture("background/background3.png");
+        backgroundTexture = new Texture("background/countryside_lobby.png");
 
         // Button objects
         exitButtonActive = new Button(exitButtonActiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
