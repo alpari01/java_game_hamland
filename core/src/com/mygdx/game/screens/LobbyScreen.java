@@ -3,9 +3,13 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
+
+import java.util.Locale;
 
 public class LobbyScreen implements Screen {
 
@@ -36,6 +40,9 @@ public class LobbyScreen implements Screen {
     private Button readyButtonActive;
     private Button readyButtonInactive;
 
+    // Font
+    private BitmapFont font;
+
     public LobbyScreen(GameClient gameClient) {
         this.gameClient = gameClient;
     }
@@ -56,6 +63,9 @@ public class LobbyScreen implements Screen {
         exitButtonInactive = new Button(exitButtonInactiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
         readyButtonActive = new Button(readyButtonActiveTexture, READY_BUTTON_X, READY_BUTTON_Y, READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT);
         readyButtonInactive = new Button(readyButtonInactiveTexture, READY_BUTTON_X, READY_BUTTON_Y, READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT);
+
+        // Font
+        font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
     }
 
     @Override
@@ -67,7 +77,9 @@ public class LobbyScreen implements Screen {
 
         batch.draw(backgroundTexture, 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
 
-        drawExitButton();
+        drawButtons();
+
+        drawTeamNicknames();
 
         batch.end(); //end
     }
@@ -78,7 +90,7 @@ public class LobbyScreen implements Screen {
      * If the exit button is pressed - change the screen to the menu screen.
      * If the ready button is pressed - ...
      */
-    public void drawExitButton() {
+    public void drawButtons() {
 
         // if mouse X-coordinate and Y-coordinate on the exit button
         if (Gdx.input.getX() > exitButtonActive.polygon.getX()
@@ -113,6 +125,23 @@ public class LobbyScreen implements Screen {
         } else {
             readyButtonInactive.draw(batch); // draw transparent ready button
         }
+    }
+
+    /**
+     * Display your nickname and nicknames of teammates.
+     */
+    public void drawTeamNicknames() {
+        int index = 1;
+
+        // Write own nickname first
+        font.draw(batch, index++ + ". " + KryoClient.nickname.toUpperCase(Locale.ROOT) + " (YOU)", 100, 545);
+
+        // Write all nicknames of teammates
+        StringBuilder teammates = new StringBuilder();
+        for (String teammateNickname : KryoClient.teammates.keySet()) {
+            teammates.append(index++).append(". ").append(teammateNickname.toUpperCase(Locale.ROOT)).append("\n");
+        }
+        font.draw(batch, teammates, 100, 500);
     }
 
     @Override

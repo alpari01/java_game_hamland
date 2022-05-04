@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="sort pictures into folders">
-      <change afterPath="$PROJECT_DIR$/core/assets/background/countryside_lobby.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/background/countryside_lobby_clear.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/buttons/ready_button_active.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/buttons/ready_button_inactive.png" afterDir="false" />
+    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="lobby interface">
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -19,12 +15,15 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/background/samplemap.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/background/samplemap.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/LobbyScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/LobbyScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/BulletTeammate.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/BulletTeammate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/LobbyScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/LobbyScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,6 +124,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Hiero" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.badlogic.gdx.tools.hiero.Hiero" />
+      <module name="iti0301-2022-game.desktop.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.badlogic.gdx.tools.hiero.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="KryoClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.client.KryoClient" />
       <module name="iti0301-2022-game.core.main" />
@@ -139,11 +151,13 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Hiero" />
       <item itemvalue="Application.DesktopLauncher" />
       <item itemvalue="Application.KryoClient" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Hiero" />
         <item itemvalue="Application.KryoClient" />
         <item itemvalue="Application.DesktopLauncher" />
         <item itemvalue="Application.KryoClient" />
@@ -246,21 +260,7 @@
       <workItem from="1651590721069" duration="2076000" />
       <workItem from="1651661321969" duration="2784000" />
       <workItem from="1651664124789" duration="4899000" />
-      <workItem from="1651678432044" duration="6579000" />
-    </task>
-    <task id="LOCAL-00018" summary="detect input method">
-      <created>1646662905043</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1646662905043</updated>
-    </task>
-    <task id="LOCAL-00019" summary="detect input method">
-      <created>1646662957895</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1646662957895</updated>
+      <workItem from="1651678432044" duration="11506000" />
     </task>
     <task id="LOCAL-00020" summary="player control method">
       <created>1646735700383</created>
@@ -591,7 +591,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651679414748</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="lobby interface">
+      <created>1651687000249</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1651687000249</updated>
+    </task>
+    <task id="LOCAL-00068" summary="lobby interface">
+      <created>1651687126153</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1651687126153</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +623,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="enemy follow the player method" />
     <MESSAGE value="enemy draw" />
     <MESSAGE value="bullet shot method" />
     <MESSAGE value="bullet hitting the target method" />
@@ -634,6 +647,7 @@
     <MESSAGE value="lobby" />
     <MESSAGE value="new background and game name inscription" />
     <MESSAGE value="sort pictures into folders" />
-    <option name="LAST_COMMIT_MESSAGE" value="sort pictures into folders" />
+    <MESSAGE value="lobby interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="lobby interface" />
   </component>
 </project>

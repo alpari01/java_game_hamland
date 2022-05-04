@@ -46,6 +46,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         compile "com.esotericsoftware:kryo:3.0.1"
         compile ("com.esotericsoftware:kryonet:2.22.0-RC1") {
             exclude module : 'kryo'
