@@ -18,15 +18,15 @@ public class MenuScreen implements Screen {
     public static final float BUTTON_WIDTH = 200f;
     public static final float BUTTON_HEIGHT = (float) 790 / 973 * BUTTON_WIDTH;
 
-    public static final int HAMSTERS_X = 180;
-    public static final int HAMSTERS_Y = 40;
-    public static final int HAMSTERS_WIDTH = 300;
-    public static final int HAMSTERS_HEIGHT = 300;
+    public static final int HAMSTERS_X = 120;
+    public static final int HAMSTERS_Y = 350;
+    public static final int HAMSTERS_WIDTH = 200;
+    public static final int HAMSTERS_HEIGHT = 200;
 
-    public static final int WELCOME_X = 850;
-    public static final int WELCOME_Y = 200;
-    public static final int WELCOME_WIDTH = 300;
-    public static final int WELCOME_HEIGHT = 300;
+    public static final int WELCOME_X = 870;
+    public static final int WELCOME_Y = 380;
+    public static final int WELCOME_WIDTH = (int) (385 * 0.75);
+    public static final int WELCOME_HEIGHT = (int) (305 * 0.75);
 
     // Textures
     private Texture playButtonTexture;
@@ -56,16 +56,16 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("play_button_active.png");
-        playButtonWhiteTexture = new Texture("play_button_inactive.png");
-        settingsButtonTexture = new Texture("tools_button_active.png");
-        settingsButtonWhiteTexture = new Texture("tools_button_inactive.png");
-        quitButtonTexture = new Texture("quit_button_active.png");
-        quitButtonWhiteTexture = new Texture("quit_button_inactive.png");
+        playButtonTexture = new Texture("buttons/play_button_active.png");
+        playButtonWhiteTexture = new Texture("buttons/play_button_inactive.png");
+        settingsButtonTexture = new Texture("buttons/tools_button_active.png");
+        settingsButtonWhiteTexture = new Texture("buttons/tools_button_inactive.png");
+        quitButtonTexture = new Texture("buttons/quit_button_active.png");
+        quitButtonWhiteTexture = new Texture("buttons/quit_button_inactive.png");
 
-        backgroundTexture = new Texture("background.png");
-        hamstersTexture = new Texture("hamsters.png");
-        welcomeTexture = new Texture("welcome.png");
+        backgroundTexture = new Texture("background/background.png");
+        hamstersTexture = new Texture("background/hamsters.png");
+        welcomeTexture = new Texture("background/welcome.png");
 
         // Button objects
         playButton = new Button(playButtonTexture, BUTTON_X, BUTTON_Y + BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -95,7 +95,7 @@ public class MenuScreen implements Screen {
 
             // if click - set screen to PlayScreen
             if (Gdx.input.isTouched()) {
-                gameClient.setScreen(new PlayScreen(gameClient));
+                gameClient.setScreen(new LobbyScreen(gameClient));
             }
 
         } else {

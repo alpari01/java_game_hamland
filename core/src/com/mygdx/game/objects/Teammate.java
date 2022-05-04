@@ -23,7 +23,7 @@ public class Teammate extends GameObject {
         super(texture, x, y, width, height);
 
         // Blood textures
-        TextureAtlas bloodAtlas = new TextureAtlas("blood.atlas");
+        TextureAtlas bloodAtlas = new TextureAtlas("animations/blood.atlas");
         textureRegions = new TextureRegion[16];
         for (int i = 0; i < 16; i++) {
             TextureRegion textureRegion = bloodAtlas.findRegion("image" + i);

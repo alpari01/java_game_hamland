@@ -42,8 +42,8 @@ public class Bullet extends GameObject {
     private final BitmapFont reloadFont = new BitmapFont();
 
     // Textures
-    private final Texture ammoTexture = new Texture("ammo1.png");
-    private final Texture ammoWhiteTexture = new Texture("ammo2.png");
+    private final Texture ammoTexture = new Texture("background/ammo1.png");
+    private final Texture ammoWhiteTexture = new Texture("background/ammo2.png");
     private final TextureRegion[] textureRegions;
 
     public Bullet(Texture texture, float x, float y, float width, float height, Player player) {
@@ -51,7 +51,7 @@ public class Bullet extends GameObject {
         this.player = player;
 
         // Explosion textures
-        TextureAtlas explosionAtlas = new TextureAtlas("explosion.atlas");
+        TextureAtlas explosionAtlas = new TextureAtlas("animations/explosion.atlas");
         textureRegions = new TextureRegion[40];
         for (int i = 0; i < 40; i++) {
             textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));

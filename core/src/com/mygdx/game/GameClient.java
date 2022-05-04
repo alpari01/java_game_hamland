@@ -20,7 +20,7 @@ public class GameClient extends Game {
 
 	@Override
 	public void create() {
-		music = new MusicMaster("music_main.mp3");
+		music = new MusicMaster("sounds/music_main.mp3");
 		// Sound and music are on by default.
 		isMusicUp = true;
 		isSoundUp = true;

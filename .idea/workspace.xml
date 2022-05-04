@@ -4,26 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="trash">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/MusicMaster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="display nicknames in lobby">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MenuScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/NicknameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/NicknameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/SettingsScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/SettingsScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +60,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/core/assets/maps" />
@@ -86,7 +78,11 @@
       <recent name="$PROJECT_DIR$/core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/core/assets" />
+      <recent name="$PROJECT_DIR$/core/assets/fonts" />
+      <recent name="$PROJECT_DIR$/core/assets/buttons" />
+      <recent name="$PROJECT_DIR$/core/assets/hud" />
+      <recent name="$PROJECT_DIR$/core/assets/players" />
+      <recent name="$PROJECT_DIR$/core/assets/sounds" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mygdx.game.control" />
@@ -109,6 +105,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Hiero" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.badlogic.gdx.tools.hiero.Hiero" />
+      <module name="iti0301-2022-game.desktop.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.badlogic.gdx.tools.hiero.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="KryoClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.client.KryoClient" />
       <module name="iti0301-2022-game.core.main" />
@@ -123,11 +132,13 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Hiero" />
       <item itemvalue="Application.DesktopLauncher" />
       <item itemvalue="Application.KryoClient" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Hiero" />
         <item itemvalue="Application.KryoClient" />
         <item itemvalue="Application.DesktopLauncher" />
         <item itemvalue="Application.KryoClient" />
@@ -228,55 +239,9 @@
       <workItem from="1651580419105" duration="74000" />
       <workItem from="1651587485920" duration="3008000" />
       <workItem from="1651590721069" duration="2076000" />
-    </task>
-    <task id="LOCAL-00015" summary="nickname input window bug">
-      <created>1646145788473</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1646145788473</updated>
-    </task>
-    <task id="LOCAL-00016" summary="sound and music buttons">
-      <created>1646155455409</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1646155455409</updated>
-    </task>
-    <task id="LOCAL-00017" summary="test">
-      <created>1646296933753</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1646296933753</updated>
-    </task>
-    <task id="LOCAL-00018" summary="detect input method">
-      <created>1646662905043</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1646662905043</updated>
-    </task>
-    <task id="LOCAL-00019" summary="detect input method">
-      <created>1646662957895</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1646662957895</updated>
-    </task>
-    <task id="LOCAL-00020" summary="player control method">
-      <created>1646735700383</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1646735700383</updated>
-    </task>
-    <task id="LOCAL-00021" summary="buttons replacement">
-      <created>1646749997417</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1646749997417</updated>
+      <workItem from="1651661321969" duration="2784000" />
+      <workItem from="1651664124789" duration="4899000" />
+      <workItem from="1651678432044" duration="12715000" />
     </task>
     <task id="LOCAL-00022" summary="play button bug">
       <created>1646750676258</created>
@@ -572,7 +537,56 @@
       <option name="project" value="LOCAL" />
       <updated>1651591060653</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="lobby">
+      <created>1651661737631</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1651661737632</updated>
+    </task>
+    <task id="LOCAL-00065" summary="new background and game name inscription">
+      <created>1651667359235</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1651667359236</updated>
+    </task>
+    <task id="LOCAL-00066" summary="sort pictures into folders">
+      <created>1651679414747</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1651679414748</updated>
+    </task>
+    <task id="LOCAL-00067" summary="lobby interface">
+      <created>1651687000249</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1651687000249</updated>
+    </task>
+    <task id="LOCAL-00068" summary="lobby interface">
+      <created>1651687126153</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1651687126153</updated>
+    </task>
+    <task id="LOCAL-00069" summary="display nicknames in lobby">
+      <created>1651693061850</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1651693061850</updated>
+    </task>
+    <task id="LOCAL-00070" summary="display nicknames in lobby">
+      <created>1651693079844</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1651693079844</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,11 +604,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="enemy class" />
-    <MESSAGE value="zombie class" />
-    <MESSAGE value="octopus class" />
-    <MESSAGE value="enemy follow the player method" />
-    <MESSAGE value="enemy draw" />
     <MESSAGE value="bullet shot method" />
     <MESSAGE value="bullet hitting the target method" />
     <MESSAGE value="bullet draw method" />
@@ -615,6 +624,11 @@
     <MESSAGE value="a" />
     <MESSAGE value="explosion layer on top of mobs" />
     <MESSAGE value="trash" />
-    <option name="LAST_COMMIT_MESSAGE" value="trash" />
+    <MESSAGE value="lobby" />
+    <MESSAGE value="new background and game name inscription" />
+    <MESSAGE value="sort pictures into folders" />
+    <MESSAGE value="lobby interface" />
+    <MESSAGE value="display nicknames in lobby" />
+    <option name="LAST_COMMIT_MESSAGE" value="display nicknames in lobby" />
   </component>
 </project>

@@ -29,7 +29,7 @@ public class BulletTeammate extends GameObject {
         super(texture, x, y, width, height);
 
         // Textures
-        TextureAtlas explosionAtlas = new TextureAtlas("explosion.atlas");
+        TextureAtlas explosionAtlas = new TextureAtlas("animations/explosion.atlas");
         textureRegions = new TextureRegion[40];
         for (int i = 0; i < 40; i++) {
             textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));

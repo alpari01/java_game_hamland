@@ -21,9 +21,9 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
     public static final float ENTER_NAME_BUTTON_HEIGHT = (float) 817 / 1116 * ENTER_NAME_BUTTON_WIDTH;
 
     public static final int WELCOME_X = GameClient.WIDTH / 2 - 180;
-    public static final int WELCOME_Y = GameClient.HEIGHT / 2 - 100;
-    public static final int WELCOME_WIDTH = 400;
-    public static final int WELCOME_HEIGHT = 400;
+    public static final int WELCOME_Y = GameClient.HEIGHT / 2 - 15;
+    public static final int WELCOME_WIDTH = 385;
+    public static final int WELCOME_HEIGHT = 305;
 
     // Textures
     private Texture playButtonTexture;
@@ -52,10 +52,10 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         gameClient.getMusic().play();
 
         // Textures
-        playButtonTexture = new Texture("enter_name_active.png");
-        playButtonWhiteTexture = new Texture("enter_name_inactive.png");
-        backgroundTexture = new Texture("background.png");
-        welcomeTexture = new Texture("welcome.png");
+        playButtonTexture = new Texture("buttons/enter_name_active.png");
+        playButtonWhiteTexture = new Texture("buttons/enter_name_inactive.png");
+        backgroundTexture = new Texture("background/background.png");
+        welcomeTexture = new Texture("background/welcome.png");
 
         // Button objects
         playButton = new Button(playButtonTexture, ENTER_NAME_BUTTON_X, ENTER_NAME_BUTTON_Y, ENTER_NAME_BUTTON_WIDTH, ENTER_NAME_BUTTON_HEIGHT);

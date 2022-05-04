@@ -92,13 +92,13 @@ public class PlayScreen implements Screen {
         this.gameClient = gameClient;
 
         // Textures
-        playerTexture = new Texture("player1.png");
-        zombieTexture = new Texture("zombie_enemy.png");
-        octopusTexture = new Texture("octopus_enemy.png");
-        blueGuyTexture = new Texture("new_enemy_1.png");
-        greenGuyTexture = new Texture("new_enemy_3.png");
-        crabTexture = new Texture("new_enemy_2.png");
-        bulletTexture = new Texture("bullet.png");
+        playerTexture = new Texture("players/player1.png");
+        zombieTexture = new Texture("enemies/zombie_enemy.png");
+        octopusTexture = new Texture("enemies/octopus_enemy.png");
+        blueGuyTexture = new Texture("enemies/new_enemy_1.png");
+        greenGuyTexture = new Texture("enemies/new_enemy_3.png");
+        crabTexture = new Texture("enemies/new_enemy_2.png");
+        bulletTexture = new Texture("players/bullet.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -125,7 +125,7 @@ public class PlayScreen implements Screen {
         }
 
         // TiledMap
-        map = new TmxMapLoader().load("maps/samplemap.tmx");
+        map = new TmxMapLoader().load("tiledmap/samplemap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         waterCollisionLayer = (TiledMapTileLayer) map.getLayers().get("water");
         buildingsCollisionLayer = (TiledMapTileLayer) map.getLayers().get("building");
