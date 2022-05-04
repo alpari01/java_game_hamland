@@ -18,15 +18,15 @@ public class MenuScreen implements Screen {
     public static final float BUTTON_WIDTH = 200f;
     public static final float BUTTON_HEIGHT = (float) 790 / 973 * BUTTON_WIDTH;
 
-    public static final int HAMSTERS_X = 180;
-    public static final int HAMSTERS_Y = 40;
-    public static final int HAMSTERS_WIDTH = 300;
-    public static final int HAMSTERS_HEIGHT = 300;
+    public static final int HAMSTERS_X = 120;
+    public static final int HAMSTERS_Y = 350;
+    public static final int HAMSTERS_WIDTH = 200;
+    public static final int HAMSTERS_HEIGHT = 200;
 
-    public static final int WELCOME_X = 850;
-    public static final int WELCOME_Y = 200;
-    public static final int WELCOME_WIDTH = 300;
-    public static final int WELCOME_HEIGHT = 300;
+    public static final int WELCOME_X = 870;
+    public static final int WELCOME_Y = 380;
+    public static final int WELCOME_WIDTH = (int) (385 * 0.75);
+    public static final int WELCOME_HEIGHT = (int) (305 * 0.75);
 
     // Textures
     private Texture playButtonTexture;

@@ -21,9 +21,9 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
     public static final float ENTER_NAME_BUTTON_HEIGHT = (float) 817 / 1116 * ENTER_NAME_BUTTON_WIDTH;
 
     public static final int WELCOME_X = GameClient.WIDTH / 2 - 180;
-    public static final int WELCOME_Y = GameClient.HEIGHT / 2 - 100;
-    public static final int WELCOME_WIDTH = 400;
-    public static final int WELCOME_HEIGHT = 400;
+    public static final int WELCOME_Y = GameClient.HEIGHT / 2 - 15;
+    public static final int WELCOME_WIDTH = 385;
+    public static final int WELCOME_HEIGHT = 305;
 
     // Textures
     private Texture playButtonTexture;

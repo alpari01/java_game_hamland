@@ -13,15 +13,22 @@ public class LobbyScreen implements Screen {
     private SpriteBatch batch;
 
     // Properties
-    public static final int EXIT_BUTTON_X = 175;
-    public static final int EXIT_BUTTON_Y = 100;
     public static final float EXIT_BUTTON_WIDTH = 200f;
     public static final float EXIT_BUTTON_HEIGHT = (float) 1264 / 1383 * EXIT_BUTTON_WIDTH;
+    public static final int EXIT_BUTTON_X = 175;
+    public static final int EXIT_BUTTON_Y = 100;
+
+    public static final int MAP_WIDTH = 300;
+    public static final int MAP_HEIGHT = 300;
+    public static final int MAP_X = GameClient.WIDTH - 50 - MAP_WIDTH;
+    public static final int MAP_Y = GameClient.HEIGHT - 50 - MAP_HEIGHT;
+
 
     // Textures
     private Texture exitButtonTexture;
     private Texture exitButtonWhiteTexture;
     private Texture backgroundTexture;
+    private Texture mapTexture;
 
     // Objects
     private Button exitButton;
@@ -39,6 +46,7 @@ public class LobbyScreen implements Screen {
         exitButtonTexture = new Texture("exit_button_active.png");
         exitButtonWhiteTexture = new Texture("exit_button_inactive.png");
         backgroundTexture = new Texture("background.png");
+        mapTexture = new Texture("maps/samplemap.png");
 
         // Button objects
         exitButton = new Button(exitButtonTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -53,6 +61,8 @@ public class LobbyScreen implements Screen {
         batch.begin(); // start
 
         batch.draw(backgroundTexture, 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
+
+        batch.draw(mapTexture, MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
 
         // if mouse X-coordinate and Y-coordinate on the exit button
         if (Gdx.input.getX() > exitButton.polygon.getX() && Gdx.input.getX() + 30 < exitButton.polygon.getX() + EXIT_BUTTON_WIDTH &&
@@ -99,6 +109,7 @@ public class LobbyScreen implements Screen {
         exitButtonTexture.dispose();
         exitButtonWhiteTexture.dispose();
         backgroundTexture.dispose();
+        mapTexture.dispose();
         gameClient.dispose();
     }
 }
