@@ -174,6 +174,7 @@ public class LobbyScreen implements Screen {
         readyButtonActiveTexture.dispose();
         readyButtonInactiveTexture.dispose();
         backgroundTexture.dispose();
+        font.dispose();
         gameClient.dispose();
     }
 }
