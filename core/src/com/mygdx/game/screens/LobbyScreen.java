@@ -43,10 +43,10 @@ public class LobbyScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        exitButtonTexture = new Texture("exit_button_active.png");
-        exitButtonWhiteTexture = new Texture("exit_button_inactive.png");
-        backgroundTexture = new Texture("background.png");
-        mapTexture = new Texture("maps/samplemap.png");
+        exitButtonTexture = new Texture("buttons/exit_button_active.png");
+        exitButtonWhiteTexture = new Texture("buttons/exit_button_inactive.png");
+        backgroundTexture = new Texture("background/background.png");
+        mapTexture = new Texture("background/samplemap.jpg");
 
         // Button objects
         exitButton = new Button(exitButtonTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);

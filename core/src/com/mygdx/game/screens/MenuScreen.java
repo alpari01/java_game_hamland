@@ -56,16 +56,16 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        playButtonTexture = new Texture("play_button_active.png");
-        playButtonWhiteTexture = new Texture("play_button_inactive.png");
-        settingsButtonTexture = new Texture("tools_button_active.png");
-        settingsButtonWhiteTexture = new Texture("tools_button_inactive.png");
-        quitButtonTexture = new Texture("quit_button_active.png");
-        quitButtonWhiteTexture = new Texture("quit_button_inactive.png");
+        playButtonTexture = new Texture("buttons/play_button_active.png");
+        playButtonWhiteTexture = new Texture("buttons/play_button_inactive.png");
+        settingsButtonTexture = new Texture("buttons/tools_button_active.png");
+        settingsButtonWhiteTexture = new Texture("buttons/tools_button_inactive.png");
+        quitButtonTexture = new Texture("buttons/quit_button_active.png");
+        quitButtonWhiteTexture = new Texture("buttons/quit_button_inactive.png");
 
-        backgroundTexture = new Texture("background.png");
-        hamstersTexture = new Texture("hamsters.png");
-        welcomeTexture = new Texture("welcome.png");
+        backgroundTexture = new Texture("background/background.png");
+        hamstersTexture = new Texture("background/hamsters.png");
+        welcomeTexture = new Texture("background/welcome.png");
 
         // Button objects
         playButton = new Button(playButtonTexture, BUTTON_X, BUTTON_Y + BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_HEIGHT);

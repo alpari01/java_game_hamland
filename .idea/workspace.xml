@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="lobby">
+    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="new background and game name inscription">
+      <change afterPath="$PROJECT_DIR$/core/assets/background/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/background/samplemap.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -17,20 +19,107 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/backloop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/welcome.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/welcome.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/ammo1.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/background/ammo1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/ammo2.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/background/ammo2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/b1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/b2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/blood.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/animations/blood.atlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/blood.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/animations/blood.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/bullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/players/bullet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/button_place.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/enter_name_active.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/enter_name_active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/enter_name_inactive.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/enter_name_inactive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/exit_button_active.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/exit_button_active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/exit_button_inactive.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/exit_button_inactive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/explosion.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/animations/explosion.atlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/explosion.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/animations/explosion.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/game_enemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/hamsters.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/background/hamsters.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/LightShadow_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/LightShadow_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/LightShadow_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Dirt_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Dirt_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Dirt_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Flower_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Flower_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Flower_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Grass_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Grass_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Grass_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Wall-Up_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Wall-Up_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Wall-Up_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]WaterFall_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]WaterFall_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]WaterFall_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Water_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[A]Water_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[A]Water_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[Base]BaseChip_pipo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/[Base]BaseChip_pipo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/[Base]BaseChip_pipo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/samplemap.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/samplemap.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/maps/samplemap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/tiledmap/samplemap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/music_main.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/sounds/music_main.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/music_mute.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/music_mute.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/music_up.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/music_up.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/new_enemy_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/enemies/new_enemy_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/new_enemy_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/enemies/new_enemy_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/new_enemy_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/enemies/new_enemy_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/octopus_enemy.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/enemies/octopus_enemy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/play_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/play_button_active.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/play_button_active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/play_button_inactive.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/play_button_inactive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/player1.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/players/player1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/player2.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/players/player2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/player3.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/players/player3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/player4.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/players/player4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/quit_button_active.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/quit_button_active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/quit_button_inactive.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/quit_button_inactive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/sound_mute.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/sound_mute.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/sound_up.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/sound_up.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/tools_button_active.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/tools_button_active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/tools_button_inactive.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/buttons/tools_button_inactive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/welcome.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/background/welcome.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/zombie_enemy.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/enemies/zombie_enemy.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/LobbyScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/LobbyScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/MenuScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/MenuScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/NicknameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/NicknameScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Teammate.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/objects/Teammate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/LobbyScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/LobbyScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/MenuScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/NicknameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/NicknameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/backloop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/welcome.png" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/resources/main/welcome.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/PlayScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/SettingsScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/screens/SettingsScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/ammo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/ammo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/b1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/b2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/blood.atlas" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/blood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/button_place.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/enter_name_active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/enter_name_inactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/exit_button_active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/exit_button_inactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/explosion.atlas" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/explosion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/game_enemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/hamsters.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/music_mute.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/music_up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/octopus_enemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/play_button_active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/play_button_inactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/player4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/quit_button_active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/quit_button_inactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/sound_mute.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/sound_up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/tools_button_active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/tools_button_inactive.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/welcome.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/resources/main/zombie_enemy.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,8 +192,11 @@
       <recent name="$PROJECT_DIR$/core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/core/assets" />
-      <recent name="$PROJECT_DIR$/core/assets/maps" />
+      <recent name="$PROJECT_DIR$/core/assets/hud" />
+      <recent name="$PROJECT_DIR$/core/assets/players" />
+      <recent name="$PROJECT_DIR$/core/assets/sounds" />
+      <recent name="$PROJECT_DIR$/core/assets/enemies" />
+      <recent name="$PROJECT_DIR$/core/assets/animations" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mygdx.game.control" />
@@ -247,14 +339,8 @@
       <workItem from="1651587485920" duration="3008000" />
       <workItem from="1651590721069" duration="2076000" />
       <workItem from="1651661321969" duration="2784000" />
-      <workItem from="1651664124789" duration="3072000" />
-    </task>
-    <task id="LOCAL-00016" summary="sound and music buttons">
-      <created>1646155455409</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1646155455409</updated>
+      <workItem from="1651664124789" duration="4899000" />
+      <workItem from="1651678432044" duration="902000" />
     </task>
     <task id="LOCAL-00017" summary="test">
       <created>1646296933753</created>
@@ -592,7 +678,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651661737632</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="new background and game name inscription">
+      <created>1651667359235</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1651667359236</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,7 +703,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="zombie class" />
     <MESSAGE value="octopus class" />
     <MESSAGE value="enemy follow the player method" />
     <MESSAGE value="enemy draw" />
@@ -635,6 +727,7 @@
     <MESSAGE value="explosion layer on top of mobs" />
     <MESSAGE value="trash" />
     <MESSAGE value="lobby" />
-    <option name="LAST_COMMIT_MESSAGE" value="lobby" />
+    <MESSAGE value="new background and game name inscription" />
+    <option name="LAST_COMMIT_MESSAGE" value="new background and game name inscription" />
   </component>
 </project>

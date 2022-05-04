@@ -52,10 +52,10 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         gameClient.getMusic().play();
 
         // Textures
-        playButtonTexture = new Texture("enter_name_active.png");
-        playButtonWhiteTexture = new Texture("enter_name_inactive.png");
-        backgroundTexture = new Texture("background.png");
-        welcomeTexture = new Texture("welcome.png");
+        playButtonTexture = new Texture("buttons/enter_name_active.png");
+        playButtonWhiteTexture = new Texture("buttons/enter_name_inactive.png");
+        backgroundTexture = new Texture("background/background.png");
+        welcomeTexture = new Texture("background/welcome.png");
 
         // Button objects
         playButton = new Button(playButtonTexture, ENTER_NAME_BUTTON_X, ENTER_NAME_BUTTON_Y, ENTER_NAME_BUTTON_WIDTH, ENTER_NAME_BUTTON_HEIGHT);

@@ -40,14 +40,8 @@ public class SettingsScreen implements Screen {
     private Button musicUpButton;
     private Button musicMuteButton;
 
-    // Music
-    private boolean isMusicUp;
-    private boolean isSoundUp;
-
     public SettingsScreen(GameClient gameClient) {
         this.gameClient = gameClient;
-        isMusicUp = gameClient.getIsMusicUp();
-        isSoundUp = gameClient.getIsSoundUp();
     }
 
     @Override
@@ -55,13 +49,13 @@ public class SettingsScreen implements Screen {
         batch = new SpriteBatch();
 
         // Textures
-        exitButtonTexture = new Texture("exit_button_active.png");
-        exitButtonWhiteTexture = new Texture("exit_button_inactive.png");
-        soundUpButtonTexture = new Texture("sound_up.png");
-        soundMuteButtonTexture = new Texture("sound_mute.png");
-        musicUpButtonTexture = new Texture("music_up.png");
-        musicMuteButtonTexture = new Texture("music_mute.png");
-        backgroundTexture = new Texture("background.png");
+        exitButtonTexture = new Texture("buttons/exit_button_active.png");
+        exitButtonWhiteTexture = new Texture("buttons/exit_button_inactive.png");
+        soundUpButtonTexture = new Texture("buttons/sound_up.png");
+        soundMuteButtonTexture = new Texture("buttons/sound_mute.png");
+        musicUpButtonTexture = new Texture("buttons/music_up.png");
+        musicMuteButtonTexture = new Texture("buttons/music_mute.png");
+        backgroundTexture = new Texture("background/background.png");
 
         // Button objects
         exitButton = new Button(exitButtonTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
