@@ -27,12 +27,14 @@ public class LobbyScreen implements Screen {
     public static final int READY_BUTTON_X = 650;
     public static final int READY_BUTTON_Y = 120;
 
+    public static final int[] LEFT_BUTTON_VERTICES = {850, 880, 480, 520};
+    public static final int[] RIGHT_BUTTON_VERTICES = {1160, 1190, 480, 520};
+
     // Textures
     private Texture exitButtonActiveTexture;
     private Texture exitButtonInactiveTexture;
     private Texture readyButtonActiveTexture;
     private Texture readyButtonInactiveTexture;
-    private Texture backgroundTexture;
 
     // Objects
     private Button exitButtonActive;
@@ -42,6 +44,10 @@ public class LobbyScreen implements Screen {
 
     // Font
     private BitmapFont font;
+
+    // Lobby maps
+    private Texture[] lobbyMaps;
+    private int mapIndex;
 
     public LobbyScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -56,7 +62,6 @@ public class LobbyScreen implements Screen {
         exitButtonInactiveTexture = new Texture("buttons/exit_button_inactive.png");
         readyButtonActiveTexture = new Texture("buttons/ready_button_active.png");
         readyButtonInactiveTexture = new Texture("buttons/ready_button_inactive.png");
-        backgroundTexture = new Texture("background/countryside_lobby.png");
 
         // Button objects
         exitButtonActive = new Button(exitButtonActiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -66,6 +71,11 @@ public class LobbyScreen implements Screen {
 
         // Font
         font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
+
+        // Lobby maps
+        lobbyMaps = new Texture[2];
+        lobbyMaps[0] = new Texture("background/countryside_lobby.png");
+        lobbyMaps[1] = new Texture("background/clear_lobby.png");
     }
 
     @Override
@@ -75,13 +85,42 @@ public class LobbyScreen implements Screen {
 
         batch.begin(); // start
 
-        batch.draw(backgroundTexture, 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
+        changeMap();
 
         drawButtons();
 
         drawTeamNicknames();
 
         batch.end(); //end
+    }
+
+    /**
+     * Change the map to the PREVIOUS one by pressing the LEFT button.
+     * Change the map to the NEXT one by pressing the RIGHt button
+     */
+    public void changeMap() {
+
+        // Right button
+        if (Gdx.input.getX() > RIGHT_BUTTON_VERTICES[0]
+                && Gdx.input.getX() < RIGHT_BUTTON_VERTICES[1]
+                && Gdx.input.getY() > RIGHT_BUTTON_VERTICES[2]
+                && Gdx.input.getY() < RIGHT_BUTTON_VERTICES[3]
+                && Gdx.input.justTouched()) {
+            if (mapIndex + 1 != lobbyMaps.length) mapIndex++;
+            else mapIndex--;
+        }
+
+        // Left button
+        if (Gdx.input.getX() > LEFT_BUTTON_VERTICES[0]
+                && Gdx.input.getX() < LEFT_BUTTON_VERTICES[1]
+                && Gdx.input.getY() > LEFT_BUTTON_VERTICES[2]
+                && Gdx.input.getY() < LEFT_BUTTON_VERTICES[3]
+                && Gdx.input.justTouched()) {
+            if (mapIndex != 0) mapIndex--;
+            else mapIndex++;
+        }
+
+        batch.draw(lobbyMaps[mapIndex], 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
     }
 
     /**
@@ -177,7 +216,6 @@ public class LobbyScreen implements Screen {
         exitButtonInactiveTexture.dispose();
         readyButtonActiveTexture.dispose();
         readyButtonInactiveTexture.dispose();
-        backgroundTexture.dispose();
         font.dispose();
         gameClient.dispose();
     }
