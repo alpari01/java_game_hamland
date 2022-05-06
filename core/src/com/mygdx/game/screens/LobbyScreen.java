@@ -36,6 +36,9 @@ public class LobbyScreen implements Screen {
     public static final int READY_BUTTON_X = 650;
     public static final int READY_BUTTON_Y = 120;
 
+    public static final int TIMER_X = 990;
+    public static final int TIMER_Y = 497;
+
     public static final int[] LEFT_BUTTON_VERTICES = {850, 880, 480, 520};
     public static final int[] RIGHT_BUTTON_VERTICES = {1160, 1190, 480, 520};
 
@@ -52,7 +55,8 @@ public class LobbyScreen implements Screen {
     private Button readyButtonInactive;
 
     // Font
-    private BitmapFont font;
+    private BitmapFont blackFont;
+    private BitmapFont redFont;
 
     // Lobby maps
     private Texture[] lobbyMaps;
@@ -83,7 +87,8 @@ public class LobbyScreen implements Screen {
         readyButtonInactive = new Button(readyButtonInactiveTexture, READY_BUTTON_X, READY_BUTTON_Y, READY_BUTTON_WIDTH, READY_BUTTON_HEIGHT);
 
         // Font
-        font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
+        blackFont = new BitmapFont(Gdx.files.internal("fonts/black.fnt"));
+        redFont = new BitmapFont(Gdx.files.internal("fonts/red_big.fnt"));
 
         // Lobby maps
         lobbyMaps = new Texture[2];
@@ -107,10 +112,7 @@ public class LobbyScreen implements Screen {
         // Update teammates' readiness data.
         this.teammatesReady = gameClient.client.getTeammatesReady();
 
-        // Update timer.
-        this.serverGameBeginTimerCurrent = gameClient.client.getServerTimerGameBeginCurrent();
-        this.serverGameBeginTimerStop = gameClient.client.getServerTimerGameBeginStopValue();
-        System.out.println(serverGameBeginTimerCurrent);
+        updateAndDrawTimer();
 
         // Start the game when global timer (Server timer) is up.
         if (this.serverGameBeginTimerStop == this.serverGameBeginTimerCurrent) {
@@ -122,7 +124,7 @@ public class LobbyScreen implements Screen {
 
     /**
      * Change the map to the PREVIOUS one by pressing the LEFT button.
-     * Change the map to the NEXT one by pressing the RIGHt button
+     * Change the map to the NEXT one by pressing the RIGHT button
      */
     public void changeMap() {
 
@@ -201,7 +203,7 @@ public class LobbyScreen implements Screen {
         int index = 1;
 
         // Write own nickname first
-        font.draw(batch, index++ + ". " + KryoClient.nickname.toUpperCase(Locale.ROOT) + " (YOU)", 100, 545);
+        blackFont.draw(batch, index++ + ". " + KryoClient.nickname.toUpperCase(Locale.ROOT) + " (YOU)", 100, 545);
 
         // Write all nicknames of teammates
         StringBuilder teammates = new StringBuilder();
@@ -212,7 +214,22 @@ public class LobbyScreen implements Screen {
                     .append(teammateNickname.toUpperCase(Locale.ROOT))
                     .append("\n");
         }
-        font.draw(batch, teammates, 100, 500);
+        blackFont.draw(batch, teammates, 100, 500);
+    }
+
+    /**
+     * Update the timer, draw on the screen when it starts.
+     */
+    public void updateAndDrawTimer() {
+
+        // Update timer
+        this.serverGameBeginTimerCurrent = gameClient.client.getServerTimerGameBeginCurrent();
+        this.serverGameBeginTimerStop = gameClient.client.getServerTimerGameBeginStopValue();
+
+        // Draw timer
+        if (serverGameBeginTimerCurrent > 0) {
+            redFont.draw(batch, String.valueOf(4 - serverGameBeginTimerCurrent), TIMER_X, TIMER_Y);
+        }
     }
 
     @Override
@@ -244,7 +261,8 @@ public class LobbyScreen implements Screen {
         exitButtonInactiveTexture.dispose();
         readyButtonActiveTexture.dispose();
         readyButtonInactiveTexture.dispose();
-        font.dispose();
+        blackFont.dispose();
+        redFont.dispose();
         gameClient.dispose();
     }
 }
