@@ -9,7 +9,6 @@ import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,8 +17,13 @@ public class LobbyScreen implements Screen {
     private final GameClient gameClient;
     private SpriteBatch batch;
 
+    // Player readiness data.
     private boolean isPlayerReady;
     private Map<String, Boolean> teammatesReady;
+
+    // Server game begin timer.
+    private int serverGameBeginTimerCurrent;
+    private int serverGameBeginTimerStop;
 
     // Properties
     public static final float EXIT_BUTTON_WIDTH = 200f;
@@ -58,6 +62,8 @@ public class LobbyScreen implements Screen {
         this.gameClient = gameClient;
         this.isPlayerReady = false;
         this.teammatesReady = gameClient.client.getTeammatesReady();
+        this.serverGameBeginTimerCurrent = gameClient.client.getServerTimerGameBeginCurrent();
+        this.serverGameBeginTimerStop = gameClient.client.getServerTimerGameBeginStopValue();
     }
 
     @Override
@@ -100,7 +106,16 @@ public class LobbyScreen implements Screen {
 
         // Update teammates' readiness data.
         this.teammatesReady = gameClient.client.getTeammatesReady();
-        System.out.println(this.teammatesReady); // DEBUG
+
+        // Update timer.
+        this.serverGameBeginTimerCurrent = gameClient.client.getServerTimerGameBeginCurrent();
+        this.serverGameBeginTimerStop = gameClient.client.getServerTimerGameBeginStopValue();
+        System.out.println(serverGameBeginTimerCurrent);
+
+        // Start the game when global timer (Server timer) is up.
+        if (this.serverGameBeginTimerStop == this.serverGameBeginTimerCurrent) {
+            gameClient.setScreen(new PlayScreen(gameClient));
+        }
 
         batch.end(); //end
     }
@@ -169,7 +184,6 @@ public class LobbyScreen implements Screen {
 
             // if click - send packet PacketPlayerReady to notify the server (and other players) that this player is ready to play.
             if (Gdx.input.justTouched()) {
-//                gameClient.setScreen(new PlayScreen(gameClient));
                 // When buttons is pressed -> change readiness to the opposite value.
                 isPlayerReady = !isPlayerReady;
                 this.gameClient.client.sendPacketPlayerReady(isPlayerReady);

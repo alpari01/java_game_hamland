@@ -21,6 +21,8 @@ public class KryoClient extends Listener {
     public boolean isToServerConnected = false;
     public static String nickname;
     public static Player player = null;
+    public static int serverTimerGameBeginCurrent;
+    public static int serverTimerGameBeginStopValue;
     public static Map<String, Teammate> teammates = new HashMap<>();
     public static Map<String, Boolean> teammatesReady = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
@@ -54,6 +56,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketMobHit.class);
         client.getKryo().register(PacketPlayerHit.class);
         client.getKryo().register(PacketPlayerReady.class);
+        client.getKryo().register(PacketGameBeginTimer.class);
     }
 
     public void setPlayer(Player newPlayer) {
@@ -74,6 +77,14 @@ public class KryoClient extends Listener {
 
     public Map<String, Boolean> getTeammatesShot() {
         return teammatesShots;
+    }
+
+    public int getServerTimerGameBeginCurrent() {
+        return serverTimerGameBeginCurrent;
+    }
+
+    public int getServerTimerGameBeginStopValue() {
+        return serverTimerGameBeginStopValue;
     }
 
     /**
@@ -263,6 +274,13 @@ public class KryoClient extends Listener {
         if (p instanceof PacketPlayerReady) {
             PacketPlayerReady packet = (PacketPlayerReady) p;
             teammatesReady.put(packet.playerNickname, packet.isPlayerReady);
+        }
+
+        // Receive this packet when Server starts the countdown to begin the game.
+        if (p instanceof PacketGameBeginTimer) {
+            PacketGameBeginTimer packet = (PacketGameBeginTimer) p;
+            serverTimerGameBeginCurrent = packet.timerValueCurrent;
+            serverTimerGameBeginStopValue = packet.timerStopValue;
         }
     }
 
