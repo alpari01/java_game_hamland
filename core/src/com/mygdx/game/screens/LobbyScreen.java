@@ -36,6 +36,9 @@ public class LobbyScreen implements Screen {
     public static final int READY_BUTTON_X = 650;
     public static final int READY_BUTTON_Y = 120;
 
+    public static final int TIMER_X = 990;
+    public static final int TIMER_Y = 497;
+
     public static final int[] LEFT_BUTTON_VERTICES = {850, 880, 480, 520};
     public static final int[] RIGHT_BUTTON_VERTICES = {1160, 1190, 480, 520};
 
@@ -225,7 +228,7 @@ public class LobbyScreen implements Screen {
 
         // Draw timer
         if (serverGameBeginTimerCurrent > 0) {
-            redFont.draw(batch, String.valueOf(4 - serverGameBeginTimerCurrent), 990, 497);
+            redFont.draw(batch, String.valueOf(4 - serverGameBeginTimerCurrent), TIMER_X, TIMER_Y);
         }
     }
 
