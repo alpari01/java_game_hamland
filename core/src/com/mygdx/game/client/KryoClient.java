@@ -22,6 +22,7 @@ public class KryoClient extends Listener {
     public static String nickname;
     public static Player player = null;
     public static Map<String, Teammate> teammates = new HashMap<>();
+    public static Map<String, Boolean> teammatesReady = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
     public static Map<String, Boolean>  teammatesShots = new HashMap<>();
 
@@ -52,6 +53,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketBulletShot.class);
         client.getKryo().register(PacketMobHit.class);
         client.getKryo().register(PacketPlayerHit.class);
+        client.getKryo().register(PacketPlayerReady.class);
     }
 
     public void setPlayer(Player newPlayer) {
@@ -60,6 +62,10 @@ public class KryoClient extends Listener {
 
     public Map<String, Teammate> getTeammates() {
         return teammates;
+    }
+
+    public Map<String, Boolean> getTeammatesReady() {
+        return teammatesReady;
     }
 
     public Map<Integer, float[]> getEnemiesData() {
@@ -123,6 +129,13 @@ public class KryoClient extends Listener {
         PacketMobHit packetMobHit = new PacketMobHit();
         packetMobHit.mobId = mobId;
         client.sendTCP(packetMobHit);
+    }
+
+    public void sendPacketPlayerReady(boolean isPlayerReady) {
+        PacketPlayerReady packetPlayerReady = new PacketPlayerReady();
+        packetPlayerReady.playerNickname = nickname;
+        packetPlayerReady.isPlayerReady = isPlayerReady;
+        client.sendTCP(packetPlayerReady);
     }
 
     // Run this method when client receives any packet from the server.
@@ -245,6 +258,12 @@ public class KryoClient extends Listener {
                 player.setDamaged(true);
             }
         }
+
+        // Receive this packet if any of the teammates has pressed the "Ready" button.
+        if (p instanceof PacketPlayerReady) {
+            PacketPlayerReady packet = (PacketPlayerReady) p;
+            teammatesReady.put(packet.playerNickname, packet.isPlayerReady);
+        }
     }
 
     /**
@@ -255,6 +274,7 @@ public class KryoClient extends Listener {
     public void addTeammate(String teammateNickname) {
         if (!teammates.containsKey(teammateNickname)) {
             teammates.put(teammateNickname, null);
+            teammatesReady.put(teammateNickname, false); // By default player is not ready (to play the game).
         }
     }
 
