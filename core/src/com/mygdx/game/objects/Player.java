@@ -1,21 +1,29 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.control.PlayerControl;
 import com.mygdx.game.screens.PlayScreen;
+
+import java.util.Locale;
 
 public class Player extends GameObject {
 
     public static final int BLOOD_TEXTURE_WIDTH = 200;
     public static final int BLOOD_TEXTURE_HEIGHT = 200;
 
-    private PlayerControl playerControl;
+    private final PlayerControl playerControl;
     private int hp;
     private boolean isDamaged;
+    private final BitmapFont font;
+    private final GlyphLayout glyphLayout;
 
     // Blood animation
     private float timer = 0;
@@ -26,6 +34,9 @@ public class Player extends GameObject {
         super(texture, x, y, width, height);
         playerControl = new PlayerControl(polygon);
 
+        font = new BitmapFont(Gdx.files.internal("fonts/nickname.fnt"));
+        glyphLayout = new GlyphLayout();
+
         // Blood textures
         TextureAtlas bloodAtlas = new TextureAtlas("animations/blood.atlas");
         textureRegions = new TextureRegion[16];
@@ -34,10 +45,13 @@ public class Player extends GameObject {
             textureRegions[i] = textureRegion;
         }
     }
+
     public void draw(SpriteBatch batch, Bullet bullet, OrthographicCamera camera, float delta) {
         super.draw(batch);
+        drawNickname(batch);
         playerControl.handle(bullet, camera);
         damageAnimation(delta, batch);
+
     }
 
     public boolean isAlive() {
@@ -81,5 +95,15 @@ public class Player extends GameObject {
                 timer = 0;
             }
         }
+    }
+
+    /**
+     * Write the player's nickname above the character.
+     */
+    public void drawNickname(SpriteBatch batch) {
+        glyphLayout.setText(font, KryoClient.nickname.toUpperCase(Locale.ROOT));
+        font.draw(batch, glyphLayout,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - glyphLayout.width / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 25);
     }
 }
