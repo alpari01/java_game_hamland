@@ -1,23 +1,19 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Random;
-
 public class Enemy extends GameObject {
 
     private int hp;
-
-    private float time = 0;
-    private final Random random = new Random();
-    private final BitmapFont font = new BitmapFont();
+    private BitmapFont font;
 
     public Enemy(Texture texture, float x, float y, float width, float height, int hp) {
         super(texture, x, y, width, height);
         this.hp = hp;
-        font.setColor(1, 0, 0, 1);
+        font = new BitmapFont(Gdx.files.internal("fonts/red.fnt"));
     }
 
     public void draw(SpriteBatch batch, float delta) {
