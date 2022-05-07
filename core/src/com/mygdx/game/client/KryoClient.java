@@ -303,5 +303,6 @@ public class KryoClient extends Listener {
      */
     public void removeTeammate(String teammateNickname) {
         teammates.remove(teammateNickname);
+        teammatesReady.remove(teammateNickname);
     }
 }

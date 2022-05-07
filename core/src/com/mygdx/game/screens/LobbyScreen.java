@@ -130,11 +130,12 @@ public class LobbyScreen implements Screen {
 
         // Update teammates' readiness data.
         this.teammatesReady = gameClient.client.getTeammatesReady();
+        System.out.println(this.teammatesReady);
 
         updateAndDrawTimer();
 
         // Start the game when global timer (Server timer) is up.
-        if (this.serverGameBeginTimerStop == this.serverGameBeginTimerCurrent) {
+        if (this.serverGameBeginTimerStop == this.serverGameBeginTimerCurrent + 1) {
             gameClient.setScreen(new PlayScreen(gameClient));
         }
 

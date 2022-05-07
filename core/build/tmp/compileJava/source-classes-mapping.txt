@@ -1,13 +1,13 @@
 com/mygdx/game/objects/Player.java
  com.mygdx.game.objects.Player
-com/mygdx/game/objects/Bullet.java
- com.mygdx.game.objects.Bullet
+com/mygdx/game/packets/PacketPlayerReady.java
+ com.mygdx.game.packets.PacketPlayerReady
 com/mygdx/game/packets/PacketMessage.java
  com.mygdx.game.packets.PacketMessage
 com/mygdx/game/objects/Octopus.java
  com.mygdx.game.objects.Octopus
-com/mygdx/game/GameClient.java
- com.mygdx.game.GameClient
+com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
+ com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
 com/mygdx/game/packets/PacketPlayerConnected.java
  com.mygdx.game.packets.PacketPlayerConnected
 com/mygdx/game/packets/PacketSendPlayerMovement.java
@@ -32,8 +32,8 @@ com/mygdx/game/objects/Crab.java
  com.mygdx.game.objects.Crab
 com/mygdx/game/packets/PacketPlayerDisconnected.java
  com.mygdx.game.packets.PacketPlayerDisconnected
-com/mygdx/game/client/KryoClient.java
- com.mygdx.game.client.KryoClient
+com/mygdx/game/packets/PacketPlayerHit.java
+ com.mygdx.game.packets.PacketPlayerHit
 com/mygdx/game/objects/Zombie.java
  com.mygdx.game.objects.Zombie
 com/mygdx/game/packets/PacketRequestConnectedPlayers.java
@@ -42,27 +42,27 @@ com/mygdx/game/packets/PacketGameBeginTimer.java
  com.mygdx.game.packets.PacketGameBeginTimer
 com/mygdx/game/MusicMaster.java
  com.mygdx.game.MusicMaster
-com/mygdx/game/screens/LobbyScreen.java
- com.mygdx.game.screens.LobbyScreen
+com/mygdx/game/objects/GameObject.java
+ com.mygdx.game.objects.GameObject
 com/mygdx/game/packets/PacketUpdatePlayers.java
  com.mygdx.game.packets.PacketUpdatePlayers
 com/mygdx/game/objects/BulletTeammate.java
  com.mygdx.game.objects.BulletTeammate
 com/mygdx/game/objects/Button.java
  com.mygdx.game.objects.Button
-com/mygdx/game/objects/GameObject.java
- com.mygdx.game.objects.GameObject
-com/mygdx/game/screens/MenuScreen.java
- com.mygdx.game.screens.MenuScreen
+com/mygdx/game/objects/Bullet.java
+ com.mygdx.game.objects.Bullet
+com/mygdx/game/screens/LobbyScreen.java
+ com.mygdx.game.screens.LobbyScreen
+com/mygdx/game/client/KryoClient.java
+ com.mygdx.game.client.KryoClient
+com/mygdx/game/GameClient.java
+ com.mygdx.game.GameClient
 com/mygdx/game/screens/SettingsScreen.java
  com.mygdx.game.screens.SettingsScreen
-com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
- com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
 com/mygdx/game/screens/NicknameScreen.java
  com.mygdx.game.screens.NicknameScreen
-com/mygdx/game/packets/PacketPlayerHit.java
- com.mygdx.game.packets.PacketPlayerHit
+com/mygdx/game/screens/MenuScreen.java
+ com.mygdx.game.screens.MenuScreen
 com/mygdx/game/screens/PlayScreen.java
  com.mygdx.game.screens.PlayScreen
-com/mygdx/game/packets/PacketPlayerReady.java
- com.mygdx.game.packets.PacketPlayerReady
