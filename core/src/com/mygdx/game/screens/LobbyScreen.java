@@ -258,7 +258,7 @@ public class LobbyScreen implements Screen {
 
         // Draw timer
         if (serverGameBeginTimerCurrent > 0) {
-            redFont.draw(batch, String.valueOf(4 - serverGameBeginTimerCurrent), TIMER_X, TIMER_Y);
+            redFont.draw(batch, String.valueOf(3 - serverGameBeginTimerCurrent), TIMER_X, TIMER_Y);
         }
     }
 

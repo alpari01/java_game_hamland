@@ -73,6 +73,7 @@ public class PlayScreen implements Screen {
     private Player player;
     private Bullet bullet;
 
+    // Camera
     private OrthographicCamera camera;
     public static float cameraX, cameraY;
 
@@ -85,8 +86,9 @@ public class PlayScreen implements Screen {
     private TiledMapTileLayer waterCollisionLayer;
     private TiledMapTileLayer buildingsCollisionLayer;
 
-    private final BitmapFont fontPlayer = new BitmapFont();
-    private final BitmapFont fontTeammate = new BitmapFont();
+    // Fonts
+    private final BitmapFont greenFont;
+    private final BitmapFont blackFont;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -105,8 +107,8 @@ public class PlayScreen implements Screen {
         player.setHp(PLAYER_START_HP);
         gameClient.client.setPlayer(player);
 
-        fontPlayer.setColor(0, 1, 0, 1);
-        fontTeammate.setColor(0, 1, 0, 1);
+        greenFont = new BitmapFont(Gdx.files.internal("fonts/green.fnt"));
+        blackFont = new BitmapFont(Gdx.files.internal("fonts/nickname.fnt"));
 
         bullet = new Bullet(bulletTexture, 0, 0, BULLET_WIDTH, BULLET_HEIGHT, player);
 
@@ -223,14 +225,13 @@ public class PlayScreen implements Screen {
 
                 if (teammate.isAlive()) {
                     // If teammate is alive.
-                    fontTeammate.draw(batch, String.valueOf(teammate.getHp()), teammate.polygon.getX(), teammate.polygon.getY());
+                    greenFont.draw(batch, String.valueOf(teammate.getHp()), teammate.polygon.getX(), teammate.polygon.getY());
                 }
 
                 if (!teammate.isAlive()) {
                     // If teammate is dead.
                     teammate.setSpriteDeadPlayer();
-                    fontTeammate.setColor(0, 0, 0, 1);
-                    fontTeammate.draw(batch, "RIP", teammate.polygon.getX(), teammate.polygon.getY());
+                    blackFont.draw(batch, "RIP", teammate.polygon.getX(), teammate.polygon.getY());
                 }
             }
         }
@@ -421,7 +422,7 @@ public class PlayScreen implements Screen {
             updateBullet(delta);
 
             // Draw some text near player's sprite.
-            fontPlayer.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
+            greenFont.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
         }
 
         else {
@@ -430,9 +431,8 @@ public class PlayScreen implements Screen {
             player.setSpriteDeadPlayer();
             player.getPlayerControl().isControlActive(false);
 
-            fontPlayer.setColor(0, 0, 0, 1);
             // Draw some text near player's sprite.
-            fontPlayer.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
+            blackFont.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
         }
     }
 
@@ -460,6 +460,7 @@ public class PlayScreen implements Screen {
         gameClient.dispose();
         renderer.dispose();
         map.dispose();
-
+        greenFont.dispose();
+        blackFont.dispose();
     }
 }
