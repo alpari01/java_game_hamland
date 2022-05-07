@@ -113,7 +113,7 @@ public class PlayScreen implements Screen {
         bullet = new Bullet(bulletTexture, 0, 0, BULLET_WIDTH, BULLET_HEIGHT, player);
 
         for (String teammateNickname : gameClient.client.getTeammates().keySet()) {
-            Teammate teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+            Teammate teammate = new Teammate(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT, teammateNickname);
             teammate.setHp(PLAYER_START_HP);
             gameClient.client.getTeammates().put(teammateNickname, teammate);
         }
