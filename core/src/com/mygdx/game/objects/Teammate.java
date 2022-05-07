@@ -94,7 +94,7 @@ public class Teammate extends GameObject {
      * Write the teammate's nickname above the character.
      */
     public void drawNickname(SpriteBatch batch) {
-        glyphLayout.setText(font, nickname.toUpperCase(Locale.ROOT));
+        glyphLayout.setText(font, "- " + nickname.toUpperCase(Locale.ROOT) + " -");
         font.draw(batch, glyphLayout,
                 polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - glyphLayout.width / 2f,
                 polygon.getY() + PlayScreen.PLAYER_HEIGHT + 25);
