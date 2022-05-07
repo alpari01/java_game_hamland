@@ -38,8 +38,8 @@ public class Bullet extends GameObject {
     private float x = 0, y = 0;
 
     // Fonts
-    private final BitmapFont ammoFont = new BitmapFont();
-    private final BitmapFont reloadFont = new BitmapFont();
+    private final BitmapFont ammoFont = new BitmapFont(Gdx.files.internal("fonts/black.fnt"));
+    private final BitmapFont reloadFont = new BitmapFont(Gdx.files.internal("fonts/reload.fnt"));
 
     // Textures
     private final Texture ammoTexture = new Texture("background/ammo1.png");
@@ -56,15 +56,6 @@ public class Bullet extends GameObject {
         for (int i = 0; i < 40; i++) {
             textureRegions[i] = explosionAtlas.findRegion("exp" + (i + 1));
         }
-
-        // Font settings
-        ammoFont.setColor(0, 0, 0, 1); // color
-        ammoFont.getData().setScale(2); // size
-        ammoFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // filter
-
-        reloadFont.setColor(1, 0, 0, 1); // color
-        reloadFont.getData().setScale(2); // size
-        reloadFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // filter
     }
 
     @Override
@@ -75,10 +66,10 @@ public class Bullet extends GameObject {
             batch.draw(ammoTexture, PlayScreen.cameraX - 620, PlayScreen.cameraY - 300, 100, 100);
         }
         batch.draw(ammoWhiteTexture, PlayScreen.cameraX - 620, PlayScreen.cameraY - 300, 100, 100);
-        ammoFont.draw(batch, ammo + " / " + ammoTotal, PlayScreen.cameraX - 610, PlayScreen.cameraY - 310);
+        ammoFont.draw(batch, ammo + "/" + ammoTotal, PlayScreen.cameraX - 610, PlayScreen.cameraY - 310);
 
         if (isReload) {
-            reloadFont.draw(batch, "reload: " + (3 - (int) Math.floor(timeReload)), PlayScreen.cameraX - 620, PlayScreen.cameraY - 250);
+            reloadFont.draw(batch, "RELOAD:" + (3 - (int) Math.floor(timeReload)), PlayScreen.cameraX - 630, PlayScreen.cameraY - 250);
         }
     }
 
