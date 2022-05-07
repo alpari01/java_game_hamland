@@ -9,6 +9,8 @@ import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -42,11 +44,26 @@ public class LobbyScreen implements Screen {
     public static final int[] LEFT_BUTTON_VERTICES = {850, 880, 480, 520};
     public static final int[] RIGHT_BUTTON_VERTICES = {1160, 1190, 480, 520};
 
+    public static final int NICKNAME_X = 150;
+    public static final int NICKNAME_Y = 545;
+    public static final int SIGN_X = 100;
+    public static final int SIGN_Y = 518;
+
+    public static final int TEAMMATES_NICKNAME_X = 150;
+    public static final int TEAMMATES_NICKNAME_Y = 502;
+    public static final int TEAMMATES_SIGN_X = 100;
+    public static final int TEAMMATES_SIGN_Y = 475;
+
+    public static final int SIGN_SIZE = 29;
+    public static final int DISTANCE_CONSTANT = 43;
+
     // Textures
     private Texture exitButtonActiveTexture;
     private Texture exitButtonInactiveTexture;
     private Texture readyButtonActiveTexture;
     private Texture readyButtonInactiveTexture;
+    private Texture tick;
+    private Texture cross;
 
     // Objects
     private Button exitButtonActive;
@@ -79,6 +96,8 @@ public class LobbyScreen implements Screen {
         exitButtonInactiveTexture = new Texture("buttons/exit_button_inactive.png");
         readyButtonActiveTexture = new Texture("buttons/ready_button_active.png");
         readyButtonInactiveTexture = new Texture("buttons/ready_button_inactive.png");
+        tick = new Texture("background/tick.png");
+        cross = new Texture("background/cross.png");
 
         // Button objects
         exitButtonActive = new Button(exitButtonActiveTexture, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -107,7 +126,7 @@ public class LobbyScreen implements Screen {
 
         drawButtons();
 
-        drawTeamNicknames();
+        drawNicknamesAndSigns();
 
         // Update teammates' readiness data.
         this.teammatesReady = gameClient.client.getTeammatesReady();
@@ -197,24 +216,34 @@ public class LobbyScreen implements Screen {
     }
 
     /**
-     * Display your nickname and nicknames of teammates.
+     * Display your nickname, nicknames of teammates and signs of readiness.
      */
-    public void drawTeamNicknames() {
-        int index = 1;
+    public void drawNicknamesAndSigns() {
+        List<String> nicknames = new LinkedList<>(teammatesReady.keySet());
 
         // Write own nickname first
-        blackFont.draw(batch, index++ + ". " + KryoClient.nickname.toUpperCase(Locale.ROOT) + " (YOU)", 100, 545);
+        blackFont.draw(batch, KryoClient.nickname.toUpperCase(Locale.ROOT) + " (YOU)", NICKNAME_X, NICKNAME_Y);
 
+        // Draw a sign of readiness near the nickname
+        if (isPlayerReady) {
+            batch.draw(tick, SIGN_X, SIGN_Y, SIGN_SIZE, SIGN_SIZE);
+        } else {
+            batch.draw(cross, SIGN_X, SIGN_Y, SIGN_SIZE, SIGN_SIZE);
+        }
+        
         // Write all nicknames of teammates
         StringBuilder teammates = new StringBuilder();
-        for (String teammateNickname : KryoClient.teammates.keySet()) {
-            teammates
-                    .append(index++)
-                    .append(". ")
-                    .append(teammateNickname.toUpperCase(Locale.ROOT))
-                    .append("\n");
+        for (String teammateNickname : nicknames) {
+            teammates.append(teammateNickname.toUpperCase(Locale.ROOT)).append("\n");
+
+            // Draw a sign of readiness near the nickname
+            if (teammatesReady.get(teammateNickname)) {
+                batch.draw(tick, TEAMMATES_SIGN_X, TEAMMATES_SIGN_Y - nicknames.indexOf(teammateNickname) * DISTANCE_CONSTANT, SIGN_SIZE, SIGN_SIZE);
+            } else {
+                batch.draw(cross, TEAMMATES_SIGN_X, TEAMMATES_SIGN_Y - nicknames.indexOf(teammateNickname) * DISTANCE_CONSTANT, SIGN_SIZE, SIGN_SIZE);
+            }
         }
-        blackFont.draw(batch, teammates, 100, 500);
+        blackFont.draw(batch, teammates, TEAMMATES_NICKNAME_X, TEAMMATES_NICKNAME_Y);
     }
 
     /**
