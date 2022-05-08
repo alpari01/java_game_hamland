@@ -60,6 +60,12 @@ public class PlayScreen implements Screen {
     public static final int CRAB_WIDTH = (int) (824 * TEXTURE_SIZES_CONSTANT);
     public static final int CRAB_HEIGHT = (int) (550 * TEXTURE_SIZES_CONSTANT);
 
+    public static final int ZOMBIE_MAX_HP = 3;
+    public static final int OCTOPUS_MAX_HP = 5;
+    public static final int CRAB_MAX_HP = 6;
+    public static final int BLUE_GUY_MAX_HP = 1;
+    public static final int GREEN_GUY_MAX_HP = 100;
+
     // Textures
     private Texture playerTexture;
     private Texture zombieTexture;
@@ -246,27 +252,27 @@ public class PlayScreen implements Screen {
                 // If such Enemy object was not created yet -> check Enemy type and create respective object.
                 if (mobData[2] == 0.0) {
                     // If mob is zombie.
-                    this.enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 0, 3));
+                    this.enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 0, ZOMBIE_MAX_HP));
                 }
 
                 if (mobData[2] == 1.0) {
                     // If mob is octopus.
-                    this.enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 0, 5));
+                    this.enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 0, OCTOPUS_MAX_HP));
                 }
 
                 if (mobData[2] == 2.0) {
                     // If mob is crab.
-                    this.enemies.put(mobId, new Crab(crabTexture, mobData[0], mobData[1], CRAB_WIDTH, CRAB_HEIGHT, 0, 6));
+                    this.enemies.put(mobId, new Crab(crabTexture, mobData[0], mobData[1], CRAB_WIDTH, CRAB_HEIGHT, 0, CRAB_MAX_HP));
                 }
 
                 if (mobData[2] == 3.0) {
                     // If mob is a blueguy.
-                    this.enemies.put(mobId, new BlueGuy(blueGuyTexture, mobData[0], mobData[1], BLUEGUY_WIDTH, BLUEGUY_HEIGHT, 0, 1));
+                    this.enemies.put(mobId, new BlueGuy(blueGuyTexture, mobData[0], mobData[1], BLUEGUY_WIDTH, BLUEGUY_HEIGHT, 0, BLUE_GUY_MAX_HP));
                 }
 
                 if (mobData[2] == 4.0) {
                     // If mob is a greenguy.
-                    this.enemies.put(mobId, new GreenGuy(greenGuyTexture, mobData[0], mobData[1], 250, 250, 0, 100));
+                    this.enemies.put(mobId, new GreenGuy(greenGuyTexture, mobData[0], mobData[1], 250, 250, 0, GREEN_GUY_MAX_HP));
                 }
 
                 this.enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
