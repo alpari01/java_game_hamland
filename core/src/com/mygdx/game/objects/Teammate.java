@@ -23,6 +23,7 @@ public class Teammate extends GameObject {
     // HP
     private int hp;
     private boolean isDamaged;
+    private final Texture hpBar;
     private final Texture hpTexture;
     private final Texture hpEmptyTexture;
 
@@ -53,6 +54,7 @@ public class Teammate extends GameObject {
         }
 
         // HP
+        hpBar = new Texture("background/hp_bar.png");
         hpTexture = new Texture("background/hp_player.png");
         hpEmptyTexture = new Texture("background/hp_empty.png");
     }
@@ -120,18 +122,25 @@ public class Teammate extends GameObject {
      */
     public void drawHP(SpriteBatch batch) {
 
-        // Empty hp bar
+        // Empty hp
         batch.draw(hpEmptyTexture,
                 polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
                 polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
                 HP_WIDTH,
                 HP_HEIGHT);
 
-        // Hp bar
+        // Hp
         batch.draw(hpTexture,
                 polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
                 polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
                 HP_WIDTH * (1f / 3f) * hp,
+                HP_HEIGHT);
+
+        // Hp bar
+        batch.draw(hpBar,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
+                HP_WIDTH,
                 HP_HEIGHT);
     }
 }

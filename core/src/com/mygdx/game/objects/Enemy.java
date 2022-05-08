@@ -11,6 +11,7 @@ public class Enemy extends GameObject {
     // HP
     private final int maxHp;
     private int hp;
+    private final Texture hpBar;
     private final Texture hpTexture;
     private final Texture hpEmptyTexture;
 
@@ -20,6 +21,7 @@ public class Enemy extends GameObject {
         this.hp = hp;
 
         // HP
+        hpBar = new Texture("background/hp_bar.png");
         hpTexture = new Texture("background/hp.png");
         hpEmptyTexture = new Texture("background/hp_empty.png");
     }
@@ -54,18 +56,25 @@ public class Enemy extends GameObject {
      */
     public void drawHP(SpriteBatch batch) {
 
-        // Empty hp bar
+        // Empty hp
         batch.draw(hpEmptyTexture,
                 polygon.getX() + width / 2f - HP_WIDTH / 2f,
                 polygon.getY() + height + 10,
                 HP_WIDTH,
                 HP_HEIGHT);
 
-        // Hp bar
+        // Hp
         batch.draw(hpTexture,
                 polygon.getX() + width / 2f - HP_WIDTH / 2f,
                 polygon.getY() + height + 10,
                 HP_WIDTH * (1f / maxHp) * hp,
+                HP_HEIGHT);
+
+        // Hp bar
+        batch.draw(hpBar,
+                polygon.getX() + width / 2f - HP_WIDTH / 2f,
+                polygon.getY() + height + 10,
+                HP_WIDTH,
                 HP_HEIGHT);
     }
 }
