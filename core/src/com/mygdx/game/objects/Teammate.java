@@ -11,6 +11,9 @@ import com.mygdx.game.screens.PlayScreen;
 
 import java.util.Locale;
 
+import static com.mygdx.game.screens.PlayScreen.GRAVE_HEIGHT;
+import static com.mygdx.game.screens.PlayScreen.GRAVE_WIDTH;
+
 public class Teammate extends GameObject {
 
     public static final int BLOOD_TEXTURE_WIDTH = 200;
@@ -26,6 +29,7 @@ public class Teammate extends GameObject {
     private final Texture hpBar;
     private final Texture hpTexture;
     private final Texture hpEmptyTexture;
+    private Texture graveTexture;
 
     // Font
     private final BitmapFont font;
@@ -52,17 +56,20 @@ public class Teammate extends GameObject {
             TextureRegion textureRegion = bloodAtlas.findRegion("image" + i);
             textureRegions[i] = textureRegion;
         }
+        graveTexture = new Texture("players/grave.png");
 
         // HP
         hpBar = new Texture("background/hp_bar.png");
-        hpTexture = new Texture("background/hp_player.png");
+        hpTexture = new Texture("background/hp.png");
         hpEmptyTexture = new Texture("background/hp_empty.png");
     }
 
     public void draw(SpriteBatch batch, float delta) {
         super.draw(batch);
-        drawNickname(batch);
-        drawHP(batch);
+        if (isAlive()) {
+            drawNickname(batch);
+            drawHP(batch);
+        }
         damageAnimation(delta, batch);
     }
 
@@ -142,5 +149,12 @@ public class Teammate extends GameObject {
                 polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
                 HP_WIDTH,
                 HP_HEIGHT);
+    }
+
+    public void setSpriteDeadPlayer() {
+        polygon.setRotation(0);
+        sprite.setTexture(graveTexture);
+        sprite.setPosition(polygon.getX(), polygon.getY());
+        sprite.setSize(GRAVE_WIDTH, GRAVE_HEIGHT);
     }
 }

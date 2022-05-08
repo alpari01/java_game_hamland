@@ -60,6 +60,9 @@ public class PlayScreen implements Screen {
     public static final int CRAB_WIDTH = (int) (824 * TEXTURE_SIZES_CONSTANT);
     public static final int CRAB_HEIGHT = (int) (550 * TEXTURE_SIZES_CONSTANT);
 
+    public static final int GRAVE_WIDTH = PLAYER_WIDTH;
+    public static final int GRAVE_HEIGHT = PLAYER_WIDTH * 380 / 175;
+
     public static final int ZOMBIE_MAX_HP = 3;
     public static final int OCTOPUS_MAX_HP = 5;
     public static final int CRAB_MAX_HP = 6;
