@@ -18,10 +18,18 @@ public class Player extends GameObject {
 
     public static final int BLOOD_TEXTURE_WIDTH = 200;
     public static final int BLOOD_TEXTURE_HEIGHT = 200;
+    public static final int HP_WIDTH = 50;
+    public static final int HP_HEIGHT = 5;
 
     private final PlayerControl playerControl;
+
+    // HP
     private int hp;
     private boolean isDamaged;
+    private final Texture hpTexture;
+    private final Texture hpEmptyTexture;
+
+    // Font
     private final BitmapFont font;
     private final GlyphLayout glyphLayout;
 
@@ -34,6 +42,7 @@ public class Player extends GameObject {
         super(texture, x, y, width, height);
         playerControl = new PlayerControl(polygon);
 
+        // Font
         font = new BitmapFont(Gdx.files.internal("fonts/nickname.fnt"));
         glyphLayout = new GlyphLayout();
 
@@ -44,11 +53,16 @@ public class Player extends GameObject {
             TextureRegion textureRegion = bloodAtlas.findRegion("image" + i);
             textureRegions[i] = textureRegion;
         }
+
+        // HP
+        hpTexture = new Texture("background/hp_player.png");
+        hpEmptyTexture = new Texture("background/hp_empty.png");
     }
 
     public void draw(SpriteBatch batch, Bullet bullet, OrthographicCamera camera, float delta) {
         super.draw(batch);
         drawNickname(batch);
+        drawHP(batch);
         playerControl.handle(bullet, camera);
         damageAnimation(delta, batch);
 
@@ -99,11 +113,33 @@ public class Player extends GameObject {
 
     /**
      * Write the player's nickname above the character.
+     * @param batch batch.
      */
     public void drawNickname(SpriteBatch batch) {
         glyphLayout.setText(font, "- " + KryoClient.nickname.toUpperCase(Locale.ROOT) + " -");
         font.draw(batch, glyphLayout,
                 polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - glyphLayout.width / 2f,
-                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 25);
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 35);
+    }
+
+    /**
+     * Draw a health bar on top of the character that changes depending on the remaining health.
+     * @param batch batch.
+     */
+    public void drawHP(SpriteBatch batch) {
+
+        // Empty hp bar
+        batch.draw(hpEmptyTexture,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
+                HP_WIDTH,
+                HP_HEIGHT);
+
+        // Hp bar
+        batch.draw(hpTexture,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
+                HP_WIDTH * (1f / 3f) * hp,
+                HP_HEIGHT);
     }
 }

@@ -223,15 +223,9 @@ public class PlayScreen implements Screen {
 
                 teammate.draw(batch, delta);
 
-                if (teammate.isAlive()) {
-                    // If teammate is alive.
-                    greenFont.draw(batch, String.valueOf(teammate.getHp()), teammate.polygon.getX(), teammate.polygon.getY());
-                }
-
                 if (!teammate.isAlive()) {
                     // If teammate is dead.
                     teammate.setSpriteDeadPlayer();
-                    blackFont.draw(batch, "RIP", teammate.polygon.getX(), teammate.polygon.getY());
                 }
             }
         }
@@ -252,31 +246,31 @@ public class PlayScreen implements Screen {
                 // If such Enemy object was not created yet -> check Enemy type and create respective object.
                 if (mobData[2] == 0.0) {
                     // If mob is zombie.
-                    this.enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 0));
+                    this.enemies.put(mobId, new Zombie(zombieTexture, mobData[0], mobData[1], ZOMBIE_WIDTH, ZOMBIE_HEIGHT, 0, 3));
                 }
 
                 if (mobData[2] == 1.0) {
                     // If mob is octopus.
-                    this.enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 0));
+                    this.enemies.put(mobId, new Octopus(octopusTexture, mobData[0], mobData[1], OCTOPUS_WIDTH, OCTOPUS_HEIGHT, 0, 5));
                 }
 
                 if (mobData[2] == 2.0) {
                     // If mob is crab.
-                    this.enemies.put(mobId, new Crab(crabTexture, mobData[0], mobData[1], CRAB_WIDTH, CRAB_HEIGHT, 0));
+                    this.enemies.put(mobId, new Crab(crabTexture, mobData[0], mobData[1], CRAB_WIDTH, CRAB_HEIGHT, 0, 6));
                 }
 
                 if (mobData[2] == 3.0) {
                     // If mob is a blueguy.
-                    this.enemies.put(mobId, new BlueGuy(blueGuyTexture, mobData[0], mobData[1], BLUEGUY_WIDTH, BLUEGUY_HEIGHT, 0));
+                    this.enemies.put(mobId, new BlueGuy(blueGuyTexture, mobData[0], mobData[1], BLUEGUY_WIDTH, BLUEGUY_HEIGHT, 0, 1));
                 }
 
                 if (mobData[2] == 4.0) {
                     // If mob is a greenguy.
-                    this.enemies.put(mobId, new GreenGuy(greenGuyTexture, mobData[0], mobData[1], 250, 250, 0));
+                    this.enemies.put(mobId, new GreenGuy(greenGuyTexture, mobData[0], mobData[1], 250, 250, 0, 100));
                 }
 
                 this.enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
-                this.enemies.get(mobId).draw(batch, delta);
+                this.enemies.get(mobId).draw(batch);
             }
 
             else {
@@ -296,7 +290,7 @@ public class PlayScreen implements Screen {
                     enemyToUpdate.polygon.setPosition(99999, 99999);  // FIND BETTER SOLUTION?
                 }
 
-                if (!this.killedEnemiesId.contains(mobId)) enemyToUpdate.draw(batch, delta);
+                if (!this.killedEnemiesId.contains(mobId)) enemyToUpdate.draw(batch);
             }
         }
     }
@@ -420,9 +414,6 @@ public class PlayScreen implements Screen {
             // If player is alive.
 
             updateBullet(delta);
-
-            // Draw some text near player's sprite.
-            greenFont.draw(batch, String.valueOf(player.getHp()), player.polygon.getX(), player.polygon.getY());
         }
 
         else {
@@ -430,9 +421,6 @@ public class PlayScreen implements Screen {
 
             player.setSpriteDeadPlayer();
             player.getPlayerControl().isControlActive(false);
-
-            // Draw some text near player's sprite.
-            blackFont.draw(batch, "RIP", player.polygon.getX(), player.polygon.getY());
         }
     }
 

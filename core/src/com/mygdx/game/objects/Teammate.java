@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.screens.PlayScreen;
 
 import java.util.Locale;
@@ -16,10 +15,18 @@ public class Teammate extends GameObject {
 
     public static final int BLOOD_TEXTURE_WIDTH = 200;
     public static final int BLOOD_TEXTURE_HEIGHT = 200;
+    public static final int HP_WIDTH = 50;
+    public static final int HP_HEIGHT = 5;
 
     private final String nickname;
+
+    // HP
     private int hp;
     private boolean isDamaged;
+    private final Texture hpTexture;
+    private final Texture hpEmptyTexture;
+
+    // Font
     private final BitmapFont font;
     private final GlyphLayout glyphLayout;
 
@@ -33,6 +40,7 @@ public class Teammate extends GameObject {
 
         this.nickname = nickname;
 
+        // Font
         font = new BitmapFont(Gdx.files.internal("fonts/nickname.fnt"));
         glyphLayout = new GlyphLayout();
 
@@ -43,11 +51,16 @@ public class Teammate extends GameObject {
             TextureRegion textureRegion = bloodAtlas.findRegion("image" + i);
             textureRegions[i] = textureRegion;
         }
+
+        // HP
+        hpTexture = new Texture("background/hp_player.png");
+        hpEmptyTexture = new Texture("background/hp_empty.png");
     }
 
     public void draw(SpriteBatch batch, float delta) {
         super.draw(batch);
         drawNickname(batch);
+        drawHP(batch);
         damageAnimation(delta, batch);
     }
 
@@ -92,11 +105,33 @@ public class Teammate extends GameObject {
 
     /**
      * Write the teammate's nickname above the character.
+     * @param batch batch.
      */
     public void drawNickname(SpriteBatch batch) {
         glyphLayout.setText(font, "- " + nickname.toUpperCase(Locale.ROOT) + " -");
         font.draw(batch, glyphLayout,
                 polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - glyphLayout.width / 2f,
-                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 25);
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 35);
+    }
+
+    /**
+     * Draw a health bar on top of the character that changes depending on the remaining health.
+     * @param batch batch.
+     */
+    public void drawHP(SpriteBatch batch) {
+
+        // Empty hp bar
+        batch.draw(hpEmptyTexture,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
+                HP_WIDTH,
+                HP_HEIGHT);
+
+        // Hp bar
+        batch.draw(hpTexture,
+                polygon.getX() + PlayScreen.PLAYER_WIDTH / 2f - HP_WIDTH / 2f,
+                polygon.getY() + PlayScreen.PLAYER_HEIGHT + 10,
+                HP_WIDTH * (1f / 3f) * hp,
+                HP_HEIGHT);
     }
 }
