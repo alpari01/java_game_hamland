@@ -48,10 +48,6 @@ public abstract class GameObject {
         sprite.draw(batch); // draw an object on the batch
     }
 
-    public void setSpriteDeadPlayer() {
-        this.sprite.setColor(0.5f, 0.5f, 0.5f, 0.5f);
-    }
-
     public float getWidth() {
         return width;
     }
