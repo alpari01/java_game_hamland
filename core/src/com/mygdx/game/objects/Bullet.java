@@ -160,4 +160,8 @@ public class Bullet extends GameObject {
     public void setReload(boolean reload) {
         isReload = reload;
     }
+
+    public void addAmmo(int amount) {
+        this.ammoTotal += amount;
+    }
 }

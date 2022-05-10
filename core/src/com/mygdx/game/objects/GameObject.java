@@ -12,6 +12,9 @@ public abstract class GameObject {
     public float width;
     public float height;
 
+    private float x;
+    private float y;
+
     /**
      * Constructor for all objects on the screen.
      * @param texture object texture.
@@ -21,6 +24,9 @@ public abstract class GameObject {
      * @param height object height.
      */
     public GameObject(Texture texture, float x, float y, float width, float height) {
+
+        this.x = x;
+        this.y = y;
 
         this.width = width;
         this.height = height;
@@ -54,5 +60,13 @@ public abstract class GameObject {
 
     public float getHeight() {
         return height;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

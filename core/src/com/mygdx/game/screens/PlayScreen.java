@@ -30,6 +30,7 @@ public class PlayScreen implements Screen {
     public Map<Integer, Enemy> enemies = new HashMap<>();
     public Set<Integer> killedEnemiesId = new HashSet<>();
     public Map<String, BulletTeammate> teammateBullets = new HashMap<>();
+    public Map<Integer, Loot> spawnedLoot = new HashMap<>();
 
     // Properties
     private final static int PLAYER_START_HP = 3;
@@ -69,6 +70,14 @@ public class PlayScreen implements Screen {
     public static final int BLUE_GUY_MAX_HP = 1;
     public static final int GREEN_GUY_MAX_HP = 100;
 
+    public static final int AMMO_CRATE_WIDTH = (int) (1213 / 2 * TEXTURE_SIZES_CONSTANT);
+    public static final int AMMO_CRATE_HEIGHT = (int) (1157 / 2 * TEXTURE_SIZES_CONSTANT);
+    public static final int AMMO_CRATE_REFILL_AMOUNT = 30;
+
+    public static final int MED_KIT_WIDTH = (int) (1073 / 2 * TEXTURE_SIZES_CONSTANT);
+    public static final int MED_KIT_HEIGHT = (int) (939 / 2 * TEXTURE_SIZES_CONSTANT);
+    public static final int MED_KIT_HP_HEAL_AMOUNT = 3;  //NB! If changing this value also change it on the server!!!
+
     // Textures
     private Texture playerTexture;
     private Texture zombieTexture;
@@ -77,6 +86,8 @@ public class PlayScreen implements Screen {
     private Texture greenGuyTexture;
     private Texture crabTexture;
     private Texture bulletTexture;
+    private Texture ammoCrateTexture;
+    private Texture medKitTexture;
 
     // Objects
     private Player player;
@@ -110,6 +121,9 @@ public class PlayScreen implements Screen {
         greenGuyTexture = new Texture("enemies/new_enemy_3.png");
         crabTexture = new Texture("enemies/new_enemy_2.png");
         bulletTexture = new Texture("players/bullet.png");
+        // Loot
+        ammoCrateTexture = new Texture("loot/loot_ammo_crate.png");
+        medKitTexture = new Texture("loot/loot_medkit.png");
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -172,10 +186,11 @@ public class PlayScreen implements Screen {
         camera.update();
         player.draw(batch, bullet, camera, delta); // draw player
         detectInput(); // send packet
-
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
         updateTeammatePosition(delta); // update teammates' positions
         updateEnemiesPosition(delta);
+        updateLootPosition();
+        checkPlayerAndLootCollision();
         drawBullet(delta); // bullets
 
         batch.setProjectionMatrix(camera.combined);
@@ -217,6 +232,86 @@ public class PlayScreen implements Screen {
                 if (!teammateBullets.get(teammateNickname).isShot) {
                     gameClient.client.getTeammatesShot().put(teammateNickname, false);
                 }
+            }
+        }
+    }
+
+    public void checkPlayerAndLootCollision() {
+        for (int lootIndex : this.spawnedLoot.keySet()) {
+
+            Loot loot = this.spawnedLoot.get(lootIndex);
+            if (((loot.getX() <= player.polygon.getX() && player.polygon.getX() <= loot.getX() + loot.getWidth())
+                    && (loot.getY() <= player.polygon.getY() && player.polygon.getY() <= loot.getY() + loot.getHeight()))
+                    || ((loot.getX() <= player.polygon.getX() + player.getWidth() && player.polygon.getX() + player.getWidth() <= loot.getX() + loot.getWidth())
+                    && (loot.getY() <= player.polygon.getY() && player.polygon.getY() <= loot.getY() + loot.getHeight()))
+                    || ((loot.getX() <= player.polygon.getX() + player.getWidth() && player.polygon.getX() + player.getWidth() <= loot.getX() + loot.getWidth())
+                    && (loot.getY() <= player.polygon.getY() + player.getHeight() && player.polygon.getY() + player.getHeight() <= loot.getY() + loot.getHeight()))
+                    || ((loot.getX() <= player.polygon.getX() && player.polygon.getX() <= loot.getX() + loot.getWidth())
+                    && (loot.getY() <= player.polygon.getY() + player.getHeight() && player.polygon.getY() + player.getHeight() <= loot.getY() + loot.getHeight()))) {
+                // If player has collected loot.
+
+                // Send the packet to the server.
+                this.gameClient.client.sendPacketLootCollected(lootIndex, loot.getType() == 1);
+
+                if (loot.getType() == 0) {
+                    // If this loot is an ammo crate -> refill the ammo.
+                    this.bullet.addAmmo(AMMO_CRATE_REFILL_AMOUNT);
+                }
+
+                if (loot.getType() == 1) {
+                    // If this loot is a med kit -> heal the player.
+                    this.player.setHp(MED_KIT_HP_HEAL_AMOUNT);
+                }
+
+                // Stop rendering collected loot object -> remove it from the hashmaps.
+                gameClient.client.removeLootPosition(lootIndex);
+                this.spawnedLoot.remove(lootIndex);
+            }
+        }
+    }
+
+    /**
+     * Draw loot objects when they are spawned.
+     */
+    public void updateLootPosition() {
+        /*
+        [1000, 1050], [950, 1050], [900, 1050]
+        [1200, 1050], [1250, 1050], [1300, 1050]
+        [600, 1750], [250, 1450], [125, 1050]
+        [400, 900], [125, 650], [250, 500]
+        [650, 450], [700, 150], [950, 250]
+        [1800, 125] [1300, 500] [1200, 750] [1400, 850]
+         */
+        for (int lootPositionIndex : gameClient.client.getLootPositions().keySet()) {
+
+            float[] lootData = gameClient.client.getLootPositions().get(lootPositionIndex);
+            float lootType = lootData[2];
+
+            // If there was no new loot object created -> create it.
+            if (!this.spawnedLoot.containsKey(lootPositionIndex)) {
+                float lootSpawnPosX = lootData[0];
+                float lootSpawnPosY = lootData[1];
+
+                if (lootType == 0) {
+                    // If loot is an ammo crate.
+                    Loot newLoot = new Loot(ammoCrateTexture, lootSpawnPosX, lootSpawnPosY, AMMO_CRATE_WIDTH, AMMO_CRATE_HEIGHT);
+                    newLoot.setType(0);
+                    this.spawnedLoot.put(lootPositionIndex, newLoot);
+                    newLoot.draw(batch);
+                }
+
+                if (lootType == 1.0) {
+                    // If loot is a med kit.
+                    Loot newLoot = new Loot(medKitTexture, lootSpawnPosX, lootSpawnPosY, MED_KIT_WIDTH, MED_KIT_HEIGHT);
+                    newLoot.setType(1);
+                    this.spawnedLoot.put(lootPositionIndex, newLoot);
+                    newLoot.draw(batch);
+                }
+            }
+
+            else {
+                // If loot object with this index was already created -> simply render it.
+                this.spawnedLoot.get(lootPositionIndex).draw(batch);
             }
         }
     }

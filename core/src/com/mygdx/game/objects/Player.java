@@ -26,6 +26,10 @@ public class Player extends GameObject {
 
     private final PlayerControl playerControl;
 
+    // Coordinates
+    private float x;
+    private float y;
+
     // HP
     private int hp;
     private boolean isDamaged;
