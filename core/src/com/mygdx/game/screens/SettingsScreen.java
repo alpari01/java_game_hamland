@@ -51,10 +51,10 @@ public class SettingsScreen implements Screen {
         // Textures
         exitButtonTexture = new Texture("buttons/exit_button_active.png");
         exitButtonWhiteTexture = new Texture("buttons/exit_button_inactive.png");
-        soundUpButtonTexture = new Texture("buttons/sound_up.png");
-        soundMuteButtonTexture = new Texture("buttons/sound_mute.png");
-        musicUpButtonTexture = new Texture("buttons/music_up.png");
-        musicMuteButtonTexture = new Texture("buttons/music_mute.png");
+        soundUpButtonTexture = new Texture("buttons/bullets_active.png");
+        soundMuteButtonTexture = new Texture("buttons/bullets_interactive.png");
+        musicUpButtonTexture = new Texture("buttons/music_active.png");
+        musicMuteButtonTexture = new Texture("buttons/music_interactive.png");
         backgroundTexture = new Texture("background/background.png");
 
         // Button objects
