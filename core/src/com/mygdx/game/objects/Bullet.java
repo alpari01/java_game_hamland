@@ -125,7 +125,8 @@ public class Bullet extends GameObject {
             for (int mobId : enemyList.keySet()) {
                 Enemy enemy = enemyList.get(mobId);
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + enemy.getWidth()
-                    && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()) {
+                    && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()
+                    && !enemy.isInvulnerable()) {
 
                     enemy.setHp(enemy.getHp() - 1);
 

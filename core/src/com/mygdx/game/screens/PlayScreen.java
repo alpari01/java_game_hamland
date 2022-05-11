@@ -100,7 +100,7 @@ public class PlayScreen implements Screen {
     // TiledMap
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    private float tileWidth, tileHeight;
+    public static float tileWidth, tileHeight;
     private boolean collisionX;
     private boolean collisionY;
     private TiledMapTileLayer waterCollisionLayer;
@@ -374,7 +374,7 @@ public class PlayScreen implements Screen {
                 }
 
                 this.enemies.get(mobId).polygon.setPosition(mobData[0], mobData[1]);
-                this.enemies.get(mobId).draw(batch);
+                this.enemies.get(mobId).draw(batch, buildingsCollisionLayer, delta);
             }
 
             else {
@@ -394,7 +394,7 @@ public class PlayScreen implements Screen {
                     enemyToUpdate.polygon.setPosition(99999, 99999);  // FIND BETTER SOLUTION?
                 }
 
-                if (!this.killedEnemiesId.contains(mobId)) enemyToUpdate.draw(batch);
+                if (!this.killedEnemiesId.contains(mobId)) enemyToUpdate.draw(batch, buildingsCollisionLayer, delta);
             }
         }
     }

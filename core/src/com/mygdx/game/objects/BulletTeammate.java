@@ -65,7 +65,8 @@ public class BulletTeammate extends GameObject {
             // Check bullet hit enemy.
             for (Enemy enemy : enemyList.values()) {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + enemy.getWidth()
-                        && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()) {
+                        && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()
+                        && !enemy.isInvulnerable()) {
                     explosionTextureIndex = 0;
                     x = polygon.getX();
                     y = polygon.getY();
