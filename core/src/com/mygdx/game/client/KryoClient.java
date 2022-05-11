@@ -318,6 +318,7 @@ public class KryoClient extends Listener {
 
             // Remove the loot from hashmap.
             this.removeLootPosition(packet.collectedLootIndex);
+            System.out.println("Player: " + packet.playerNickname + " has collected loot.");
         }
     }
 
