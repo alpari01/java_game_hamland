@@ -34,6 +34,8 @@ com/mygdx/game/objects/Crab.java
  com.mygdx.game.objects.Crab
 com/mygdx/game/packets/PacketPlayerDisconnected.java
  com.mygdx.game.packets.PacketPlayerDisconnected
+com/mygdx/game/packets/PacketSendStatistics.java
+ com.mygdx.game.packets.PacketSendStatistics
 com/mygdx/game/client/KryoClient.java
  com.mygdx.game.client.KryoClient
 com/mygdx/game/objects/Zombie.java
