@@ -14,6 +14,10 @@ public class Enemy extends GameObject {
     public static final int HP_HEIGHT = 5;
     public static final float DISAPPEAR_TEXTURE_WIDTH = 100f;
     public static final float DISAPPEAR_TEXTURE_HEIGHT = 100f;
+    public static final float DEATH_TEXTURE_WIDTH = 200f;
+    public static final float DEATH_TEXTURE_HEIGHT = 200f;
+    public static final float FIRE_TEXTURE_WIDTH = 200f;
+    public static final float FIRE_TEXTURE_HEIGHT = 200f;
 
     // HP
     private final int maxHp;
@@ -34,10 +38,24 @@ public class Enemy extends GameObject {
     private float timerAppear;
     private int indexAppear;
 
+    // Death animation
+    private boolean isDeath;
+    private float timerDeath;
+    private int indexDeath;
+    private float deathX = -99999;
+    private float deathY = -99999;
+
+    // Fire animation
+    private boolean isFire;
+    private float timerFire;
+    private int indexFire;
+
     private boolean isInvulnerable;
 
     // Animation textures
-    private final TextureRegion[] textureRegions;
+    private final TextureRegion[] textureRegionsDisappear;
+    private final TextureRegion[] textureRegionsDeath;
+    private final TextureRegion[] textureRegionsFire;
 
     public Enemy(Texture texture, float x, float y, float width, float height, int hp, int maxHp) {
         super(texture, x, y, width, height);
@@ -46,10 +64,26 @@ public class Enemy extends GameObject {
 
         // Disappear animation
         TextureAtlas disappearAtlas = new TextureAtlas("animations/portal.atlas");
-        textureRegions = new TextureRegion[16];
+        textureRegionsDisappear = new TextureRegion[16];
         for (int i = 0; i < 16; i++) {
             TextureRegion textureRegion = disappearAtlas.findRegion(String.valueOf(i + 1));
-            textureRegions[i] = textureRegion;
+            textureRegionsDisappear[i] = textureRegion;
+        }
+
+        // Death animation
+        TextureAtlas deathAtlas = new TextureAtlas("animations/smoke.atlas");
+        textureRegionsDeath = new TextureRegion[40];
+        for (int i = 0; i < 40; i++) {
+            TextureRegion textureRegion = deathAtlas.findRegion(String.valueOf(i + 1));
+            textureRegionsDeath[i] = textureRegion;
+        }
+
+        // Fire animation
+        TextureAtlas fireAtlas = new TextureAtlas("animations/fire.atlas");
+        textureRegionsFire = new TextureRegion[16];
+        for (int i = 0; i < 16; i++) {
+            TextureRegion textureRegion = fireAtlas.findRegion(String.valueOf(i + 1));
+            textureRegionsFire[i] = textureRegion;
         }
 
         // HP
@@ -59,9 +93,6 @@ public class Enemy extends GameObject {
     }
 
     public void draw(SpriteBatch batch, TiledMapTileLayer layer, float delta) {
-        drawHP(batch);
-        onBuilding(layer);
-
         sprite.setPosition(polygon.getX(), polygon.getY()); // set Sprite position equal to Polygon position
         sprite.setRotation(polygon.getRotation()); // set Sprite rotation around the Polygon center
 
@@ -69,6 +100,10 @@ public class Enemy extends GameObject {
         if (isAlive()) {
             sprite.draw(batch);
         }
+
+        fireAnimation(delta, batch);
+        drawHP(batch);
+        onBuilding(layer);
 
         disappearAnimation(delta, batch);
         appearAnimation(delta, batch);
@@ -86,8 +121,13 @@ public class Enemy extends GameObject {
         this.hp = hp;
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
+
     /**
      * Draw a health bar on top of the enemy that changes depending on the remaining health.
+     *
      * @param batch batch.
      */
     public void drawHP(SpriteBatch batch) {
@@ -111,6 +151,7 @@ public class Enemy extends GameObject {
     /**
      * If the mob is on the building - the mob is invisible and invulnerable.
      * If the mob is outside the building - the mob is visible and vulnerable
+     *
      * @param layer buildings layer.
      */
     public void onBuilding(TiledMapTileLayer layer) {
@@ -122,72 +163,76 @@ public class Enemy extends GameObject {
         if ( // on the building
 
             // 1. lower left corner of the enemy
-            layer.getCell((int) (x / tileWidth), (int) ((y) / tileHeight)) != null ||
+                layer.getCell((int) (x / tileWidth), (int) ((y) / tileHeight)) != null ||
 
-            // 2. lower right corner of the enemy
-            layer.getCell((int) ((x + width) / tileWidth), (int) ((y) / tileHeight)) != null ||
+                        // 2. lower right corner of the enemy
+                        layer.getCell((int) ((x + width) / tileWidth), (int) ((y) / tileHeight)) != null ||
 
-            // 3. upper left corner of the enemy
-            layer.getCell((int) (x / tileWidth), (int) ((y + height) / tileHeight)) != null ||
+                        // 3. upper left corner of the enemy
+                        layer.getCell((int) (x / tileWidth), (int) ((y + height) / tileHeight)) != null ||
 
-            // 4. upper right corner of the enemy
-            layer.getCell((int) ((x + width) / tileWidth), (int) (((y) + height) / tileHeight)) != null ||
+                        // 4. upper right corner of the enemy
+                        layer.getCell((int) ((x + width) / tileWidth), (int) (((y) + height) / tileHeight)) != null ||
 
-            // 5. left center point of the enemy
-            layer.getCell((int) (x / tileWidth), (int) ((y + height / 2) / tileHeight)) != null ||
+                        // 5. left center point of the enemy
+                        layer.getCell((int) (x / tileWidth), (int) ((y + height / 2) / tileHeight)) != null ||
 
-            // 6. right center point of the enemy
-            layer.getCell((int) ((x + width) / tileWidth), (int) ((y + height / 2) / tileHeight)) != null ||
+                        // 6. right center point of the enemy
+                        layer.getCell((int) ((x + width) / tileWidth), (int) ((y + height / 2) / tileHeight)) != null ||
 
-            // 7. lower center point of the enemy
-            layer.getCell((int) ((x + width / 2) / tileWidth), (int) (y / tileHeight)) != null ||
+                        // 7. lower center point of the enemy
+                        layer.getCell((int) ((x + width / 2) / tileWidth), (int) (y / tileHeight)) != null ||
 
-            // 8. upper center point of the enemy
-            layer.getCell((int) ((x + width / 2) / tileWidth), (int) ((y + height) / tileHeight)) != null) {
+                        // 8. upper center point of the enemy
+                        layer.getCell((int) ((x + width / 2) / tileWidth), (int) ((y + height) / tileHeight)) != null) {
 
-                sprite.setColor(1f, 1f, 1f, 0.2f);
-                hpBarSprite.setColor(1f, 1f, 1f, 0.0f);
-                hpSprite.setColor(1f, 1f, 1f, 0.0f);
-                hpEmptySprite.setColor(1f, 1f, 1f, 0.0f);
-                isInvulnerable = true;
+            sprite.setColor(1f, 1f, 1f, 0.2f);
+            hpBarSprite.setColor(1f, 1f, 1f, 0.0f);
+            hpSprite.setColor(1f, 1f, 1f, 0.0f);
+            hpEmptySprite.setColor(1f, 1f, 1f, 0.0f);
+            isInvulnerable = true;
 
-                // Disappear animation
-                if (startDisappear) {
-                    isDisappeared = true;
-                }
-                startDisappear = false;
+            // Disappear animation
+            if (startDisappear) {
+                isDisappeared = true;
+            }
+            startDisappear = false;
 
-                // Appear animation
-                startAppear = true;
-        }
+            // Appear animation
+            startAppear = true;
+        } else { // outside the building
 
-        else { // outside the building
+            sprite.setColor(1f, 1f, 1f, 1f);
+            hpBarSprite.setColor(1f, 1f, 1f, 1f);
+            hpSprite.setColor(1f, 1f, 1f, 1f);
+            hpEmptySprite.setColor(1f, 1f, 1f, 1f);
+            isInvulnerable = false;
 
-                sprite.setColor(1f, 1f, 1f, 1f);
-                hpBarSprite.setColor(1f, 1f, 1f, 1f);
-                hpSprite.setColor(1f, 1f, 1f, 1f);
-                hpEmptySprite.setColor(1f, 1f, 1f, 1f);
-                isInvulnerable = false;
+            // Disappear animation
+            startDisappear = true;
 
-                // Disappear animation
-                startDisappear = true;
-
-                // Appear animation
-                if (startAppear) {
-                    isAppeared = true;
-                }
-                startAppear = false;
+            // Appear animation
+            if (startAppear) {
+                isAppeared = true;
+            }
+            startAppear = false;
         }
     }
 
+    /**
+     * Draw disappear animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
     public void disappearAnimation(float delta, SpriteBatch batch) {
         if (indexDisappear == 16) {
             isDisappeared = false;
             indexDisappear = 0;
         }
         if (isDisappeared) {
+            isFire = false;
             timerDisappear += delta;
-            batch.draw(textureRegions[indexDisappear],
+            batch.draw(textureRegionsDisappear[indexDisappear],
                     polygon.getX() - DISAPPEAR_TEXTURE_WIDTH / 2 + width / 2,
                     polygon.getY() - DISAPPEAR_TEXTURE_HEIGHT / 2 + height / 2,
                     DISAPPEAR_TEXTURE_WIDTH, DISAPPEAR_TEXTURE_HEIGHT);
@@ -198,6 +243,11 @@ public class Enemy extends GameObject {
         }
     }
 
+    /**
+     * Draw appear animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
     public void appearAnimation(float delta, SpriteBatch batch) {
         if (indexAppear == 16) {
             isAppeared = false;
@@ -205,7 +255,7 @@ public class Enemy extends GameObject {
         }
         if (isAppeared) {
             timerAppear += delta;
-            batch.draw(textureRegions[indexAppear],
+            batch.draw(textureRegionsDisappear[indexAppear],
                     polygon.getX() - DISAPPEAR_TEXTURE_WIDTH / 2 + width / 2,
                     polygon.getY() - DISAPPEAR_TEXTURE_HEIGHT / 2 + height / 2,
                     DISAPPEAR_TEXTURE_WIDTH, DISAPPEAR_TEXTURE_HEIGHT);
@@ -215,8 +265,61 @@ public class Enemy extends GameObject {
             }
         }
     }
-    
+
+    /**
+     * Draw death animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
+    public void deathAnimation(float delta, SpriteBatch batch) {
+        if (isDeath && indexDeath < 40) {
+            timerDeath += delta;
+            batch.draw(textureRegionsDeath[indexDeath],
+                    deathX - DEATH_TEXTURE_WIDTH / 2 + width / 2,
+                    deathY,
+                    DEATH_TEXTURE_WIDTH, DEATH_TEXTURE_HEIGHT);
+            if (timerDeath > 0.03) {
+                indexDeath++;
+                timerDeath = 0;
+            }
+        }
+    }
+
+    /**
+     * Draw fire animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
+    public void fireAnimation(float delta, SpriteBatch batch) {
+        if (indexFire == 16) {
+            indexFire = 0;
+        }
+        if (isFire) {
+            timerFire += delta;
+            batch.draw(textureRegionsFire[indexFire],
+                    polygon.getX() - FIRE_TEXTURE_WIDTH / 2 + width / 2,
+                    polygon.getY() - 30,
+                    FIRE_TEXTURE_WIDTH, FIRE_TEXTURE_HEIGHT);
+            if (timerFire > 0.03) {
+                indexFire++;
+                timerFire = 0;
+            }
+        }
+    }
+
     public boolean isInvulnerable() {
         return isInvulnerable;
+    }
+
+    public void setDeath(boolean death, float x, float y) {
+        isDeath = death;
+        if (deathX == -99999 && deathY == -99999) {
+            deathX = x;
+            deathY = y;
+        }
+    }
+
+    public void setFire(boolean fire) {
+        isFire = fire;
     }
 }

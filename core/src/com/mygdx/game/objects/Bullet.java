@@ -129,6 +129,7 @@ public class Bullet extends GameObject {
                     && !enemy.isInvulnerable()) {
 
                     enemy.setHp(enemy.getHp() - 1);
+                    enemy.setFire(true);
 
                     gameClient.client.sendPacketMobHit(mobId);
 

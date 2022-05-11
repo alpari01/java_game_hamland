@@ -386,11 +386,14 @@ public class PlayScreen implements Screen {
                 if (enemyToUpdate.getHp() != mobData[3]) {
                     // mobData[3] contains mob HP value.
                     enemyToUpdate.setHp((int) mobData[3]);
+                    if (enemyToUpdate.getHp() != enemyToUpdate.getMaxHp()) enemyToUpdate.setFire(true);
                 }
 
                 if (enemyToUpdate.getHp() == 0) {
                     // If mob HP is 0 -> kill him (but actually spawn far beyond the map :))
                     this.killedEnemiesId.add(mobId);
+                    enemyToUpdate.setDeath(true, enemyToUpdate.polygon.getX(), enemyToUpdate.polygon.getY());
+                    enemyToUpdate.deathAnimation(delta, batch);
                     enemyToUpdate.polygon.setPosition(99999, 99999);  // FIND BETTER SOLUTION?
                 }
 
