@@ -4,21 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c4f52db-1f72-4d17-90e1-bffc2749c226" name="Changes" comment="Loot spawning added.">
+    <list default="true" id="1cbd460f-d424-452c-bd7c-affddf0946cf" name="Changes" comment="gitignore">
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/client/KryoClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/client/KryoClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/BulletTeammate.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/BulletTeammate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Enemy.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Teammate.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/objects/Teammate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/mygdx/game/screens/PlayScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/client/KryoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/client/KryoClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +58,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="101-new-enemies" />
+        <entry key="$PROJECT_DIR$" value="122-medkit-and-ammo-using-animations" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,9 +79,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/core/assets/maps" />
@@ -160,8 +170,8 @@
         <item itemvalue="Application.KryoClient" />
         <item itemvalue="Application.DesktopLauncher" />
         <item itemvalue="Application.Hiero" />
-        <item itemvalue="Application.Hiero" />
         <item itemvalue="Application.KryoClient" />
+        <item itemvalue="Application.DesktopLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -265,17 +275,14 @@
       <workItem from="1651842030044" duration="3000" />
       <workItem from="1651842053587" duration="2484000" />
       <workItem from="1651936400095" duration="55000" />
-      <workItem from="1651942521467" duration="4373000" />
-      <workItem from="1652030416284" duration="890000" />
-      <workItem from="1652085359894" duration="1500000" />
-      <workItem from="1652090127210" duration="5000" />
-      <workItem from="1652090138425" duration="719000" />
-      <workItem from="1652111405636" duration="1475000" />
-      <workItem from="1652114497598" duration="1000" />
-      <workItem from="1652118002267" duration="415000" />
-      <workItem from="1652118432222" duration="8208000" />
-      <workItem from="1652192815913" duration="3124000" />
-      <workItem from="1652270152763" duration="1617000" />
+      <workItem from="1651942521467" duration="2591000" />
+    </task>
+    <task id="LOCAL-00024" summary="draw characters method">
+      <created>1646823678793</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1646823678793</updated>
     </task>
     <task id="LOCAL-00025" summary="player control class">
       <created>1646832194235</created>
@@ -599,28 +606,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651693079844</updated>
     </task>
-    <task id="LOCAL-00071" summary="Bug fixed: now when player disconnects he is removed from teammatesReady hashmap.">
-      <created>1651945596904</created>
+    <task id="LOCAL-00071" summary="medkit and ammo using animations">
+      <created>1652283265842</created>
       <option name="number" value="00071" />
       <option name="presentableId" value="LOCAL-00071" />
       <option name="project" value="LOCAL" />
-      <updated>1651945596905</updated>
+      <updated>1652283265842</updated>
     </task>
-    <task id="LOCAL-00072" summary="Loot textures added.">
-      <created>1652111705324</created>
+    <task id="LOCAL-00072" summary="gitignore">
+      <created>1652284375247</created>
       <option name="number" value="00072" />
       <option name="presentableId" value="LOCAL-00072" />
       <option name="project" value="LOCAL" />
-      <updated>1652111705324</updated>
+      <updated>1652284375247</updated>
     </task>
-    <task id="LOCAL-00073" summary="Loot spawning added.">
-      <created>1652195898573</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1652195898573</updated>
-    </task>
-    <option name="localTasksCounter" value="74" />
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,6 +638,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="update enemy draw method" />
     <MESSAGE value="draw enemy hp" />
     <MESSAGE value="attach camera" />
     <MESSAGE value="ammo limit" />
@@ -660,19 +661,8 @@
     <MESSAGE value="lobby interface" />
     <MESSAGE value="display nicknames in lobby" />
     <MESSAGE value="lobby background" />
-    <MESSAGE value="Bug fixed: now when player disconnects he is removed from teammatesReady hashmap." />
-    <MESSAGE value="Loot textures added." />
-    <MESSAGE value="Loot spawning added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Loot spawning added." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.util.ConcurrentModificationException" package="java.util" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="medkit and ammo using animations" />
+    <MESSAGE value="gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
   </component>
 </project>

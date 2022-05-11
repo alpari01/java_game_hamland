@@ -44,10 +44,10 @@ com/mygdx/game/packets/PacketGameBeginTimer.java
  com.mygdx.game.packets.PacketGameBeginTimer
 com/mygdx/game/MusicMaster.java
  com.mygdx.game.MusicMaster
-com/mygdx/game/packets/PacketLootSpawn.java
- com.mygdx.game.packets.PacketLootSpawn
 com/mygdx/game/screens/LobbyScreen.java
  com.mygdx.game.screens.LobbyScreen
+com/mygdx/game/packets/PacketLootSpawn.java
+ com.mygdx.game.packets.PacketLootSpawn
 com/mygdx/game/packets/PacketUpdatePlayers.java
  com.mygdx.game.packets.PacketUpdatePlayers
 com/mygdx/game/objects/BulletTeammate.java
@@ -62,10 +62,10 @@ com/mygdx/game/screens/MenuScreen.java
  com.mygdx.game.screens.MenuScreen
 com/mygdx/game/screens/SettingsScreen.java
  com.mygdx.game.screens.SettingsScreen
-com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
- com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
 com/mygdx/game/screens/NicknameScreen.java
  com.mygdx.game.screens.NicknameScreen
+com/mygdx/game/packets/PacketCheckPlayerNicknameUnique.java
+ com.mygdx.game.packets.PacketCheckPlayerNicknameUnique
 com/mygdx/game/packets/PacketPlayerHit.java
  com.mygdx.game.packets.PacketPlayerHit
 com/mygdx/game/screens/PlayScreen.java
