@@ -4,10 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.objects.Button;
+
+import static com.mygdx.game.client.KryoClient.inscription;
 
 public class NicknameScreen implements Screen, Input.TextInputListener {
 
@@ -15,12 +19,12 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
     private SpriteBatch batch;
 
     // Properties
-    public static final float ENTER_NAME_BUTTON_X = (float) GameClient.WIDTH / 2;
+    public static final float ENTER_NAME_BUTTON_X = (float) GameClient.WIDTH / 2 - 10;
     public static final float ENTER_NAME_BUTTON_Y = (float) GameClient.HEIGHT / 2 - 150;
     public static final float ENTER_NAME_BUTTON_WIDTH = 200f;
     public static final float ENTER_NAME_BUTTON_HEIGHT = (float) 817 / 1116 * ENTER_NAME_BUTTON_WIDTH;
 
-    public static final int WELCOME_X = GameClient.WIDTH / 2 - 180;
+    public static final int WELCOME_X = GameClient.WIDTH / 2 - 190;
     public static final int WELCOME_Y = GameClient.HEIGHT / 2 - 15;
     public static final int WELCOME_WIDTH = 385;
     public static final int WELCOME_HEIGHT = 305;
@@ -38,6 +42,10 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
     // Text input window
     private String nickname;
     public static boolean isWindowOpened;
+
+    // Fonts
+    private BitmapFont font;
+    private GlyphLayout glyphLayout;
 
     public NicknameScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -60,6 +68,10 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         // Button objects
         playButton = new Button(playButtonTexture, ENTER_NAME_BUTTON_X, ENTER_NAME_BUTTON_Y, ENTER_NAME_BUTTON_WIDTH, ENTER_NAME_BUTTON_HEIGHT);
         playButtonWhite = new Button(playButtonWhiteTexture, ENTER_NAME_BUTTON_X,ENTER_NAME_BUTTON_Y, ENTER_NAME_BUTTON_WIDTH,ENTER_NAME_BUTTON_HEIGHT);
+
+        // Font
+        font = new BitmapFont(Gdx.files.internal("fonts/inscription.fnt"));
+        glyphLayout = new GlyphLayout();
     }
 
     @Override
@@ -71,6 +83,8 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
         batch.draw(backgroundTexture, 0, 0, GameClient.WIDTH, GameClient.HEIGHT);
         batch.draw(welcomeTexture, WELCOME_X, WELCOME_Y, WELCOME_WIDTH, WELCOME_HEIGHT);
+
+        writeError(batch);
 
         // if mouse X-coordinate and Y-coordinate on the button
         if (Gdx.input.getX() > playButton.polygon.getX() && Gdx.input.getX() < playButton.polygon.getX() + ENTER_NAME_BUTTON_WIDTH &&
@@ -91,13 +105,13 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
 
         // If nickname is entered
         if (nickname != null) {
-            if (nickname.trim().length() == 0) {
-                // Check if nickname is not 'spaces only'.
-                System.out.println("Nickname cannot contain only 'spaces'.");
+            if (!nickname.matches("[a-zA-Z\\d]+")) {
+                // Check if nickname is not инвалид.
+                inscription = "USERNAME CONTAINS INVALID CHARACTERS";
                 isWindowOpened = false;
-            } else if (nickname.trim().length() < 3) {
-                // Check if nickname is longer that 3 characters.
-                System.out.println("Nickname must be longer than 2 characters.");
+            } else if (nickname.trim().length() < 3 || nickname.trim().length() > 16) {
+                // Check if nickname contains 3-16 characters.
+                inscription = "USERNAME MUST CONTAIN 3-16 CHARACTERS";
                 isWindowOpened = false;
             }
 
@@ -118,6 +132,15 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         }
 
         batch.end(); //end
+    }
+
+    /**
+     * Display an error message on the screen if a nickname is entered incorrectly.
+     * @param batch batch.
+     */
+    public void writeError(SpriteBatch batch) {
+        glyphLayout.setText(font, inscription);
+        font.draw(batch, glyphLayout, GameClient.WIDTH / 2f - glyphLayout.width / 2, 100);
     }
 
     @Override

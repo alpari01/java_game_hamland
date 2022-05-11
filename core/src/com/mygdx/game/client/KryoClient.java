@@ -32,6 +32,7 @@ public class KryoClient extends Listener {
     public static Map<Integer, float[]> lootPositions = new HashMap<>();
     public static boolean isGameEnd = false;
     public static String statisticsString;
+    public static String inscription = "";
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -196,7 +197,7 @@ public class KryoClient extends Listener {
                 nickname = packet.playerNickname;
             }
             if (!packet.isNicknameUnique) {
-                System.out.println("Nickname " + packet.playerNickname + " is not unique -> change it.");
+                inscription = "THIS USERNAME IS ALREADY TAKEN";
                 isNicknameUnique = false;
                 NicknameScreen.isWindowOpened = false;
             }
