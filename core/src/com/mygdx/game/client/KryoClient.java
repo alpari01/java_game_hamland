@@ -30,6 +30,8 @@ public class KryoClient extends Listener {
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
     public static Map<String, Boolean>  teammatesShots = new HashMap<>();
     public static Map<Integer, float[]> lootPositions = new HashMap<>();
+    public static boolean isGameEnd = false;
+    public static String statisticsString;
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -62,6 +64,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketGameBeginTimer.class);
         client.getKryo().register(PacketLootSpawn.class);
         client.getKryo().register(PacketLootCollected.class);
+        client.getKryo().register(PacketSendStatistics.class);
     }
 
     public void setPlayer(Player newPlayer) {
@@ -94,6 +97,14 @@ public class KryoClient extends Listener {
 
     public int getServerTimerGameBeginStopValue() {
         return serverTimerGameBeginStopValue;
+    }
+
+    public boolean getIsGameEnd() {
+        return isGameEnd;
+    }
+
+    public String getStatisticsString() {
+        return statisticsString;
     }
 
     /**
@@ -148,6 +159,7 @@ public class KryoClient extends Listener {
     public void sendPacketMobHit(int mobId) {
         PacketMobHit packetMobHit = new PacketMobHit();
         packetMobHit.mobId = mobId;
+        packetMobHit.playerNickname = nickname;
         client.sendTCP(packetMobHit);
     }
 
@@ -327,6 +339,14 @@ public class KryoClient extends Listener {
             // Remove the loot from hashmap.
             this.removeLootPosition(packet.collectedLootIndex);
 //            System.out.println("Player: " + packet.playerNickname + " has collected loot.");
+        }
+
+        if (p instanceof PacketSendStatistics) {
+            PacketSendStatistics packet = (PacketSendStatistics) p;
+            statisticsString = packet.statisticsString;
+            isGameEnd = true;
+
+            System.out.println(statisticsString);
         }
     }
 

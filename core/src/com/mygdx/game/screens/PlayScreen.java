@@ -193,6 +193,11 @@ public class PlayScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.end(); // end
+
+        if (this.gameClient.client.getIsGameEnd()) {
+            // If game has ended (all players are dead).
+            String statisticsString = this.gameClient.client.getStatisticsString();
+        }
     }
 
     /**
