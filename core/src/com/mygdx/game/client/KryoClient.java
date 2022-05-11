@@ -304,6 +304,8 @@ public class KryoClient extends Listener {
         if (p instanceof PacketLootSpawn) {
             PacketLootSpawn packet = (PacketLootSpawn) p;
             lootPositions.put(packet.spawnPosIndex, new float[]{packet.spawnCoordinateX, packet.spawnCoordinateY, packet.lootType});
+
+//            System.out.println("Spawning loot of type: " + packet.lootType);
         }
 
         if (p instanceof PacketLootCollected) {
@@ -318,7 +320,7 @@ public class KryoClient extends Listener {
 
             // Remove the loot from hashmap.
             this.removeLootPosition(packet.collectedLootIndex);
-            System.out.println("Player: " + packet.playerNickname + " has collected loot.");
+//            System.out.println("Player: " + packet.playerNickname + " has collected loot.");
         }
     }
 
