@@ -15,10 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class PlayScreen implements Screen {
 
@@ -237,6 +234,9 @@ public class PlayScreen implements Screen {
     }
 
     public void checkPlayerAndLootCollision() {
+
+        List<Integer> lootIndexesToRemove = new ArrayList<>();
+
         for (int lootIndex : this.spawnedLoot.keySet()) {
 
             Loot loot = this.spawnedLoot.get(lootIndex);
@@ -263,10 +263,14 @@ public class PlayScreen implements Screen {
                     this.player.setHp(MED_KIT_HP_HEAL_AMOUNT);
                 }
 
-                // Stop rendering collected loot object -> remove it from the hashmaps.
-                gameClient.client.removeLootPosition(lootIndex);
-                this.spawnedLoot.remove(lootIndex);
+                lootIndexesToRemove.add(lootIndex);
             }
+        }
+
+        // Stop rendering collected loot objects -> remove them from the hashmaps.
+        for (int lootIndex : lootIndexesToRemove) {
+            gameClient.client.removeLootPosition(lootIndex);
+            this.spawnedLoot.remove(lootIndex);
         }
     }
 
@@ -289,6 +293,7 @@ public class PlayScreen implements Screen {
 
             // If there was no new loot object created -> create it.
             if (!this.spawnedLoot.containsKey(lootPositionIndex)) {
+                System.out.println(this.gameClient.client.getLootPositions());
                 float lootSpawnPosX = lootData[0];
                 float lootSpawnPosY = lootData[1];
 
