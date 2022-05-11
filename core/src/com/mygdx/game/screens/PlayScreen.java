@@ -256,11 +256,13 @@ public class PlayScreen implements Screen {
                 if (loot.getType() == 0) {
                     // If this loot is an ammo crate -> refill the ammo.
                     this.bullet.addAmmo(AMMO_CRATE_REFILL_AMOUNT);
+                    this.player.setAmmoTaken(true);
                 }
 
                 if (loot.getType() == 1) {
                     // If this loot is a med kit -> heal the player.
                     this.player.setHp(MED_KIT_HP_HEAL_AMOUNT);
+                    this.player.setHealTaken(true);
                 }
 
                 lootIndexesToRemove.add(lootIndex);

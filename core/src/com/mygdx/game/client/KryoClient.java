@@ -316,6 +316,12 @@ public class KryoClient extends Listener {
 
                 // Heal the teammate.
                 teammates.get(packet.playerNickname).setHp(MED_KIT_HP_HEAL_AMOUNT);
+                teammates.get(packet.playerNickname).setHealTaken(true);
+            }
+
+            else {
+                // If collected loot was an ammo.
+                teammates.get(packet.playerNickname).setAmmoTaken(true);
             }
 
             // Remove the loot from hashmap.
