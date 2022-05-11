@@ -130,7 +130,6 @@ public class LobbyScreen implements Screen {
 
         // Update teammates' readiness data.
         this.teammatesReady = gameClient.client.getTeammatesReady();
-        System.out.println(this.teammatesReady);
 
         updateAndDrawTimer();
 
