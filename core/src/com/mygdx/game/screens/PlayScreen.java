@@ -85,6 +85,7 @@ public class PlayScreen implements Screen {
     private Texture bulletTexture;
     private Texture ammoCrateTexture;
     private Texture medKitTexture;
+    private Texture highScoreTexture;
 
     // Objects
     private Player player;
@@ -106,6 +107,7 @@ public class PlayScreen implements Screen {
     // Fonts
     private final BitmapFont greenFont;
     private final BitmapFont blackFont;
+    private final BitmapFont highScoreFont;
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
@@ -118,6 +120,8 @@ public class PlayScreen implements Screen {
         greenGuyTexture = new Texture("enemies/new_enemy_3.png");
         crabTexture = new Texture("enemies/new_enemy_2.png");
         bulletTexture = new Texture("players/bullet.png");
+        highScoreTexture = new Texture("background/high_score.png");
+
         // Loot
         ammoCrateTexture = new Texture("loot/loot_ammo_crate.png");
         medKitTexture = new Texture("loot/loot_medkit.png");
@@ -127,8 +131,10 @@ public class PlayScreen implements Screen {
         player.setHp(PLAYER_START_HP);
         gameClient.client.setPlayer(player);
 
+        // Fonts
         greenFont = new BitmapFont(Gdx.files.internal("fonts/green.fnt"));
         blackFont = new BitmapFont(Gdx.files.internal("fonts/nickname.fnt"));
+        highScoreFont = new BitmapFont(Gdx.files.internal("fonts/reload.fnt"));
 
         bullet = new Bullet(bulletTexture, 0, 0, BULLET_WIDTH, BULLET_HEIGHT, player);
 
@@ -192,12 +198,23 @@ public class PlayScreen implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
 
-        batch.end(); // end
-
         if (this.gameClient.client.getIsGameEnd()) {
             // If game has ended (all players are dead).
+            batch.draw(highScoreTexture,
+                    cameraX - GameClient.WIDTH / 2f,
+                    cameraY - GameClient.HEIGHT / 2f,
+                    GameClient.WIDTH,
+                    GameClient.HEIGHT);
             String statisticsString = this.gameClient.client.getStatisticsString();
+            String[] lines = statisticsString.split("\n");
+            for (int i = 0; i < lines.length; i++) {
+                String[] score = lines[i].split(" +");
+                highScoreFont.draw(batch, score[0].toUpperCase(Locale.ROOT), cameraX - 480, cameraY + 100 - 50 * i);
+                highScoreFont.draw(batch, score[1], cameraX - 70, cameraY + 100 - 50 * i);
+            }
         }
+
+        batch.end(); // end
     }
 
     /**
