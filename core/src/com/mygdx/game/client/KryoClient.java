@@ -16,6 +16,8 @@ import java.util.Map;
 
 public class KryoClient extends Listener {
 
+    public static final int MED_KIT_HP_HEAL_AMOUNT = 3;  //NB! If changing this value also change it on the server!!!
+
     private final Client client;  // Client object.
     public static boolean isNicknameUnique = false;
     public boolean isToServerConnected = false;
@@ -27,6 +29,7 @@ public class KryoClient extends Listener {
     public static Map<String, Boolean> teammatesReady = new HashMap<>();
     public static Map<Integer, float[]> enemiesData = new HashMap<>();
     public static Map<String, Boolean>  teammatesShots = new HashMap<>();
+    public static Map<Integer, float[]> lootPositions = new HashMap<>();
 
     // Ports to connect on.
     static int tcpPort = 27960;
@@ -57,6 +60,8 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketPlayerHit.class);
         client.getKryo().register(PacketPlayerReady.class);
         client.getKryo().register(PacketGameBeginTimer.class);
+        client.getKryo().register(PacketLootSpawn.class);
+        client.getKryo().register(PacketLootCollected.class);
     }
 
     public void setPlayer(Player newPlayer) {
@@ -77,6 +82,10 @@ public class KryoClient extends Listener {
 
     public Map<String, Boolean> getTeammatesShot() {
         return teammatesShots;
+    }
+
+    public Map<Integer, float[]> getLootPositions() {
+        return lootPositions;
     }
 
     public int getServerTimerGameBeginCurrent() {
@@ -147,6 +156,14 @@ public class KryoClient extends Listener {
         packetPlayerReady.playerNickname = nickname;
         packetPlayerReady.isPlayerReady = isPlayerReady;
         client.sendTCP(packetPlayerReady);
+    }
+
+    public void sendPacketLootCollected(int lootPositionIndex, boolean isLootMedkit) {
+        PacketLootCollected packetLootCollected = new PacketLootCollected();
+        packetLootCollected.playerNickname = nickname;
+        packetLootCollected.collectedLootIndex = lootPositionIndex;
+        packetLootCollected.isLootMedKit = isLootMedkit;
+        client.sendTCP(packetLootCollected);
     }
 
     // Run this method when client receives any packet from the server.
@@ -282,6 +299,27 @@ public class KryoClient extends Listener {
             serverTimerGameBeginCurrent = packet.timerValueCurrent;
             serverTimerGameBeginStopValue = packet.timerStopValue;
         }
+
+        // Receive this packet if server spawns any loot object.
+        if (p instanceof PacketLootSpawn) {
+            PacketLootSpawn packet = (PacketLootSpawn) p;
+            lootPositions.put(packet.spawnPosIndex, new float[]{packet.spawnCoordinateX, packet.spawnCoordinateY, packet.lootType});
+        }
+
+        if (p instanceof PacketLootCollected) {
+            PacketLootCollected packet = (PacketLootCollected) p;
+
+            if (packet.isLootMedKit) {
+                // If collected loot was a med kit.
+
+                // Heal the teammate.
+                teammates.get(packet.playerNickname).setHp(MED_KIT_HP_HEAL_AMOUNT);
+            }
+
+            // Remove the loot from hashmap.
+            this.removeLootPosition(packet.collectedLootIndex);
+            System.out.println("Player: " + packet.playerNickname + " has collected loot.");
+        }
     }
 
     /**
@@ -304,5 +342,9 @@ public class KryoClient extends Listener {
     public void removeTeammate(String teammateNickname) {
         teammates.remove(teammateNickname);
         teammatesReady.remove(teammateNickname);
+    }
+
+    public void removeLootPosition(int lootIndex) {
+        lootPositions.remove(lootIndex);
     }
 }
