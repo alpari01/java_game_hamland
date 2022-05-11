@@ -18,6 +18,10 @@ public class Teammate extends GameObject {
 
     public static final int BLOOD_TEXTURE_WIDTH = 200;
     public static final int BLOOD_TEXTURE_HEIGHT = 200;
+    public static final int HEAL_TEXTURE_WIDTH = 128;
+    public static final int HEAL_TEXTURE_HEIGHT = 128;
+    public static final int AMMO_TEXTURE_WIDTH = 128;
+    public static final int AMMO_TEXTURE_HEIGHT = 128;
     public static final int HP_WIDTH = 50;
     public static final int HP_HEIGHT = 5;
 
@@ -36,9 +40,21 @@ public class Teammate extends GameObject {
     private final GlyphLayout glyphLayout;
 
     // Blood animation
-    private float timer = 0;
+    private float bloodTimer = 0;
     private int bloodTextureIndex = 0;
-    private final TextureRegion[] textureRegions;
+    private final TextureRegion[] bloodTextureRegions;
+
+    // Heal animation
+    private boolean isHealTaken;
+    private float healTimer = 0;
+    private int healTextureIndex = 0;
+    private final TextureRegion[] healTextureRegions;
+
+    // Ammo animation
+    private boolean isAmmoTaken;
+    private float ammoTimer = 0;
+    private int ammoTextureIndex = 0;
+    private final TextureRegion[] ammoTextureRegions;
 
     public Teammate(Texture texture, float x, float y, float width, float height, String nickname) {
         super(texture, x, y, width, height);
@@ -51,11 +67,28 @@ public class Teammate extends GameObject {
 
         // Blood textures
         TextureAtlas bloodAtlas = new TextureAtlas("animations/blood.atlas");
-        textureRegions = new TextureRegion[16];
+        bloodTextureRegions = new TextureRegion[16];
         for (int i = 0; i < 16; i++) {
             TextureRegion textureRegion = bloodAtlas.findRegion("image" + i);
-            textureRegions[i] = textureRegion;
+            bloodTextureRegions[i] = textureRegion;
         }
+
+        // Heal textures
+        TextureAtlas healAtlas = new TextureAtlas("animations/heal1.atlas");
+        healTextureRegions = new TextureRegion[20];
+        for (int i = 0; i < 20; i++) {
+            TextureRegion textureRegion = healAtlas.findRegion(String.valueOf(i + 1));
+            healTextureRegions[i] = textureRegion;
+        }
+
+        // Ammo textures
+        TextureAtlas ammoAtlas = new TextureAtlas("animations/ammo.atlas");
+        ammoTextureRegions = new TextureRegion[40];
+        for (int i = 0; i < 40; i++) {
+            TextureRegion textureRegion = ammoAtlas.findRegion(String.valueOf(i + 1));
+            ammoTextureRegions[i] = textureRegion;
+        }
+
         graveTexture = new Texture("players/grave.png");
 
         // HP
@@ -71,6 +104,8 @@ public class Teammate extends GameObject {
             drawHP(batch);
         }
         damageAnimation(delta, batch);
+        healAnimation(delta, batch);
+        ammoAnimation(delta, batch);
     }
 
     public void setHp(int hp) {
@@ -100,14 +135,72 @@ public class Teammate extends GameObject {
                 isDamaged = false;
                 bloodTextureIndex = 0;
             }
-            timer += delta;
-            batch.draw(textureRegions[bloodTextureIndex],
+            bloodTimer += delta;
+            batch.draw(bloodTextureRegions[bloodTextureIndex],
                     polygon.getX() - (float) BLOOD_TEXTURE_WIDTH / 2 + (float) PlayScreen.PLAYER_WIDTH / 2,
                     polygon.getY() - (float) BLOOD_TEXTURE_HEIGHT / 2 + (float) PlayScreen.PLAYER_HEIGHT / 2,
                     BLOOD_TEXTURE_WIDTH, BLOOD_TEXTURE_HEIGHT);
-            if (timer > 0.02) {
+            if (bloodTimer > 0.03) {
                 bloodTextureIndex++;
-                timer = 0;
+                bloodTimer = 0;
+            }
+        }
+    }
+
+    /**
+     * Draw heal animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
+    public void healAnimation(float delta, SpriteBatch batch) {
+        if (healTextureIndex == 20) {
+            isHealTaken = false;
+            healTextureIndex = 0;
+        }
+        if (isHealTaken) {
+            healTimer += delta;
+            batch.draw(healTextureRegions[healTextureIndex],
+                    polygon.getX() - (float) HEAL_TEXTURE_WIDTH / 2 + width / 2,
+                    polygon.getY() - (float) HEAL_TEXTURE_HEIGHT / 2 + height / 2,
+                    HEAL_TEXTURE_WIDTH / 2f,
+                    HEAL_TEXTURE_HEIGHT / 2f,
+                    HEAL_TEXTURE_WIDTH,
+                    HEAL_TEXTURE_HEIGHT,
+                    polygon.getScaleX(),
+                    polygon.getScaleY(),
+                    polygon.getRotation());
+            if (healTimer > 0.03) {
+                healTextureIndex++;
+                healTimer = 0;
+            }
+        }
+    }
+
+    /**
+     * Draw ammo animation.
+     * @param delta delta.
+     * @param batch batch.
+     */
+    public void ammoAnimation(float delta, SpriteBatch batch) {
+        if (ammoTextureIndex == 40) {
+            isAmmoTaken = false;
+            ammoTextureIndex = 0;
+        }
+        if (isAmmoTaken) {
+            ammoTimer += delta;
+            batch.draw(ammoTextureRegions[ammoTextureIndex],
+                    polygon.getX() - (float) AMMO_TEXTURE_WIDTH / 2 + width / 2,
+                    polygon.getY() - (float) AMMO_TEXTURE_HEIGHT / 2 + height / 2,
+                    AMMO_TEXTURE_WIDTH / 2f,
+                    AMMO_TEXTURE_HEIGHT / 2f,
+                    AMMO_TEXTURE_WIDTH,
+                    AMMO_TEXTURE_HEIGHT,
+                    polygon.getScaleX(),
+                    polygon.getScaleY(),
+                    polygon.getRotation());
+            if (ammoTimer > 0.03) {
+                ammoTextureIndex++;
+                ammoTimer = 0;
             }
         }
     }
@@ -156,5 +249,13 @@ public class Teammate extends GameObject {
         sprite.setTexture(graveTexture);
         sprite.setPosition(polygon.getX(), polygon.getY());
         sprite.setSize(GRAVE_WIDTH, GRAVE_HEIGHT);
+    }
+
+    public void setHealTaken(boolean healTaken) {
+        isHealTaken = healTaken;
+    }
+
+    public void setAmmoTaken(boolean ammoTaken) {
+        isAmmoTaken = ammoTaken;
     }
 }
