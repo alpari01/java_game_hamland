@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
+import com.mygdx.game.MusicMaster;
 import com.mygdx.game.objects.*;
 
 import java.util.*;
@@ -91,6 +92,10 @@ public class PlayScreen implements Screen {
     private Player player;
     private Bullet bullet;
 
+    // Sounds
+    MusicMaster soundBulletShot;
+    MusicMaster soundDamageTaken;
+
     // Camera
     private OrthographicCamera camera;
     public static float cameraX, cameraY;
@@ -111,7 +116,6 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(GameClient gameClient) {
         this.gameClient = gameClient;
-
         // Textures
         playerTexture = new Texture("players/player1.png");
         zombieTexture = new Texture("enemies/zombie_enemy.png");
@@ -122,9 +126,14 @@ public class PlayScreen implements Screen {
         bulletTexture = new Texture("players/bullet.png");
         highScoreTexture = new Texture("background/high_score.png");
 
+
         // Loot
         ammoCrateTexture = new Texture("loot/loot_ammo_crate.png");
         medKitTexture = new Texture("loot/loot_medkit.png");
+
+        // Sounds
+        soundBulletShot = this.gameClient.getSoundBulletShot();
+        soundDamageTaken = this.gameClient.getSoundDamageTaken();
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -235,7 +244,9 @@ public class PlayScreen implements Screen {
         // Update player's own bullet.
         bullet.shot(enemies, delta, gameClient, batch);
         bullet.draw(batch);
-
+        if (this.bullet.isShot) {
+            this.soundBulletShot.play();
+        }
         // Render teammates' bullets.
         for (String teammateNickname : teammateBullets.keySet()) {
             if (gameClient.client.getTeammatesShot().containsKey(teammateNickname)
@@ -246,6 +257,7 @@ public class PlayScreen implements Screen {
                 // Render his bullet.
                 bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta, batch);
                 bulletTeammate.draw(batch);
+                if (!this.soundBulletShot.isPlaying()) this.soundBulletShot.play();
 
                 // If bullet was shot -> stop rendering it after certain amount of time.
                 if (!teammateBullets.get(teammateNickname).isShot) {

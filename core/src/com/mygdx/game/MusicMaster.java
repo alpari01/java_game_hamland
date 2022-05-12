@@ -15,6 +15,10 @@ public class MusicMaster implements Music {
     public MusicMaster(String path) {
 
         this.music = Gdx.audio.newMusic(Gdx.files.internal(path));
+
+        // Defaults
+        this.setLooping(false);
+        this.setVolume(1f);
     }
 
     @Override
