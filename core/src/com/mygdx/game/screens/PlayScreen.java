@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.GameClient;
-import com.mygdx.game.MusicMaster;
 import com.mygdx.game.objects.*;
 
 import java.util.*;
@@ -92,10 +91,6 @@ public class PlayScreen implements Screen {
     private Player player;
     private Bullet bullet;
 
-    // Sounds
-    MusicMaster soundBulletShot;
-    MusicMaster soundDamageTaken;
-
     // Camera
     private OrthographicCamera camera;
     public static float cameraX, cameraY;
@@ -130,10 +125,6 @@ public class PlayScreen implements Screen {
         // Loot
         ammoCrateTexture = new Texture("loot/loot_ammo_crate.png");
         medKitTexture = new Texture("loot/loot_medkit.png");
-
-        // Sounds
-        soundBulletShot = this.gameClient.getSoundBulletShot();
-        soundDamageTaken = this.gameClient.getSoundDamageTaken();
 
         // Objects
         player = new Player(playerTexture, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -218,8 +209,10 @@ public class PlayScreen implements Screen {
             String[] lines = statisticsString.split("\n");
             for (int i = 0; i < lines.length; i++) {
                 String[] score = lines[i].split(" +");
-                highScoreFont.draw(batch, score[0].toUpperCase(Locale.ROOT), cameraX - 480, cameraY + 100 - 50 * i);
-                highScoreFont.draw(batch, score[1], cameraX - 70, cameraY + 100 - 50 * i);
+                if (score.length > 1) {
+                    highScoreFont.draw(batch, score[0].toUpperCase(Locale.ROOT), cameraX - 480, cameraY + 100 - 50 * i);
+                    highScoreFont.draw(batch, score[1], cameraX - 70, cameraY + 100 - 50 * i);
+                }
             }
         }
 
@@ -244,9 +237,7 @@ public class PlayScreen implements Screen {
         // Update player's own bullet.
         bullet.shot(enemies, delta, gameClient, batch);
         bullet.draw(batch);
-        if (this.bullet.isShot) {
-            this.soundBulletShot.play();
-        }
+
         // Render teammates' bullets.
         for (String teammateNickname : teammateBullets.keySet()) {
             if (gameClient.client.getTeammatesShot().containsKey(teammateNickname)
@@ -257,7 +248,6 @@ public class PlayScreen implements Screen {
                 // Render his bullet.
                 bulletTeammate.renderShot(gameClient.client.getTeammates().get(teammateNickname).polygon, enemies, delta, batch);
                 bulletTeammate.draw(batch);
-                if (!this.soundBulletShot.isPlaying()) this.soundBulletShot.play();
 
                 // If bullet was shot -> stop rendering it after certain amount of time.
                 if (!teammateBullets.get(teammateNickname).isShot) {
@@ -291,12 +281,14 @@ public class PlayScreen implements Screen {
                     // If this loot is an ammo crate -> refill the ammo.
                     this.bullet.addAmmo(AMMO_CRATE_REFILL_AMOUNT);
                     this.player.setAmmoTaken(true);
+                    GameClient.soundAmmo.play();
                 }
 
                 if (loot.getType() == 1) {
                     // If this loot is a med kit -> heal the player.
                     this.player.setHp(MED_KIT_HP_HEAL_AMOUNT);
                     this.player.setHealTaken(true);
+                    GameClient.soundHeal.play();
                 }
 
                 lootIndexesToRemove.add(lootIndex);

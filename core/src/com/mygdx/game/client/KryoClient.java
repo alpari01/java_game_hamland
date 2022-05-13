@@ -3,6 +3,7 @@ package com.mygdx.game.client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.GameClient;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Teammate;
 import com.mygdx.game.packets.*;
@@ -292,11 +293,13 @@ public class KryoClient extends Listener {
                 Teammate teammate = teammates.get(packet.playerNickname);
                 teammate.setHp(teammate.getHp() - 1);
                 teammate.setDamaged(true);
+                GameClient.soundDamageTaken.play();
             }
 
             else {
                 player.setHp(player.getHp() - 1);
                 player.setDamaged(true);
+                GameClient.soundDamageTaken.play();
             }
         }
 
@@ -330,11 +333,13 @@ public class KryoClient extends Listener {
                 // Heal the teammate.
                 teammates.get(packet.playerNickname).setHp(MED_KIT_HP_HEAL_AMOUNT);
                 teammates.get(packet.playerNickname).setHealTaken(true);
+                GameClient.soundHeal.play();
             }
 
             else {
                 // If collected loot was an ammo.
                 teammates.get(packet.playerNickname).setAmmoTaken(true);
+                GameClient.soundAmmo.play();
             }
 
             // Remove the loot from hashmap.

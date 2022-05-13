@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mygdx.game.GameClient;
 import com.mygdx.game.screens.PlayScreen;
 
 public class Enemy extends GameObject {
@@ -230,6 +231,7 @@ public class Enemy extends GameObject {
             indexDisappear = 0;
         }
         if (isDisappeared) {
+            GameClient.soundZap.play();
             isFire = false;
             timerDisappear += delta;
             batch.draw(textureRegionsDisappear[indexDisappear],
@@ -254,6 +256,7 @@ public class Enemy extends GameObject {
             indexAppear = 0;
         }
         if (isAppeared) {
+            GameClient.soundZap.play();
             timerAppear += delta;
             batch.draw(textureRegionsDisappear[indexAppear],
                     polygon.getX() - DISAPPEAR_TEXTURE_WIDTH / 2 + width / 2,

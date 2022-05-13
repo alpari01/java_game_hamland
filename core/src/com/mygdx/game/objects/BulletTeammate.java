@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.mygdx.game.GameClient;
 
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class BulletTeammate extends GameObject {
             polygon.setPosition(playerPolygon.getX() + polygon.getOriginX(), playerPolygon.getY() + polygon.getOriginX());
             bulletRotation = playerPolygon.getRotation() + 90;
             isShot = true;
+            GameClient.soundBulletShot.play();
         }
 
         time += delta;
@@ -67,6 +69,7 @@ public class BulletTeammate extends GameObject {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + enemy.getWidth()
                         && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()
                         && !enemy.isInvulnerable()) {
+                    GameClient.soundExplosion.play();
                     explosionTextureIndex = 0;
                     x = polygon.getX();
                     y = polygon.getY();

@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameClient;
@@ -40,6 +41,9 @@ public class SettingsScreen implements Screen {
     private Button musicUpButton;
     private Button musicMuteButton;
 
+    private boolean isMusicUp;
+    private boolean isSoundUp;
+
     public SettingsScreen(GameClient gameClient) {
         this.gameClient = gameClient;
     }
@@ -64,6 +68,9 @@ public class SettingsScreen implements Screen {
         soundMuteButton = new Button(soundMuteButtonTexture, SOUND_MUSIC_BUTTON_X - SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_Y, SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_HEIGHT);
         musicUpButton = new Button(musicUpButtonTexture, SOUND_MUSIC_BUTTON_X + SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_Y, SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_HEIGHT);
         musicMuteButton = new Button(musicMuteButtonTexture, SOUND_MUSIC_BUTTON_X + SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_Y, SOUND_MUSIC_BUTTON_WIDTH, SOUND_MUSIC_BUTTON_HEIGHT);
+
+        isMusicUp = true;
+        isSoundUp = true;
     }
 
     @Override
@@ -93,9 +100,31 @@ public class SettingsScreen implements Screen {
         if (Gdx.input.getX() > soundUpButton.polygon.getX() && Gdx.input.getX() < soundUpButton.polygon.getX() + SOUND_MUSIC_BUTTON_WIDTH &&
                 GameClient.HEIGHT - Gdx.input.getY() > soundUpButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < soundUpButton.polygon.getY() + SOUND_MUSIC_BUTTON_HEIGHT) {
 
-            // if click - change boolean value
+            // if click - change sound volume
             if (Gdx.input.justTouched()) {
-                gameClient.setIsSoundUp(!gameClient.getIsSoundUp());
+                isSoundUp = !isSoundUp;
+
+                float soundVolume = GameClient.soundBulletShot.getVolume();
+                if (soundVolume == 1f) {
+                    GameClient.soundBulletShot.setVolume(0);
+                    GameClient.soundExplosion.setVolume(0);
+                    GameClient.soundDamageTaken.setVolume(0);
+                    GameClient.soundZap.setVolume(0);
+                    GameClient.soundHeal.setVolume(0);
+                    GameClient.soundAmmo.setVolume(0);
+                    GameClient.soundEmptyShot.setVolume(0);
+                    GameClient.soundReload.setVolume(0);
+                }
+                else if (soundVolume == 0) {
+                    GameClient.soundBulletShot.setVolume(1f);
+                    GameClient.soundExplosion.setVolume(1f);
+                    GameClient.soundDamageTaken.setVolume(1f);
+                    GameClient.soundZap.setVolume(1f);
+                    GameClient.soundHeal.setVolume(1f);
+                    GameClient.soundAmmo.setVolume(1f);
+                    GameClient.soundEmptyShot.setVolume(1f);
+                    GameClient.soundReload.setVolume(1f);
+                }
             }
         }
 
@@ -103,24 +132,24 @@ public class SettingsScreen implements Screen {
         if (Gdx.input.getX() > musicUpButton.polygon.getX() && Gdx.input.getX() < musicUpButton.polygon.getX() + SOUND_MUSIC_BUTTON_WIDTH &&
                 GameClient.HEIGHT - Gdx.input.getY() > musicUpButton.polygon.getY() && GameClient.HEIGHT - Gdx.input.getY() < musicUpButton.polygon.getY() + SOUND_MUSIC_BUTTON_HEIGHT) {
 
-            // if click - change boolean value
+            // if click - change music volume
             if (Gdx.input.justTouched()) {
-                gameClient.setIsMusicUp(!gameClient.getIsMusicUp());
+                isMusicUp = !isMusicUp;
 
-                float musicVolume = gameClient.getMusic().getVolume();
-                if (musicVolume == 1f) gameClient.getMusic().setVolume(0);
-                else if (musicVolume == 0) gameClient.getMusic().setVolume(1f);
+                float musicVolume = GameClient.music.getVolume();
+                if (musicVolume == 1f) GameClient.music.setVolume(0);
+                else if (musicVolume == 0) GameClient.music.setVolume(1f);
             }
         }
 
         // draw sound/music buttons
-        if (gameClient.getIsSoundUp()) {
+        if (isSoundUp) {
             soundUpButton.draw(batch);
         } else {
             soundMuteButton.draw(batch);
         }
 
-        if (gameClient.getIsMusicUp()) {
+        if (isMusicUp) {
             musicUpButton.draw(batch);
         } else {
             musicMuteButton.draw(batch);

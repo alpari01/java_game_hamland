@@ -78,8 +78,14 @@ public class Bullet extends GameObject {
         // If it's not reloading now, you can shoot.
         if (!isReload) {
 
+            // When the mouse is clicked and no ammo, play empty shot sound.
+            if (Gdx.input.isTouched() && !isShot && ammo == 0) {
+                GameClient.soundEmptyShot.play();
+            }
+
             // When the mouse is clicked, sets the initial position and rotation of the bullet.
             if (Gdx.input.isTouched() && !isShot && ammo > 0) {
+                GameClient.soundBulletShot.play();
                 polygon.setPosition(player.polygon.getX() + polygon.getOriginX(), player.polygon.getY() + polygon.getOriginX());
                 bulletRotation = player.polygon.getRotation() + 90;
                 isShot = true;
@@ -94,6 +100,7 @@ public class Bullet extends GameObject {
             if (timeReload > 3) {
                 timeReload = 0;
                 isReload = false;
+                GameClient.soundReload.play();
 
                 // Adds from the total number of bullets to the main.
                 if (ammoTotal >= 30 - ammo) {
@@ -127,6 +134,7 @@ public class Bullet extends GameObject {
                 if (polygon.getX() > enemy.polygon.getX() && polygon.getX() < enemy.polygon.getX() + enemy.getWidth()
                     && polygon.getY() > enemy.polygon.getY() && polygon.getY() < enemy.polygon.getY() + enemy.getHeight()
                     && !enemy.isInvulnerable()) {
+                    GameClient.soundExplosion.play();
 
                     enemy.setHp(enemy.getHp() - 1);
                     enemy.setFire(true);
