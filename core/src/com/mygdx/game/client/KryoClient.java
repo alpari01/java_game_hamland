@@ -206,8 +206,8 @@ public class KryoClient extends Listener {
         }
 
         if (p instanceof PacketGameIsOngoing) {
-
-            System.out.println("the game has already started"); // DEBUG
+            inscription = "THE GAME HAS ALREADY STARTED";
+            NicknameScreen.isWindowOpened = false;
         }
 
         // Update players' position packet.

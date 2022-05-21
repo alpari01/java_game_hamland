@@ -56,8 +56,8 @@ public class NicknameScreen implements Screen, Input.TextInputListener {
         batch = new SpriteBatch();
 
         // Start the music.
-//        GameClient.music.setLooping(true);
-//        GameClient.music.play();
+        GameClient.music.setLooping(true);
+        GameClient.music.play();
         // Textures
         playButtonTexture = new Texture("buttons/enter_name_active.png");
         playButtonWhiteTexture = new Texture("buttons/enter_name_inactive.png");
