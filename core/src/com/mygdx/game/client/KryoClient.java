@@ -36,13 +36,13 @@ public class KryoClient extends Listener {
     public static String inscription = "";
 
     // Ports to connect on.
-    static int tcpPort = 27960;
-    static int udpPort = 27960;
-    static String ip = "localhost";
+//    static int tcpPort = 27960;
+//    static int udpPort = 27960;
+//    static String ip = "localhost";
 
-//    static int udpPort = 8080;
-//    static int tcpPort = 8081;
-//    static String ip = "193.40.156.122";
+    static int udpPort = 8080;
+    static int tcpPort = 8081;
+    static String ip = "193.40.156.122";
 
     public KryoClient() {
         client = new Client();  // Create the client.
