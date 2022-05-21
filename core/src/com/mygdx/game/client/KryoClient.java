@@ -67,6 +67,7 @@ public class KryoClient extends Listener {
         client.getKryo().register(PacketLootSpawn.class);
         client.getKryo().register(PacketLootCollected.class);
         client.getKryo().register(PacketSendStatistics.class);
+        client.getKryo().register(PacketGameIsOngoing.class);
     }
 
     public void setPlayer(Player newPlayer) {
@@ -202,6 +203,11 @@ public class KryoClient extends Listener {
                 isNicknameUnique = false;
                 NicknameScreen.isWindowOpened = false;
             }
+        }
+
+        if (p instanceof PacketGameIsOngoing) {
+
+            System.out.println("the game has already started"); // DEBUG
         }
 
         // Update players' position packet.
