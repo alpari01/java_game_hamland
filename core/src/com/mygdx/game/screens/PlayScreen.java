@@ -188,8 +188,17 @@ public class PlayScreen implements Screen {
         camera.position.set(cameraX, cameraY, 0);
         camera.update();
         updateLootPosition();
+
+        if (!player.isAlive()) {
+            player.draw(batch, bullet, camera, delta); // draw player
+        }
+
         updateTeammatePosition(delta); // update teammates' positions
-        player.draw(batch, bullet, camera, delta); // draw player
+
+        if (player.isAlive()) {
+            player.draw(batch, bullet, camera, delta); // draw player
+        }
+
         detectInput(); // send packet
         detectCollision(prevPlayerX, prevPlayerY); // detect collision
         updateEnemiesPosition(delta);
