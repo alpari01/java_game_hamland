@@ -22,3 +22,7 @@
 **_Step 4_**
 
 - Game controls: WASD and arrows, mouse for aiming.
+
+This repository is a front-end part of the Hamland game project.
+
+See back-end part here https://github.com/alpari01/java_game_hamland_server
